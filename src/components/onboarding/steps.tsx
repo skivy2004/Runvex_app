@@ -5,10 +5,12 @@ import { ChoiceCard } from "@/components/ui/ChoiceCard";
 import { TextField } from "@/components/ui/TextField";
 import { useFormatDuration } from "@/components/useFormatDuration";
 import { latestDateOfBirthForAge } from "@/core/age";
+import type { DayAvailability } from "@/core/availability";
 import { experienceLevels, sports, weekdays, workPatterns } from "@/core/training";
 import { MIN_AGE } from "@/core/validation/onboarding";
 import { DayAvailabilityCard } from "./DayAvailabilityCard";
 import { isOldEnough, toggle, type OnboardingDraft } from "./draft";
+import { LongSessionPicker } from "./LongSessionPicker";
 import { StepHeading } from "./StepHeading";
 
 // Every step gets the current answers and a function to change them.
@@ -143,12 +145,12 @@ export function AvailabilityStep({ draft, onChange }: StepProps) {
   const t = useTranslations("Onboarding.availability");
   const tWeekdays = useTranslations("Weekdays");
   const formatDuration = useFormatDuration();
-  const totalMinutes = draft.availability.reduce((sum, minutes) => sum + minutes, 0);
+  const totalMinutes = draft.availability.reduce((sum, day) => sum + day.minutes, 0);
 
-  function setMinutes(dayIndex: number, minutes: number) {
-    const availability = [...draft.availability];
-    availability[dayIndex] = minutes;
-    onChange({ availability });
+  function setDay(dayIndex: number, day: DayAvailability) {
+    onChange({
+      availability: draft.availability.map((current, index) => (index === dayIndex ? day : current)),
+    });
   }
 
   return (
@@ -159,11 +161,17 @@ export function AvailabilityStep({ draft, onChange }: StepProps) {
           <DayAvailabilityCard
             key={weekday}
             dayName={tWeekdays(weekday)}
-            minutes={draft.availability[index]}
-            onChange={(minutes) => setMinutes(index, minutes)}
+            value={draft.availability[index]}
+            onChange={(day) => setDay(index, day)}
+            sportOptions={draft.sports}
           />
         ))}
       </div>
+      <LongSessionPicker
+        week={draft.availability}
+        onChange={(availability) => onChange({ availability })}
+        userSports={draft.sports}
+      />
       <p className="text-center text-sm text-muted">
         {t("total", { total: formatDuration(totalMinutes) })}
       </p>

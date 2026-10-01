@@ -1,0 +1,2821 @@
+{
+  "version": 1,
+  "zones": {
+    "1": "Herstel, 50-60% max HR (<55% FTP)",
+    "2": "Duur, 60-70% (56-75% FTP)",
+    "3": "Tempo, 70-80% (76-90% FTP)",
+    "4": "Drempel, 80-90% (91-105% FTP)",
+    "5": "VO2max, 90-100% (106-120% FTP)"
+  },
+  "warmup_cooldown": "Altijd 15 min zone 1 (fietsen)",
+  "workouts": [
+    {
+      "id": "bike_60min_1_easy",
+      "name": "1u Easy Ride",
+      "name_en": "1h Easy Ride",
+      "sport": "bike",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "time",
+      "total_minutes": 60,
+      "description": "Rustig rijden in zone 2.",
+      "description_en": "Easy riding in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 30,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_60min_2_fartlek",
+      "name": "1u Fartlek",
+      "name_en": "1h Fartlek",
+      "sport": "bike",
+      "category": "fartlek",
+      "difficulty": 2,
+      "target": "time",
+      "total_minutes": 60,
+      "description": "Zone 2 met korte zone 3 versnellingen.",
+      "description_en": "Zone 2 with short zone 3 surges.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "repeat",
+          "repeat": 6,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 4,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "duration_min": 1,
+              "zone": 3,
+              "label": "versnelling",
+              "label_en": "surge"
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_60min_3_tempo",
+      "name": "1u Tempo",
+      "name_en": "1h Tempo",
+      "sport": "bike",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "time",
+      "total_minutes": 60,
+      "description": "20 minuten tempo in zone 3.",
+      "description_en": "20 minutes of tempo in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 5,
+          "zone": 2
+        },
+        {
+          "type": "interval",
+          "duration_min": 20,
+          "zone": 3
+        },
+        {
+          "type": "interval",
+          "duration_min": 5,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_60min_4_threshold",
+      "name": "1u Drempel",
+      "name_en": "1h Threshold",
+      "sport": "bike",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "time",
+      "total_minutes": 60,
+      "description": "Drie blokken van 5 minuten zone 4.",
+      "description_en": "Three 5-minute blocks in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 6,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 3,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 5,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "duration_min": 3,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_60min_5_vo2max",
+      "name": "1u VO2max",
+      "name_en": "1h VO2max",
+      "sport": "bike",
+      "category": "vo2max",
+      "difficulty": 5,
+      "target": "time",
+      "total_minutes": 60,
+      "description": "Vijf blokken van 2 minuten zone 5.",
+      "description_en": "Five 2-minute blocks in zone 5.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 6,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 2,
+              "zone": 5
+            },
+            {
+              "type": "interval",
+              "duration_min": 2,
+              "zone": 1,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 4,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_75min_1_easy",
+      "name": "1u15 Easy Ride",
+      "name_en": "1h15 Easy Ride",
+      "sport": "bike",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "time",
+      "total_minutes": 75,
+      "description": "Rustig rijden in zone 2.",
+      "description_en": "Easy riding in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 45,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_75min_2_fartlek",
+      "name": "1u15 Fartlek",
+      "name_en": "1h15 Fartlek",
+      "sport": "bike",
+      "category": "fartlek",
+      "difficulty": 2,
+      "target": "time",
+      "total_minutes": 75,
+      "description": "Zone 2 met zone 3 versnellingen.",
+      "description_en": "Zone 2 with zone 3 surges.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 5,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 6,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "duration_min": 2,
+              "zone": 3,
+              "label": "versnelling",
+              "label_en": "surge"
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_75min_3_tempo",
+      "name": "1u15 Tempo",
+      "name_en": "1h15 Tempo",
+      "sport": "bike",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "time",
+      "total_minutes": 75,
+      "description": "Twee blokken van 12 minuten zone 3.",
+      "description_en": "Two 12-minute blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 7,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 2,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 12,
+              "zone": 3
+            },
+            {
+              "type": "interval",
+              "duration_min": 4,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 6,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_75min_4_threshold",
+      "name": "1u15 Drempel",
+      "name_en": "1h15 Threshold",
+      "sport": "bike",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "time",
+      "total_minutes": 75,
+      "description": "Vier blokken van 5 minuten zone 4.",
+      "description_en": "Four 5-minute blocks in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 10,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 5,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "duration_min": 3,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 3,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_75min_5_vo2max",
+      "name": "1u15 VO2max",
+      "name_en": "1h15 VO2max",
+      "sport": "bike",
+      "category": "vo2max",
+      "difficulty": 5,
+      "target": "time",
+      "total_minutes": 75,
+      "description": "Zes blokken van 2 minuten zone 5.",
+      "description_en": "Six 2-minute blocks in zone 5.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 10,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 6,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 2,
+              "zone": 5
+            },
+            {
+              "type": "interval",
+              "duration_min": 3,
+              "zone": 1,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 5,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_90min_1_easy",
+      "name": "1u30 Easy Ride",
+      "name_en": "1h30 Easy Ride",
+      "sport": "bike",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "time",
+      "total_minutes": 90,
+      "description": "Rustig rijden in zone 2.",
+      "description_en": "Easy riding in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 60,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_90min_2_fartlek",
+      "name": "1u30 Fartlek",
+      "name_en": "1h30 Fartlek",
+      "sport": "bike",
+      "category": "fartlek",
+      "difficulty": 2,
+      "target": "time",
+      "total_minutes": 90,
+      "description": "Zone 2 met zone 3 versnellingen.",
+      "description_en": "Zone 2 with zone 3 surges.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 10,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 8,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "duration_min": 2,
+              "zone": 3,
+              "label": "versnelling",
+              "label_en": "surge"
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_90min_3_tempo",
+      "name": "1u30 Tempo",
+      "name_en": "1h30 Tempo",
+      "sport": "bike",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "time",
+      "total_minutes": 90,
+      "description": "Twee blokken van 15 minuten zone 3.",
+      "description_en": "Two 15-minute blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 10,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 2,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 15,
+              "zone": 3
+            },
+            {
+              "type": "interval",
+              "duration_min": 5,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 10,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_90min_4_threshold",
+      "name": "1u30 Drempel",
+      "name_en": "1h30 Threshold",
+      "sport": "bike",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "time",
+      "total_minutes": 90,
+      "description": "Vier blokken van 6 minuten zone 4.",
+      "description_en": "Four 6-minute blocks in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 10,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 6,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "duration_min": 4,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 10,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_90min_5_vo2max",
+      "name": "1u30 VO2max",
+      "name_en": "1h30 VO2max",
+      "sport": "bike",
+      "category": "vo2max",
+      "difficulty": 5,
+      "target": "time",
+      "total_minutes": 90,
+      "description": "Zes blokken van 3 minuten zone 5.",
+      "description_en": "Six 3-minute blocks in zone 5.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 10,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 6,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 3,
+              "zone": 5
+            },
+            {
+              "type": "interval",
+              "duration_min": 3,
+              "zone": 1,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 14,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_120min_1_easy",
+      "name": "2u Duurrit",
+      "name_en": "2h Endurance Ride",
+      "sport": "bike",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "time",
+      "total_minutes": 120,
+      "description": "Rustige duurrit in zone 2.",
+      "description_en": "Easy endurance ride in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 90,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_120min_2_fartlek",
+      "name": "2u Duurrit met Versnellingen",
+      "name_en": "2h Endurance Ride with Surges",
+      "sport": "bike",
+      "category": "fartlek",
+      "difficulty": 2,
+      "target": "time",
+      "total_minutes": 120,
+      "description": "Zone 2 met blokken van 3 minuten zone 3.",
+      "description_en": "Zone 2 with 3-minute blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 15,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 10,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "duration_min": 3,
+              "zone": 3
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 10,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_120min_3_tempo",
+      "name": "2u Tempo",
+      "name_en": "2h Tempo",
+      "sport": "bike",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "time",
+      "total_minutes": 120,
+      "description": "Drie blokken van 15 minuten zone 3.",
+      "description_en": "Three 15-minute blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 15,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 3,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 15,
+              "zone": 3
+            },
+            {
+              "type": "interval",
+              "duration_min": 5,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 15,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_120min_4_threshold",
+      "name": "2u Drempel",
+      "name_en": "2h Threshold",
+      "sport": "bike",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "time",
+      "total_minutes": 120,
+      "description": "Vijf blokken van 8 minuten zone 4.",
+      "description_en": "Five 8-minute blocks in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 15,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 8,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "duration_min": 4,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 15,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_120min_5_vo2max",
+      "name": "2u VO2max",
+      "name_en": "2h VO2max",
+      "sport": "bike",
+      "category": "vo2max",
+      "difficulty": 5,
+      "target": "time",
+      "total_minutes": 120,
+      "description": "Zes blokken van 4 minuten zone 5.",
+      "description_en": "Six 4-minute blocks in zone 5.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 15,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 6,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 4,
+              "zone": 5
+            },
+            {
+              "type": "interval",
+              "duration_min": 4,
+              "zone": 1,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 27,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_150min_1_easy",
+      "name": "2u30 Duurrit",
+      "name_en": "2h30 Endurance Ride",
+      "sport": "bike",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "time",
+      "total_minutes": 150,
+      "description": "Rustige duurrit in zone 2.",
+      "description_en": "Easy endurance ride in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 120,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_150min_2_fartlek",
+      "name": "2u30 Duurrit met Versnellingen",
+      "name_en": "2h30 Endurance Ride with Surges",
+      "sport": "bike",
+      "category": "fartlek",
+      "difficulty": 2,
+      "target": "time",
+      "total_minutes": 150,
+      "description": "Zone 2 met blokken van 5 minuten zone 3.",
+      "description_en": "Zone 2 with 5-minute blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 20,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 15,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "duration_min": 5,
+              "zone": 3
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 20,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_150min_3_tempo",
+      "name": "2u30 Tempo",
+      "name_en": "2h30 Tempo",
+      "sport": "bike",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "time",
+      "total_minutes": 150,
+      "description": "Drie blokken van 20 minuten zone 3.",
+      "description_en": "Three 20-minute blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 20,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 3,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 20,
+              "zone": 3
+            },
+            {
+              "type": "interval",
+              "duration_min": 5,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 25,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_150min_4_threshold",
+      "name": "2u30 Drempel",
+      "name_en": "2h30 Threshold",
+      "sport": "bike",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "time",
+      "total_minutes": 150,
+      "description": "Vier blokken van 10 minuten zone 4.",
+      "description_en": "Four 10-minute blocks in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 20,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 10,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "duration_min": 5,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 40,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_150min_5_vo2max",
+      "name": "2u30 VO2max",
+      "name_en": "2h30 VO2max",
+      "sport": "bike",
+      "category": "vo2max",
+      "difficulty": 5,
+      "target": "time",
+      "total_minutes": 150,
+      "description": "Vijf blokken van 5 minuten zone 5.",
+      "description_en": "Five 5-minute blocks in zone 5.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 20,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 5,
+              "zone": 5
+            },
+            {
+              "type": "interval",
+              "duration_min": 5,
+              "zone": 1,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 50,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_180min_1_easy",
+      "name": "3u Duurrit",
+      "name_en": "3h Endurance Ride",
+      "sport": "bike",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "time",
+      "total_minutes": 180,
+      "description": "Lange rustige duurrit in zone 2.",
+      "description_en": "Long easy endurance ride in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 150,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_180min_2_fartlek",
+      "name": "3u Duurrit met Versnellingen",
+      "name_en": "3h Endurance Ride with Surges",
+      "sport": "bike",
+      "category": "fartlek",
+      "difficulty": 2,
+      "target": "time",
+      "total_minutes": 180,
+      "description": "Zone 2 met blokken van 5 minuten zone 3.",
+      "description_en": "Zone 2 with 5-minute blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 30,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 20,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "duration_min": 5,
+              "zone": 3
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 20,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_180min_3_tempo",
+      "name": "3u Tempo",
+      "name_en": "3h Tempo",
+      "sport": "bike",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "time",
+      "total_minutes": 180,
+      "description": "Drie blokken van 20 minuten zone 3.",
+      "description_en": "Three 20-minute blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 30,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 3,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 20,
+              "zone": 3
+            },
+            {
+              "type": "interval",
+              "duration_min": 5,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 45,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_180min_4_threshold",
+      "name": "3u Drempel",
+      "name_en": "3h Threshold",
+      "sport": "bike",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "time",
+      "total_minutes": 180,
+      "description": "Vier blokken van 12 minuten zone 4.",
+      "description_en": "Four 12-minute blocks in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 30,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 12,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "duration_min": 6,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 48,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_180min_5_vo2max",
+      "name": "3u VO2max",
+      "name_en": "3h VO2max",
+      "sport": "bike",
+      "category": "vo2max",
+      "difficulty": 5,
+      "target": "time",
+      "total_minutes": 180,
+      "description": "Zes blokken van 4 minuten zone 5.",
+      "description_en": "Six 4-minute blocks in zone 5.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 30,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 6,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 4,
+              "zone": 5
+            },
+            {
+              "type": "interval",
+              "duration_min": 4,
+              "zone": 1,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 72,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_240min_1_easy",
+      "name": "4u Lange Duurrit",
+      "name_en": "4h Long Endurance Ride",
+      "sport": "bike",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "time",
+      "total_minutes": 240,
+      "description": "Rustig beginnen in zone 1 en daarna zone 2.",
+      "description_en": "Start easy in zone 1, then ride in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 195,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_240min_2_fartlek",
+      "name": "4u Duurrit met Versnellingen",
+      "name_en": "4h Endurance Ride with Surges",
+      "sport": "bike",
+      "category": "fartlek",
+      "difficulty": 2,
+      "target": "time",
+      "total_minutes": 240,
+      "description": "Zone 2 met blokken van 5 minuten zone 3.",
+      "description_en": "Zone 2 with 5-minute blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 30,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 25,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "duration_min": 5,
+              "zone": 3
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 30,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_240min_3_tempo",
+      "name": "4u Tempo",
+      "name_en": "4h Tempo",
+      "sport": "bike",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "time",
+      "total_minutes": 240,
+      "description": "Drie blokken van 25 minuten zone 3.",
+      "description_en": "Three 25-minute blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 30,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 3,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 25,
+              "zone": 3
+            },
+            {
+              "type": "interval",
+              "duration_min": 10,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 75,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_240min_4_threshold",
+      "name": "4u Drempel",
+      "name_en": "4h Threshold",
+      "sport": "bike",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "time",
+      "total_minutes": 240,
+      "description": "Vier blokken van 15 minuten zone 4.",
+      "description_en": "Four 15-minute blocks in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 30,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 15,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "duration_min": 8,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 88,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_300min_1_easy",
+      "name": "5u Lange Duurrit",
+      "name_en": "5h Long Endurance Ride",
+      "sport": "bike",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "time",
+      "total_minutes": 300,
+      "description": "Rustig beginnen in zone 1 en daarna zone 2.",
+      "description_en": "Start easy in zone 1, then ride in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 255,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_300min_2_fartlek",
+      "name": "5u Duurrit met Versnellingen",
+      "name_en": "5h Endurance Ride with Surges",
+      "sport": "bike",
+      "category": "fartlek",
+      "difficulty": 2,
+      "target": "time",
+      "total_minutes": 300,
+      "description": "Zone 2 met blokken van 5 minuten zone 3.",
+      "description_en": "Zone 2 with 5-minute blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 30,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 6,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 25,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "duration_min": 5,
+              "zone": 3
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 60,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_300min_3_tempo",
+      "name": "5u Tempo",
+      "name_en": "5h Tempo",
+      "sport": "bike",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "time",
+      "total_minutes": 300,
+      "description": "Drie blokken van 30 minuten zone 3.",
+      "description_en": "Three 30-minute blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 30,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 3,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 30,
+              "zone": 3
+            },
+            {
+              "type": "interval",
+              "duration_min": 10,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 120,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_300min_4_threshold",
+      "name": "5u Drempel",
+      "name_en": "5h Threshold",
+      "sport": "bike",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "time",
+      "total_minutes": 300,
+      "description": "Vier blokken van 20 minuten zone 4.",
+      "description_en": "Four 20-minute blocks in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 30,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 20,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "duration_min": 10,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 120,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_360min_1_easy",
+      "name": "6u Epische Duurrit",
+      "name_en": "6h Epic Endurance Ride",
+      "sport": "bike",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "time",
+      "total_minutes": 360,
+      "description": "Rustig beginnen in zone 1 en daarna zone 2.",
+      "description_en": "Start easy in zone 1, then ride in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 315,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_360min_2_fartlek",
+      "name": "6u Duurrit met Versnellingen",
+      "name_en": "6h Endurance Ride with Surges",
+      "sport": "bike",
+      "category": "fartlek",
+      "difficulty": 2,
+      "target": "time",
+      "total_minutes": 360,
+      "description": "Zone 2 met blokken van 5 minuten zone 3.",
+      "description_en": "Zone 2 with 5-minute blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 45,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 6,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 35,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "duration_min": 5,
+              "zone": 3
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 45,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_360min_3_tempo",
+      "name": "6u Tempo",
+      "name_en": "6h Tempo",
+      "sport": "bike",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "time",
+      "total_minutes": 360,
+      "description": "Drie blokken van 30 minuten zone 3.",
+      "description_en": "Three 30-minute blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 45,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 3,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 30,
+              "zone": 3
+            },
+            {
+              "type": "interval",
+              "duration_min": 10,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 165,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_360min_4_threshold",
+      "name": "6u Drempel",
+      "name_en": "6h Threshold",
+      "sport": "bike",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "time",
+      "total_minutes": 360,
+      "description": "Vier blokken van 15 minuten zone 4.",
+      "description_en": "Four 15-minute blocks in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 45,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 15,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "duration_min": 10,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 185,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_30km_1_easy",
+      "name": "30 km Easy",
+      "name_en": "30 km Easy",
+      "sport": "bike",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "distance",
+      "ride_distance_km": 30,
+      "description": "Rustig 30 km in zone 2.",
+      "description_en": "Easy 30 km in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 30,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_30km_4_threshold",
+      "name": "30 km Drempel",
+      "name_en": "30 km Threshold",
+      "sport": "bike",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "distance",
+      "ride_distance_km": 30,
+      "description": "Drie blokken van 4 km zone 4.",
+      "description_en": "Three 4 km blocks in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 5,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 3,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 4,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "distance_km": 2,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_km": 7,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_30km_5_vo2max",
+      "name": "30 km Intervallen",
+      "name_en": "30 km Intervals",
+      "sport": "bike",
+      "category": "vo2max",
+      "difficulty": 5,
+      "target": "distance",
+      "ride_distance_km": 30,
+      "description": "Vijf blokken van 1,5 km zone 5.",
+      "description_en": "Five 1.5 km blocks in zone 5.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 5,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 1.5,
+              "zone": 5
+            },
+            {
+              "type": "interval",
+              "distance_km": 1.5,
+              "zone": 1,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_km": 10,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_40km_2_fartlek",
+      "name": "40 km Fartlek",
+      "name_en": "40 km Fartlek",
+      "sport": "bike",
+      "category": "fartlek",
+      "difficulty": 2,
+      "target": "distance",
+      "ride_distance_km": 40,
+      "description": "Zone 2 met stukken van 2 km zone 3.",
+      "description_en": "Zone 2 with 2 km sections in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 5,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 5,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "distance_km": 2,
+              "zone": 3,
+              "label": "versnelling",
+              "label_en": "surge"
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_40km_3_tempo",
+      "name": "40 km Tempo",
+      "name_en": "40 km Tempo",
+      "sport": "bike",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "distance",
+      "ride_distance_km": 40,
+      "description": "Twee blokken van 10 km zone 3.",
+      "description_en": "Two 10 km blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 8,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 2,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 10,
+              "zone": 3
+            },
+            {
+              "type": "interval",
+              "distance_km": 3,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_km": 6,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_40km_4_threshold",
+      "name": "40 km Drempel",
+      "name_en": "40 km Threshold",
+      "sport": "bike",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "distance",
+      "ride_distance_km": 40,
+      "description": "Vier blokken van 4 km zone 4.",
+      "description_en": "Four 4 km blocks in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 8,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 4,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "distance_km": 2,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_km": 8,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_60km_1_easy",
+      "name": "60 km Duurrit",
+      "name_en": "60 km Endurance Ride",
+      "sport": "bike",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "distance",
+      "ride_distance_km": 60,
+      "description": "Rustig 60 km in zone 2.",
+      "description_en": "Easy 60 km in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 60,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_60km_3_tempo",
+      "name": "60 km Tempo",
+      "name_en": "60 km Tempo",
+      "sport": "bike",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "distance",
+      "ride_distance_km": 60,
+      "description": "Twee blokken van 15 km zone 3.",
+      "description_en": "Two 15 km blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 10,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 2,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 15,
+              "zone": 3
+            },
+            {
+              "type": "interval",
+              "distance_km": 5,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_km": 10,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_60km_4_threshold",
+      "name": "60 km Drempel",
+      "name_en": "60 km Threshold",
+      "sport": "bike",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "distance",
+      "ride_distance_km": 60,
+      "description": "Vier blokken van 6 km zone 4.",
+      "description_en": "Four 6 km blocks in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 10,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 6,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "distance_km": 3,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_km": 14,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_60km_5_vo2max",
+      "name": "60 km Intervallen",
+      "name_en": "60 km Intervals",
+      "sport": "bike",
+      "category": "vo2max",
+      "difficulty": 5,
+      "target": "distance",
+      "ride_distance_km": 60,
+      "description": "Vijf blokken van 3 km zone 5.",
+      "description_en": "Five 3 km blocks in zone 5.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 10,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 3,
+              "zone": 5
+            },
+            {
+              "type": "interval",
+              "distance_km": 3,
+              "zone": 1,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_km": 20,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_80km_2_fartlek",
+      "name": "80 km Duurrit met Versnellingen",
+      "name_en": "80 km Endurance Ride with Surges",
+      "sport": "bike",
+      "category": "fartlek",
+      "difficulty": 2,
+      "target": "distance",
+      "ride_distance_km": 80,
+      "description": "Zone 2 met stukken van 3 km zone 3.",
+      "description_en": "Zone 2 with 3 km sections in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 10,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 10,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "distance_km": 3,
+              "zone": 3,
+              "label": "versnelling",
+              "label_en": "surge"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_km": 5,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_80km_4_threshold",
+      "name": "80 km Drempel",
+      "name_en": "80 km Threshold",
+      "sport": "bike",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "distance",
+      "ride_distance_km": 80,
+      "description": "Vier blokken van 8 km zone 4.",
+      "description_en": "Four 8 km blocks in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 15,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 8,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "distance_km": 4,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_km": 17,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_100km_1_easy",
+      "name": "100 km Duurrit",
+      "name_en": "100 km Endurance Ride",
+      "sport": "bike",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "distance",
+      "ride_distance_km": 100,
+      "description": "Rustig 100 km in zone 2.",
+      "description_en": "Easy 100 km in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 100,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_100km_3_tempo",
+      "name": "100 km Tempo",
+      "name_en": "100 km Tempo",
+      "sport": "bike",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "distance",
+      "ride_distance_km": 100,
+      "description": "Drie blokken van 15 km zone 3.",
+      "description_en": "Three 15 km blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 15,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 3,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 15,
+              "zone": 3
+            },
+            {
+              "type": "interval",
+              "distance_km": 5,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_km": 25,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_120km_2_fartlek",
+      "name": "120 km Duurrit met Versnellingen",
+      "name_en": "120 km Endurance Ride with Surges",
+      "sport": "bike",
+      "category": "fartlek",
+      "difficulty": 2,
+      "target": "distance",
+      "ride_distance_km": 120,
+      "description": "Zone 2 met stukken van 5 km zone 3.",
+      "description_en": "Zone 2 with 5 km sections in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 20,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 15,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "distance_km": 5,
+              "zone": 3
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_150km_1_easy",
+      "name": "150 km Lange Duurrit",
+      "name_en": "150 km Long Endurance Ride",
+      "sport": "bike",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "distance",
+      "ride_distance_km": 150,
+      "description": "Rustig 150 km in zone 2.",
+      "description_en": "Easy 150 km in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 150,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_150km_3_tempo",
+      "name": "150 km Tempo",
+      "name_en": "150 km Tempo",
+      "sport": "bike",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "distance",
+      "ride_distance_km": 150,
+      "description": "Drie blokken van 20 km zone 3.",
+      "description_en": "Three 20 km blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 25,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 3,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 20,
+              "zone": 3
+            },
+            {
+              "type": "interval",
+              "distance_km": 10,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_km": 35,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_180km_1_easy",
+      "name": "180 km Epische Duurrit",
+      "name_en": "180 km Epic Endurance Ride",
+      "sport": "bike",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "distance",
+      "ride_distance_km": 180,
+      "description": "Begin in zone 1 en blijf daarna in zone 2.",
+      "description_en": "Start in zone 1, then stay in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 10,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 170,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "bike_180km_2_fartlek",
+      "name": "180 km Duurrit met Versnellingen",
+      "name_en": "180 km Endurance Ride with Surges",
+      "sport": "bike",
+      "category": "fartlek",
+      "difficulty": 2,
+      "target": "distance",
+      "ride_distance_km": 180,
+      "description": "Zone 2 met stukken van 5 km zone 3.",
+      "description_en": "Zone 2 with 5 km sections in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "duration_min": 15,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 30,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 25,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "distance_km": 5,
+              "zone": 3
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "duration_min": 15,
+          "zone": 1
+        }
+      ]
+    }
+  ],
+  "zones_en": {
+    "1": "Recovery, 50-60% max HR (<55% FTP)",
+    "2": "Endurance, 60-70% (56-75% FTP)",
+    "3": "Tempo, 70-80% (76-90% FTP)",
+    "4": "Threshold, 80-90% (91-105% FTP)",
+    "5": "VO2max, 90-100% (106-120% FTP)"
+  }
+}

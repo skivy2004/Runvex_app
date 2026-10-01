@@ -2,9 +2,67 @@
   "Home": {
     "greeting": "Hi {name}!",
     "greetingNoName": "Hi there!",
-    "tagline": "Training that fits around your work.",
-    "logout": "Log out",
-    "openStyleguide": "Open styleguide"
+    "thisWeek": "This week",
+    "seeWeek": "See week",
+    "ofAvailable": "of {available} available",
+    "progressLabel": "Planned training time this week",
+    "restDay": "Rest day",
+    "nextTraining": "Next training",
+    "nothingPlanned": "Nothing planned yet",
+    "nothingPlannedText": "Plan your trainings for this week and they'll show up here.",
+    "planWeek": "Plan my week",
+    "today": "Today",
+    "tomorrow": "Tomorrow",
+    "goal": "Your goal",
+    "seeGoal": "Details",
+    "noGoal": "No goal yet",
+    "noGoalText": "A goal gives your training a clear focus.",
+    "setGoal": "Set a goal",
+    "daysToGo": "{days, plural, one {day to go} other {days to go}}",
+    "raceDay": "Race day!"
+  },
+  "Nav": {
+    "label": "Main navigation",
+    "home": "Home",
+    "week": "Week",
+    "add": "Add training",
+    "goal": "Goal",
+    "profile": "Profile"
+  },
+  "Week": {
+    "title": "Your week",
+    "previousWeek": "Previous week",
+    "nextWeek": "Next week",
+    "thisWeek": "This week",
+    "backToThisWeek": "Back to this week",
+    "planned": "planned",
+    "available": "{duration} available",
+    "progressLabel": "Planned training time this week",
+    "today": "Today",
+    "restDay": "Rest day",
+    "noTraining": "No training planned",
+    "trainingOnRestDay": "Training planned on a rest day",
+    "overAvailable": "{over} more than your available time"
+  },
+  "Goal": {
+    "title": "Your goal",
+    "comingSoon": "Your goal overview is coming soon."
+  },
+  "Profile": {
+    "title": "Profile",
+    "settings": "Settings",
+    "details": "Personal details",
+    "detailsText": "Your name and date of birth.",
+    "trainingDays": "Training days",
+    "trainingDaysText": "Your usual week. Tap a day to switch it on or off.",
+    "trainingDaysSummary": "{days, plural, =0 {No days} one {# day} other {# days}} · {total} per week",
+    "redoIntake": "Redo intake",
+    "redoIntakeText": "Update your sports, levels, goal and schedule",
+    "language": "Language",
+    "save": "Save",
+    "saveFailed": "Saving didn't work. Please try again.",
+    "invalidDetails": "Please check your name and date of birth.",
+    "logout": "Log out"
   },
   "Auth": {
     "loginTitle": "Welcome back",
@@ -38,6 +96,8 @@
     "previous": "Previous",
     "next": "Next",
     "finish": "Finish",
+    "save": "Save",
+    "cancel": "Cancel",
     "saveFailed": "Saving didn't work. Please try again.",
     "about": {
       "title": "Tell us about yourself",
@@ -92,13 +152,21 @@
       "title": "How much time do you have?",
       "subtitle": "Tap the days you can usually train, then set how much time you have. You can change this later.",
       "restDay": "Rest day",
+      "sportsLabel": "Which sport? Leave empty if you're flexible.",
+      "longSessionsTitle": "Long sessions",
+      "longSessionsText": "Your longest training of the week. Which day works best?",
+      "longSessionRequired": "Choose a day",
+      "noLongSessionDay": "Switch on a day for this sport first.",
       "total": "Total per week: {total}"
     },
     "done": {
       "title": "You're all set!",
       "titleWithName": "You're all set, {name}!",
       "text": "Your profile is ready. Let's plan your first week.",
-      "button": "Go to my week"
+      "button": "Go to my week",
+      "redoTitle": "Your answers are updated!",
+      "redoText": "Your coach will use your new sports, goal and schedule from now on.",
+      "redoButton": "Back to profile"
     }
   },
   "Sports": {
@@ -163,6 +231,19 @@
   "Distance": {
     "meters": "{value} m",
     "kilometers": "{value} km"
+  },
+  "LongSessions": {
+    "running": "Long run",
+    "cycling": "Long ride"
+  },
+  "WeekdaysShort": {
+    "monday": "M",
+    "tuesday": "T",
+    "wednesday": "W",
+    "thursday": "T",
+    "friday": "F",
+    "saturday": "S",
+    "sunday": "S"
   },
   "Duration": {
     "minutes": "{minutes} min",

@@ -155,18 +155,24 @@ export type Database = {
       weekly_availability: {
         Row: {
           available_minutes: number
+          long_sessions: Database["public"]["Enums"]["sport"][]
+          sports: Database["public"]["Enums"]["sport"][]
           updated_at: string
           user_id: string
           weekday: number
         }
         Insert: {
           available_minutes?: number
+          long_sessions?: Database["public"]["Enums"]["sport"][]
+          sports?: Database["public"]["Enums"]["sport"][]
           updated_at?: string
           user_id?: string
           weekday: number
         }
         Update: {
           available_minutes?: number
+          long_sessions?: Database["public"]["Enums"]["sport"][]
+          sports?: Database["public"]["Enums"]["sport"][]
           updated_at?: string
           user_id?: string
           weekday?: number
@@ -183,6 +189,15 @@ export type Database = {
           p_availability: Json
           p_date_of_birth: string
           p_display_name: string
+          p_goal?: Json
+          p_sports: Json
+          p_work_pattern: Database["public"]["Enums"]["work_pattern"]
+        }
+        Returns: undefined
+      }
+      save_training_profile: {
+        Args: {
+          p_availability: Json
           p_goal?: Json
           p_sports: Json
           p_work_pattern: Database["public"]["Enums"]["work_pattern"]

@@ -17,6 +17,8 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   // Colors the browser bar on mobile to match the app background.
   themeColor: "#0e0f11",
+  // Lets the app use the full iPhone screen; the tab bar keeps clear of the home bar.
+  viewportFit: "cover",
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {

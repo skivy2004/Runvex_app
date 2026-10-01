@@ -1,13 +1,24 @@
 "use client";
 
+import Link from "next/link";
 import { useTranslations } from "next-intl";
-import { useRouter } from "next/navigation";
-import { Button } from "@/components/ui/Button";
+import { buttonClassName } from "@/components/ui/Button";
 
-export function DoneStep({ name }: { name: string }) {
+type DoneStepProps = {
+  name: string;
+  mode: "onboarding" | "redo";
+};
+
+export function DoneStep({ name, mode }: DoneStepProps) {
   const t = useTranslations("Onboarding.done");
-  const router = useRouter();
   const trimmedName = name.trim();
+  const isRedo = mode === "redo";
+
+  const title = isRedo
+    ? t("redoTitle")
+    : trimmedName
+      ? t("titleWithName", { name: trimmedName })
+      : t("title");
 
   return (
     <div className="flex flex-1 flex-col justify-center py-8">
@@ -19,18 +30,15 @@ export function DoneStep({ name }: { name: string }) {
           ✓
         </div>
         <div className="flex flex-col gap-2">
-          <h1 className="text-2xl font-bold">
-            {trimmedName ? t("titleWithName", { name: trimmedName }) : t("title")}
-          </h1>
-          <p className="text-sm">{t("text")}</p>
+          <h1 className="text-2xl font-bold">{title}</h1>
+          <p className="text-sm">{t(isRedo ? "redoText" : "text")}</p>
         </div>
-        <Button
-          fullWidth
-          onClick={() => router.push("/")}
-          className="bg-accent-foreground text-foreground hover:brightness-125"
+        <Link
+          href={isRedo ? "/profile" : "/"}
+          className={`${buttonClassName({ fullWidth: true })} bg-accent-foreground text-foreground hover:brightness-125`}
         >
-          {t("button")}
-        </Button>
+          {t(isRedo ? "redoButton" : "button")}
+        </Link>
       </div>
     </div>
   );

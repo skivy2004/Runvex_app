@@ -1,0 +1,1630 @@
+{
+  "version": 1,
+  "zones": {
+    "1": "Heel rustig, techniek/losmaken",
+    "2": "Duurtempo, aeroob",
+    "3": "Tempo, stevig",
+    "4": "Drempel, zwaar (rond CSS-tempo of sneller)",
+    "5": "Sprint/VO2max, maximaal"
+  },
+  "note": "Alleen afstanden in meters. Rust (rest_sec) in seconden tussen intervallen, optioneel. Warming-up en cooldown zijn opgenomen in de totale afstand.",
+  "workouts": [
+    {
+      "id": "swim_500m_1_easy",
+      "name": "500m Easy",
+      "name_en": "500 m Easy",
+      "sport": "swim",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "distance",
+      "total_distance_m": 500,
+      "description": "Rustig en ontspannen zwemmen.",
+      "description_en": "Easy, relaxed swimming.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 100,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 300,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 100,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_500m_2_endurance",
+      "name": "500m Korte Intervallen",
+      "name_en": "500 m Short Intervals",
+      "sport": "swim",
+      "category": "endurance",
+      "difficulty": 2,
+      "target": "distance",
+      "total_distance_m": 500,
+      "description": "Zes keer 50 meter met korte rust.",
+      "description_en": "Six times 50 meters with short rest.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 100,
+          "zone": 1
+        },
+        {
+          "type": "repeat",
+          "repeat": 6,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 50,
+              "zone": 2,
+              "rest_sec": 15
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 100,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_500m_3_tempo",
+      "name": "500m Tempo",
+      "name_en": "500 m Tempo",
+      "sport": "swim",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "distance",
+      "total_distance_m": 500,
+      "description": "Twee blokken van 100 meter in zone 3.",
+      "description_en": "Two 100-meter blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 100,
+          "zone": 1
+        },
+        {
+          "type": "repeat",
+          "repeat": 2,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 100,
+              "zone": 3,
+              "rest_sec": 20
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 100,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 100,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_500m_4_threshold",
+      "name": "500m Drempel",
+      "name_en": "500 m Threshold",
+      "sport": "swim",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "distance",
+      "total_distance_m": 500,
+      "description": "Vier keer 50 meter in zone 4.",
+      "description_en": "Four times 50 meters in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 100,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 100,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 50,
+              "zone": 4,
+              "rest_sec": 20
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 100,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_1000m_1_easy",
+      "name": "1000m Easy",
+      "name_en": "1000 m Easy",
+      "sport": "swim",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "distance",
+      "total_distance_m": 1000,
+      "description": "Rustig doorzwemmen in zone 2.",
+      "description_en": "Steady easy swimming in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 200,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 600,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 200,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_1000m_2_endurance",
+      "name": "1000m Duur Intervallen",
+      "name_en": "1000 m Endurance Intervals",
+      "sport": "swim",
+      "category": "endurance",
+      "difficulty": 2,
+      "target": "distance",
+      "total_distance_m": 1000,
+      "description": "Zes keer 100 meter in zone 2.",
+      "description_en": "Six times 100 meters in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 200,
+          "zone": 1
+        },
+        {
+          "type": "repeat",
+          "repeat": 6,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 100,
+              "zone": 2,
+              "rest_sec": 15
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 200,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_1000m_3_tempo",
+      "name": "1000m Tempo",
+      "name_en": "1000 m Tempo",
+      "sport": "swim",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "distance",
+      "total_distance_m": 1000,
+      "description": "Vier keer 100 meter in zone 3.",
+      "description_en": "Four times 100 meters in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 200,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 100,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 100,
+              "zone": 3,
+              "rest_sec": 20
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 100,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 200,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_1000m_4_threshold",
+      "name": "1000m Drempel",
+      "name_en": "1000 m Threshold",
+      "sport": "swim",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "distance",
+      "total_distance_m": 1000,
+      "description": "Vijf keer 100 meter in zone 4.",
+      "description_en": "Five times 100 meters in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 200,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 100,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 100,
+              "zone": 4,
+              "rest_sec": 30
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 200,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_1000m_5_vo2max",
+      "name": "1000m Sprint",
+      "name_en": "1000 m Sprint",
+      "sport": "swim",
+      "category": "vo2max",
+      "difficulty": 5,
+      "target": "distance",
+      "total_distance_m": 1000,
+      "description": "Tien keer 50 meter in zone 5.",
+      "description_en": "Ten times 50 meters in zone 5.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 200,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 100,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 10,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 50,
+              "zone": 5,
+              "rest_sec": 30
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 200,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_1500m_1_easy",
+      "name": "1500m Easy",
+      "name_en": "1500 m Easy",
+      "sport": "swim",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "distance",
+      "total_distance_m": 1500,
+      "description": "Rustig doorzwemmen in zone 2.",
+      "description_en": "Steady easy swimming in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 300,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 1000,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 200,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_1500m_2_endurance",
+      "name": "1500m Duur",
+      "name_en": "1500 m Endurance",
+      "sport": "swim",
+      "category": "endurance",
+      "difficulty": 2,
+      "target": "distance",
+      "total_distance_m": 1500,
+      "description": "Blokken van 150 meter zone 2 met 50 meter zone 3.",
+      "description_en": "Blocks of 150 meters in zone 2 with 50 meters in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 300,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 200,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 150,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "distance_m": 50,
+              "zone": 3
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 200,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_1500m_3_tempo",
+      "name": "1500m Tempo",
+      "name_en": "1500 m Tempo",
+      "sport": "swim",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "distance",
+      "total_distance_m": 1500,
+      "description": "Drie keer 200 meter in zone 3.",
+      "description_en": "Three times 200 meters in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 300,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 200,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 3,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 200,
+              "zone": 3,
+              "rest_sec": 30
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 200,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 200,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_1500m_4_threshold",
+      "name": "1500m Drempel",
+      "name_en": "1500 m Threshold",
+      "sport": "swim",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "distance",
+      "total_distance_m": 1500,
+      "description": "Vier keer 150 meter in zone 4.",
+      "description_en": "Four times 150 meters in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 300,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 200,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 150,
+              "zone": 4,
+              "rest_sec": 30
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 200,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 200,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_1500m_5_vo2max",
+      "name": "1500m Sprint",
+      "name_en": "1500 m Sprint",
+      "sport": "swim",
+      "category": "vo2max",
+      "difficulty": 5,
+      "target": "distance",
+      "total_distance_m": 1500,
+      "description": "Twaalf keer 50 meter in zone 5.",
+      "description_en": "Twelve times 50 meters in zone 5.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 300,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 200,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 12,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 50,
+              "zone": 5,
+              "rest_sec": 40
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 200,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 200,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_2000m_1_easy",
+      "name": "2000m Easy",
+      "name_en": "2000 m Easy",
+      "sport": "swim",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "distance",
+      "total_distance_m": 2000,
+      "description": "Rustig doorzwemmen in zone 2.",
+      "description_en": "Steady easy swimming in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 400,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 1400,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 200,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_2000m_2_endurance",
+      "name": "2000m Duur",
+      "name_en": "2000 m Endurance",
+      "sport": "swim",
+      "category": "endurance",
+      "difficulty": 2,
+      "target": "distance",
+      "total_distance_m": 2000,
+      "description": "Zes blokken van 150 meter zone 2 met 50 meter zone 3.",
+      "description_en": "Six blocks of 150 meters in zone 2 with 50 meters in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 400,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 200,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 6,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 150,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "distance_m": 50,
+              "zone": 3
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 200,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_2000m_3_tempo",
+      "name": "2000m Tempo",
+      "name_en": "2000 m Tempo",
+      "sport": "swim",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "distance",
+      "total_distance_m": 2000,
+      "description": "Vier keer 200 meter in zone 3.",
+      "description_en": "Four times 200 meters in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 400,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 200,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 200,
+              "zone": 3,
+              "rest_sec": 30
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 400,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 200,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_2000m_4_threshold",
+      "name": "2000m Drempel",
+      "name_en": "2000 m Threshold",
+      "sport": "swim",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "distance",
+      "total_distance_m": 2000,
+      "description": "Vijf keer 200 meter in zone 4.",
+      "description_en": "Five times 200 meters in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 400,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 200,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 200,
+              "zone": 4,
+              "rest_sec": 30
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 200,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 200,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_2000m_5_vo2max",
+      "name": "2000m Sprint",
+      "name_en": "2000 m Sprint",
+      "sport": "swim",
+      "category": "vo2max",
+      "difficulty": 5,
+      "target": "distance",
+      "total_distance_m": 2000,
+      "description": "Zestien keer 50 meter in zone 5.",
+      "description_en": "Sixteen times 50 meters in zone 5.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 400,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 200,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 16,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 50,
+              "zone": 5,
+              "rest_sec": 40
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 400,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 200,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_2500m_1_easy",
+      "name": "2500m Easy",
+      "name_en": "2500 m Easy",
+      "sport": "swim",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "distance",
+      "total_distance_m": 2500,
+      "description": "Rustig doorzwemmen in zone 2.",
+      "description_en": "Steady easy swimming in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 400,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 1800,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 300,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_2500m_2_endurance",
+      "name": "2500m Duur",
+      "name_en": "2500 m Endurance",
+      "sport": "swim",
+      "category": "endurance",
+      "difficulty": 2,
+      "target": "distance",
+      "total_distance_m": 2500,
+      "description": "Vijf blokken van 200 meter zone 2 met 50 meter zone 3.",
+      "description_en": "Five blocks of 200 meters in zone 2 with 50 meters in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 400,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 300,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 200,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "distance_m": 50,
+              "zone": 3
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 250,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 300,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_2500m_3_tempo",
+      "name": "2500m Tempo",
+      "name_en": "2500 m Tempo",
+      "sport": "swim",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "distance",
+      "total_distance_m": 2500,
+      "description": "Drie keer 300 meter in zone 3.",
+      "description_en": "Three times 300 meters in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 400,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 300,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 3,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 300,
+              "zone": 3,
+              "rest_sec": 30
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 600,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 300,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_2500m_4_threshold",
+      "name": "2500m Drempel",
+      "name_en": "2500 m Threshold",
+      "sport": "swim",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "distance",
+      "total_distance_m": 2500,
+      "description": "Acht keer 150 meter in zone 4.",
+      "description_en": "Eight times 150 meters in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 400,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 300,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 8,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 150,
+              "zone": 4,
+              "rest_sec": 30
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 300,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 300,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_2500m_5_vo2max",
+      "name": "2500m Sprint",
+      "name_en": "2500 m Sprint",
+      "sport": "swim",
+      "category": "vo2max",
+      "difficulty": 5,
+      "target": "distance",
+      "total_distance_m": 2500,
+      "description": "Acht keer 100 meter in zone 5.",
+      "description_en": "Eight times 100 meters in zone 5.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 400,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 300,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 8,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 100,
+              "zone": 5,
+              "rest_sec": 40
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 700,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 300,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_3000m_1_easy",
+      "name": "3000m Easy",
+      "name_en": "3000 m Easy",
+      "sport": "swim",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "distance",
+      "total_distance_m": 3000,
+      "description": "Rustig doorzwemmen in zone 2.",
+      "description_en": "Steady easy swimming in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 500,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 2200,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 300,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_3000m_2_endurance",
+      "name": "3000m Duur",
+      "name_en": "3000 m Endurance",
+      "sport": "swim",
+      "category": "endurance",
+      "difficulty": 2,
+      "target": "distance",
+      "total_distance_m": 3000,
+      "description": "Zes blokken van 200 meter zone 2 met 100 meter zone 3.",
+      "description_en": "Six blocks of 200 meters in zone 2 with 100 meters in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 500,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 400,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 6,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 200,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "distance_m": 100,
+              "zone": 3
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 300,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_3000m_3_tempo",
+      "name": "3000m Tempo",
+      "name_en": "3000 m Tempo",
+      "sport": "swim",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "distance",
+      "total_distance_m": 3000,
+      "description": "Vier keer 300 meter in zone 3.",
+      "description_en": "Four times 300 meters in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 500,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 400,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 300,
+              "zone": 3,
+              "rest_sec": 30
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 600,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 300,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_3000m_4_threshold",
+      "name": "3000m Drempel",
+      "name_en": "3000 m Threshold",
+      "sport": "swim",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "distance",
+      "total_distance_m": 3000,
+      "description": "Zes keer 200 meter in zone 4.",
+      "description_en": "Six times 200 meters in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 500,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 400,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 6,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 200,
+              "zone": 4,
+              "rest_sec": 30
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 600,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 300,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_3000m_5_vo2max",
+      "name": "3000m Mix Sprint",
+      "name_en": "3000 m Sprint Mix",
+      "sport": "swim",
+      "category": "vo2max",
+      "difficulty": 5,
+      "target": "distance",
+      "total_distance_m": 3000,
+      "description": "Sprints in zone 5 gevolgd door tempo in zone 3.",
+      "description_en": "Sprints in zone 5 followed by tempo in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 500,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 400,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 12,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 50,
+              "zone": 5,
+              "rest_sec": 40
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 200,
+          "zone": 1
+        },
+        {
+          "type": "repeat",
+          "repeat": 6,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 100,
+              "zone": 3,
+              "rest_sec": 20
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 400,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 300,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_3500m_1_easy",
+      "name": "3500m Easy",
+      "name_en": "3500 m Easy",
+      "sport": "swim",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "distance",
+      "total_distance_m": 3500,
+      "description": "Rustig doorzwemmen in zone 2.",
+      "description_en": "Steady easy swimming in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 500,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 2600,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 400,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_3500m_2_endurance",
+      "name": "3500m Duur",
+      "name_en": "3500 m Endurance",
+      "sport": "swim",
+      "category": "endurance",
+      "difficulty": 2,
+      "target": "distance",
+      "total_distance_m": 3500,
+      "description": "Acht blokken van 200 meter zone 2 met 50 meter zone 3.",
+      "description_en": "Eight blocks of 200 meters in zone 2 with 50 meters in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 500,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 400,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 8,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 200,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "distance_m": 50,
+              "zone": 3
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 200,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 400,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_3500m_3_tempo",
+      "name": "3500m Tempo",
+      "name_en": "3500 m Tempo",
+      "sport": "swim",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "distance",
+      "total_distance_m": 3500,
+      "description": "Vier keer 400 meter in zone 3.",
+      "description_en": "Four times 400 meters in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 500,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 400,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 400,
+              "zone": 3,
+              "rest_sec": 40
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 600,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 400,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_3500m_4_threshold",
+      "name": "3500m Drempel",
+      "name_en": "3500 m Threshold",
+      "sport": "swim",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "distance",
+      "total_distance_m": 3500,
+      "description": "Acht keer 200 meter in zone 4.",
+      "description_en": "Eight times 200 meters in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 500,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 400,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 8,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 200,
+              "zone": 4,
+              "rest_sec": 30
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 600,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 400,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_4000m_1_easy",
+      "name": "4000m Easy",
+      "name_en": "4000 m Easy",
+      "sport": "swim",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "distance",
+      "total_distance_m": 4000,
+      "description": "Rustig doorzwemmen in zone 2.",
+      "description_en": "Steady easy swimming in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 600,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 3000,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 400,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_4000m_2_endurance",
+      "name": "4000m Duur",
+      "name_en": "4000 m Endurance",
+      "sport": "swim",
+      "category": "endurance",
+      "difficulty": 2,
+      "target": "distance",
+      "total_distance_m": 4000,
+      "description": "Vijf blokken van 400 meter zone 2 met 100 meter zone 3.",
+      "description_en": "Five blocks of 400 meters in zone 2 with 100 meters in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 600,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 500,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 400,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "distance_m": 100,
+              "zone": 3
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 400,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_4000m_3_tempo",
+      "name": "4000m Tempo",
+      "name_en": "4000 m Tempo",
+      "sport": "swim",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "distance",
+      "total_distance_m": 4000,
+      "description": "Vijf keer 400 meter in zone 3.",
+      "description_en": "Five times 400 meters in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 600,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 500,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 400,
+              "zone": 3,
+              "rest_sec": 40
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 500,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 400,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_4000m_4_threshold",
+      "name": "4000m Drempel",
+      "name_en": "4000 m Threshold",
+      "sport": "swim",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "distance",
+      "total_distance_m": 4000,
+      "description": "Tien keer 200 meter in zone 4.",
+      "description_en": "Ten times 200 meters in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 600,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 500,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 10,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 200,
+              "zone": 4,
+              "rest_sec": 30
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 500,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 400,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "swim_4000m_5_vo2max",
+      "name": "4000m Mix Sprint",
+      "name_en": "4000 m Sprint Mix",
+      "sport": "swim",
+      "category": "vo2max",
+      "difficulty": 5,
+      "target": "distance",
+      "total_distance_m": 4000,
+      "description": "Sprints in zone 5 gevolgd door tempo in zone 3.",
+      "description_en": "Sprints in zone 5 followed by tempo in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "distance_m": 600,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_m": 500,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 12,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 50,
+              "zone": 5,
+              "rest_sec": 40
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 300,
+          "zone": 1
+        },
+        {
+          "type": "repeat",
+          "repeat": 8,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_m": 100,
+              "zone": 3,
+              "rest_sec": 20
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_m": 800,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "distance_m": 400,
+          "zone": 1
+        }
+      ]
+    }
+  ],
+  "zones_en": {
+    "1": "Very easy, technique/loosening up",
+    "2": "Endurance pace, aerobic",
+    "3": "Tempo, solid",
+    "4": "Threshold, hard (around CSS pace or faster)",
+    "5": "Sprint/VO2max, maximal"
+  }
+}

@@ -2,9 +2,67 @@
   "Home": {
     "greeting": "Hoi {name}!",
     "greetingNoName": "Hoi!",
-    "tagline": "Trainen dat past bij je werk.",
-    "logout": "Uitloggen",
-    "openStyleguide": "Open styleguide"
+    "thisWeek": "Deze week",
+    "seeWeek": "Bekijk week",
+    "ofAvailable": "van {available} beschikbaar",
+    "progressLabel": "Geplande trainingstijd deze week",
+    "restDay": "Rustdag",
+    "nextTraining": "Volgende training",
+    "nothingPlanned": "Nog niets gepland",
+    "nothingPlannedText": "Plan je trainingen voor deze week, dan zie je ze hier.",
+    "planWeek": "Plan mijn week",
+    "today": "Vandaag",
+    "tomorrow": "Morgen",
+    "goal": "Jouw doel",
+    "seeGoal": "Details",
+    "noGoal": "Nog geen doel",
+    "noGoalText": "Een doel geeft je training een duidelijke focus.",
+    "setGoal": "Stel een doel",
+    "daysToGo": "{days, plural, one {dag te gaan} other {dagen te gaan}}",
+    "raceDay": "Wedstrijddag!"
+  },
+  "Nav": {
+    "label": "Hoofdmenu",
+    "home": "Home",
+    "week": "Week",
+    "add": "Training toevoegen",
+    "goal": "Doel",
+    "profile": "Profiel"
+  },
+  "Week": {
+    "title": "Jouw week",
+    "previousWeek": "Vorige week",
+    "nextWeek": "Volgende week",
+    "thisWeek": "Deze week",
+    "backToThisWeek": "Terug naar deze week",
+    "planned": "gepland",
+    "available": "{duration} beschikbaar",
+    "progressLabel": "Geplande trainingstijd deze week",
+    "today": "Vandaag",
+    "restDay": "Rustdag",
+    "noTraining": "Geen training gepland",
+    "trainingOnRestDay": "Training gepland op een rustdag",
+    "overAvailable": "{over} meer dan je beschikbare tijd"
+  },
+  "Goal": {
+    "title": "Jouw doel",
+    "comingSoon": "Je doeloverzicht komt eraan."
+  },
+  "Profile": {
+    "title": "Profiel",
+    "settings": "Instellingen",
+    "details": "Persoonlijke gegevens",
+    "detailsText": "Je naam en geboortedatum.",
+    "trainingDays": "Trainingsdagen",
+    "trainingDaysText": "Je gebruikelijke week. Tik een dag aan om hem aan of uit te zetten.",
+    "trainingDaysSummary": "{days, plural, =0 {Geen dagen} one {# dag} other {# dagen}} · {total} per week",
+    "redoIntake": "Intake opnieuw doen",
+    "redoIntakeText": "Pas je sporten, niveaus, doel en rooster aan",
+    "language": "Taal",
+    "save": "Opslaan",
+    "saveFailed": "Opslaan is niet gelukt. Probeer het opnieuw.",
+    "invalidDetails": "Controleer je naam en geboortedatum.",
+    "logout": "Uitloggen"
   },
   "Auth": {
     "loginTitle": "Welkom terug",
@@ -38,6 +96,8 @@
     "previous": "Vorige",
     "next": "Volgende",
     "finish": "Afronden",
+    "save": "Opslaan",
+    "cancel": "Annuleren",
     "saveFailed": "Opslaan is niet gelukt. Probeer het opnieuw.",
     "about": {
       "title": "Vertel iets over jezelf",
@@ -92,13 +152,21 @@
       "title": "Hoeveel tijd heb je?",
       "subtitle": "Tik de dagen aan waarop je meestal kunt trainen en stel dan in hoeveel tijd je hebt. Je kunt dit later aanpassen.",
       "restDay": "Rustdag",
+      "sportsLabel": "Welke sport? Laat leeg als je flexibel bent.",
+      "longSessionsTitle": "Lange trainingen",
+      "longSessionsText": "Je langste training van de week. Welke dag past het best?",
+      "longSessionRequired": "Kies een dag",
+      "noLongSessionDay": "Zet eerst een dag aan voor deze sport.",
       "total": "Totaal per week: {total}"
     },
     "done": {
       "title": "Je bent er klaar voor!",
       "titleWithName": "Je bent er klaar voor, {name}!",
       "text": "Je profiel staat klaar. Tijd om je eerste week te plannen.",
-      "button": "Naar mijn week"
+      "button": "Naar mijn week",
+      "redoTitle": "Je antwoorden zijn bijgewerkt!",
+      "redoText": "Je coach gebruikt vanaf nu je nieuwe sporten, doel en rooster.",
+      "redoButton": "Terug naar profiel"
     }
   },
   "Sports": {
@@ -163,6 +231,19 @@
   "Distance": {
     "meters": "{value} m",
     "kilometers": "{value} km"
+  },
+  "LongSessions": {
+    "running": "Lange duurloop",
+    "cycling": "Lange rit"
+  },
+  "WeekdaysShort": {
+    "monday": "M",
+    "tuesday": "D",
+    "wednesday": "W",
+    "thursday": "D",
+    "friday": "V",
+    "saturday": "Z",
+    "sunday": "Z"
   },
   "Duration": {
     "minutes": "{minutes} min",

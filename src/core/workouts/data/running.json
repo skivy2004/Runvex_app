@@ -1,0 +1,2514 @@
+{
+  "version": 2,
+  "zones": {
+    "1": "Heel rustig, 50-60% max HR",
+    "2": "Rustig, 60-70%",
+    "3": "Stevig/tempo, 70-80%",
+    "4": "Zwaar/drempel, 80-90%",
+    "5": "Maximaal, 90-100%"
+  },
+  "workouts": [
+    {
+      "id": "run_20_1_easy",
+      "name": "Korte Easy Run",
+      "name_en": "Short Easy Run",
+      "sport": "run",
+      "category": "easy",
+      "difficulty": 1,
+      "total_minutes": 20,
+      "description": "Kort en rustig, ideaal voor herstel of een drukke dag.",
+      "description_en": "Short and easy, ideal for recovery or a busy day.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 10,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_20_2_fartlek",
+      "name": "Mini Fartlek",
+      "name_en": "Mini Fartlek",
+      "sport": "run",
+      "category": "fartlek",
+      "difficulty": 2,
+      "total_minutes": 20,
+      "description": "Rustig tempo met korte versnellingen.",
+      "description_en": "Easy pace with short surges.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "repeat",
+          "repeat": 2,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 4,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "duration_min": 1,
+              "zone": 3,
+              "label": "versnelling",
+              "label_en": "surge"
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_20_3_tempo",
+      "name": "Mini Tempo",
+      "name_en": "Mini Tempo",
+      "sport": "run",
+      "category": "tempo",
+      "difficulty": 3,
+      "total_minutes": 20,
+      "description": "Kort tempoblok in zone 3.",
+      "description_en": "Short tempo block in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 2,
+          "zone": 2
+        },
+        {
+          "type": "interval",
+          "duration_min": 6,
+          "zone": 3
+        },
+        {
+          "type": "interval",
+          "duration_min": 2,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_20_4_threshold",
+      "name": "Mini Drempel",
+      "name_en": "Mini Threshold",
+      "sport": "run",
+      "category": "threshold",
+      "difficulty": 4,
+      "total_minutes": 20,
+      "description": "Twee korte zware blokken in zone 4.",
+      "description_en": "Two short hard blocks in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "repeat",
+          "repeat": 2,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 3,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "duration_min": 2,
+              "zone": 2
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_20_5_vo2max",
+      "name": "Sprint Prikkels",
+      "name_en": "Sprint Boosts",
+      "sport": "run",
+      "category": "vo2max",
+      "difficulty": 5,
+      "total_minutes": 20,
+      "description": "Drie korte maximale inspanningen.",
+      "description_en": "Three short maximal efforts.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 1,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 3,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 1,
+              "zone": 5,
+              "label": "sprint",
+              "label_en": "sprint"
+            },
+            {
+              "type": "interval",
+              "duration_min": 2,
+              "zone": 1,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_30_1_easy",
+      "name": "Easy Run",
+      "name_en": "Easy Run",
+      "sport": "run",
+      "category": "easy",
+      "difficulty": 1,
+      "total_minutes": 30,
+      "description": "Rustig doorlopen in zone 2.",
+      "description_en": "Steady easy running in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 20,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_30_2_fartlek",
+      "name": "Fartlek Light",
+      "name_en": "Fartlek Light",
+      "sport": "run",
+      "category": "fartlek",
+      "difficulty": 2,
+      "total_minutes": 30,
+      "description": "Rustig met kleine zone 3 versnellingen.",
+      "description_en": "Easy with small zone 3 surges.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 4,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "duration_min": 1,
+              "zone": 3,
+              "label": "versnelling",
+              "label_en": "surge"
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_30_3_tempo",
+      "name": "Tempoloop",
+      "name_en": "Tempo Run",
+      "sport": "run",
+      "category": "tempo",
+      "difficulty": 3,
+      "total_minutes": 30,
+      "description": "Steady tempo in zone 3.",
+      "description_en": "Steady tempo in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 3,
+          "zone": 2
+        },
+        {
+          "type": "interval",
+          "duration_min": 14,
+          "zone": 3
+        },
+        {
+          "type": "interval",
+          "duration_min": 3,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_30_4_threshold",
+      "name": "Drempelintervallen",
+      "name_en": "Threshold Intervals",
+      "sport": "run",
+      "category": "threshold",
+      "difficulty": 4,
+      "total_minutes": 30,
+      "description": "Zware blokken in zone 4 met herstel.",
+      "description_en": "Hard blocks in zone 4 with recovery.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 3,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "duration_min": 2,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_30_5_vo2max",
+      "name": "VO2max Intervallen",
+      "name_en": "VO2max Intervals",
+      "sport": "run",
+      "category": "vo2max",
+      "difficulty": 5,
+      "total_minutes": 30,
+      "description": "Korte maximale inspanningen in zone 5.",
+      "description_en": "Short maximal efforts in zone 5.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 2,
+              "zone": 5
+            },
+            {
+              "type": "interval",
+              "duration_min": 2,
+              "zone": 1,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_40_1_easy",
+      "name": "Lange Easy Run",
+      "name_en": "Long Easy Run",
+      "sport": "run",
+      "category": "easy",
+      "difficulty": 1,
+      "total_minutes": 40,
+      "description": "Gelijkmatig rustig in zone 2.",
+      "description_en": "Evenly easy in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 30,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_40_2_fartlek",
+      "name": "Fartlek Mix",
+      "name_en": "Fartlek Mix",
+      "sport": "run",
+      "category": "fartlek",
+      "difficulty": 2,
+      "total_minutes": 40,
+      "description": "Zone 2 met regelmatige zone 3 prikkels.",
+      "description_en": "Zone 2 with regular zone 3 surges.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 5,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "duration_min": 1,
+              "zone": 3,
+              "label": "versnelling",
+              "label_en": "surge"
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_40_3_tempo",
+      "name": "Tempoblokken",
+      "name_en": "Tempo Blocks",
+      "sport": "run",
+      "category": "tempo",
+      "difficulty": 3,
+      "total_minutes": 40,
+      "description": "Twee langere tempoblokken in zone 3.",
+      "description_en": "Two longer tempo blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 4,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 2,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 9,
+              "zone": 3
+            },
+            {
+              "type": "interval",
+              "duration_min": 3,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 2,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_40_4_threshold",
+      "name": "Drempelblokken",
+      "name_en": "Threshold Blocks",
+      "sport": "run",
+      "category": "threshold",
+      "difficulty": 4,
+      "total_minutes": 40,
+      "description": "Vijf blokken in zone 4.",
+      "description_en": "Five blocks in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 4,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "duration_min": 2,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_40_5_vo2max",
+      "name": "VO2max Lang",
+      "name_en": "VO2max Long",
+      "sport": "run",
+      "category": "vo2max",
+      "difficulty": 5,
+      "total_minutes": 40,
+      "description": "Zes keer 2 minuten zone 5.",
+      "description_en": "Six times 2 minutes in zone 5.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 4,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 6,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 2,
+              "zone": 5
+            },
+            {
+              "type": "interval",
+              "duration_min": 2,
+              "zone": 1,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 2,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_45_1_easy",
+      "name": "Easy Run Plus",
+      "name_en": "Easy Run Plus",
+      "sport": "run",
+      "category": "easy",
+      "difficulty": 1,
+      "total_minutes": 45,
+      "description": "Begin heel rustig en loop door in zone 2.",
+      "description_en": "Start very easy, then continue in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 30,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_45_2_progressive",
+      "name": "Progressieloop",
+      "name_en": "Progression Run",
+      "sport": "run",
+      "category": "progressive",
+      "difficulty": 2,
+      "total_minutes": 45,
+      "description": "Loop steeds iets sneller: Z2 naar Z3.",
+      "description_en": "Run a little faster as you go: Z2 to Z3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 20,
+          "zone": 2
+        },
+        {
+          "type": "interval",
+          "duration_min": 10,
+          "zone": 3
+        },
+        {
+          "type": "interval",
+          "duration_min": 5,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_45_3_tempo",
+      "name": "Tempo 3x8",
+      "name_en": "Tempo 3x8",
+      "sport": "run",
+      "category": "tempo",
+      "difficulty": 3,
+      "total_minutes": 45,
+      "description": "Drie tempoblokken van 8 minuten in zone 3.",
+      "description_en": "Three tempo blocks of 8 minutes in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 5,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 3,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 8,
+              "zone": 3
+            },
+            {
+              "type": "interval",
+              "duration_min": 2,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_45_4_threshold",
+      "name": "Drempel 3x6",
+      "name_en": "Threshold 3x6",
+      "sport": "run",
+      "category": "threshold",
+      "difficulty": 4,
+      "total_minutes": 45,
+      "description": "Drie lange zone 4 blokken.",
+      "description_en": "Three long zone 4 blocks.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 5,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 3,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 6,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "duration_min": 3,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 3,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_45_5_vo2max",
+      "name": "VO2max 5x3",
+      "name_en": "VO2max 5x3",
+      "sport": "run",
+      "category": "vo2max",
+      "difficulty": 5,
+      "total_minutes": 45,
+      "description": "Vijf blokken van 3 minuten zone 5.",
+      "description_en": "Five blocks of 3 minutes in zone 5.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 5,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 3,
+              "zone": 5
+            },
+            {
+              "type": "interval",
+              "duration_min": 3,
+              "zone": 1,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_60_1_easy",
+      "name": "Duurloop",
+      "name_en": "Endurance Run",
+      "sport": "run",
+      "category": "easy",
+      "difficulty": 1,
+      "total_minutes": 60,
+      "description": "Rustige duurloop in zone 2.",
+      "description_en": "Easy endurance run in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 45,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_60_2_fartlek",
+      "name": "Lange Fartlek",
+      "name_en": "Long Fartlek",
+      "sport": "run",
+      "category": "fartlek",
+      "difficulty": 2,
+      "total_minutes": 60,
+      "description": "Zone 2 met korte zone 3 versnellingen.",
+      "description_en": "Zone 2 with short zone 3 surges.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 10,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 6,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "duration_min": 2,
+              "zone": 3,
+              "label": "versnelling",
+              "label_en": "surge"
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_60_3_tempo",
+      "name": "Lang Tempo",
+      "name_en": "Long Tempo",
+      "sport": "run",
+      "category": "tempo",
+      "difficulty": 3,
+      "total_minutes": 60,
+      "description": "25 minuten aaneengesloten zone 3.",
+      "description_en": "25 minutes of continuous zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 10,
+          "zone": 2
+        },
+        {
+          "type": "interval",
+          "duration_min": 25,
+          "zone": 3
+        },
+        {
+          "type": "interval",
+          "duration_min": 15,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_60_4_threshold",
+      "name": "Drempel 4x6",
+      "name_en": "Threshold 4x6",
+      "sport": "run",
+      "category": "threshold",
+      "difficulty": 4,
+      "total_minutes": 60,
+      "description": "Vier lange zone 4 blokken.",
+      "description_en": "Four long zone 4 blocks.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 10,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 6,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "duration_min": 3,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 4,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_60_5_vo2max",
+      "name": "VO2max 6x3",
+      "name_en": "VO2max 6x3",
+      "sport": "run",
+      "category": "vo2max",
+      "difficulty": 5,
+      "total_minutes": 60,
+      "description": "Zes blokken van 3 minuten zone 5.",
+      "description_en": "Six blocks of 3 minutes in zone 5.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 10,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 6,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 3,
+              "zone": 5
+            },
+            {
+              "type": "interval",
+              "duration_min": 3,
+              "zone": 1,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 4,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_75_1_easy",
+      "name": "Lange Duurloop",
+      "name_en": "Long Endurance Run",
+      "sport": "run",
+      "category": "easy",
+      "difficulty": 1,
+      "total_minutes": 75,
+      "description": "Lange rustige loop in zone 2.",
+      "description_en": "Long easy run in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 60,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_75_2_fartlek",
+      "name": "Duurloop met Tempo",
+      "name_en": "Endurance Run with Tempo",
+      "sport": "run",
+      "category": "fartlek",
+      "difficulty": 2,
+      "total_minutes": 75,
+      "description": "Z2 met drie blokken van 5 min in Z3.",
+      "description_en": "Z2 with three 5-minute blocks in Z3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 15,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 3,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 10,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "duration_min": 5,
+              "zone": 3
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 5,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_75_3_tempo",
+      "name": "Tempo 2x15",
+      "name_en": "Tempo 2x15",
+      "sport": "run",
+      "category": "tempo",
+      "difficulty": 3,
+      "total_minutes": 75,
+      "description": "Twee tempoblokken van 15 minuten.",
+      "description_en": "Two tempo blocks of 15 minutes.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 15,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 2,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 15,
+              "zone": 3
+            },
+            {
+              "type": "interval",
+              "duration_min": 5,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 10,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_75_4_threshold",
+      "name": "Drempel 5x5",
+      "name_en": "Threshold 5x5",
+      "sport": "run",
+      "category": "threshold",
+      "difficulty": 4,
+      "total_minutes": 75,
+      "description": "Vijf blokken van 5 minuten zone 4.",
+      "description_en": "Five blocks of 5 minutes in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 15,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 5,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "duration_min": 3,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 10,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_75_5_mixed",
+      "name": "Mix Z3 tot Z5",
+      "name_en": "Mix Z3 to Z5",
+      "sport": "run",
+      "category": "mixed",
+      "difficulty": 5,
+      "total_minutes": 75,
+      "description": "Tempoblok gevolgd door korte zone 5 intervallen.",
+      "description_en": "Tempo block followed by short zone 5 intervals.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 15,
+          "zone": 2
+        },
+        {
+          "type": "interval",
+          "duration_min": 10,
+          "zone": 3
+        },
+        {
+          "type": "interval",
+          "duration_min": 5,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 2,
+              "zone": 5
+            },
+            {
+              "type": "interval",
+              "duration_min": 3,
+              "zone": 1,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 15,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_90_1_easy",
+      "name": "Marathon Duurloop",
+      "name_en": "Marathon Endurance Run",
+      "sport": "run",
+      "category": "easy",
+      "difficulty": 1,
+      "total_minutes": 90,
+      "description": "Lange rustige loop, houd het in zone 2.",
+      "description_en": "Long easy run, keep it in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 75,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_90_2_fartlek",
+      "name": "Lange Duurloop met Pickups",
+      "name_en": "Long Run with Pickups",
+      "sport": "run",
+      "category": "fartlek",
+      "difficulty": 2,
+      "total_minutes": 90,
+      "description": "Zone 2 met blokken van 5 minuten zone 3.",
+      "description_en": "Zone 2 with 5-minute blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 20,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 10,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "duration_min": 5,
+              "zone": 3
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_90_3_tempo",
+      "name": "Tempo 3x12",
+      "name_en": "Tempo 3x12",
+      "sport": "run",
+      "category": "tempo",
+      "difficulty": 3,
+      "total_minutes": 90,
+      "description": "Drie tempoblokken van 12 minuten.",
+      "description_en": "Three tempo blocks of 12 minutes.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 20,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 3,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 12,
+              "zone": 3
+            },
+            {
+              "type": "interval",
+              "duration_min": 4,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 12,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_90_4_threshold",
+      "name": "Drempel 5x6",
+      "name_en": "Threshold 5x6",
+      "sport": "run",
+      "category": "threshold",
+      "difficulty": 4,
+      "total_minutes": 90,
+      "description": "Vijf zone 4 blokken van 6 minuten.",
+      "description_en": "Five zone 4 blocks of 6 minutes.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 15,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 6,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "duration_min": 3,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 20,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_90_5_mixed",
+      "name": "Zware Mix",
+      "name_en": "Hard Mix",
+      "sport": "run",
+      "category": "mixed",
+      "difficulty": 5,
+      "total_minutes": 90,
+      "description": "Tempo en zone 5 intervallen in een lange loop.",
+      "description_en": "Tempo and zone 5 intervals in a long run.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "duration_min": 15,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "duration_min": 4,
+              "zone": 5
+            },
+            {
+              "type": "interval",
+              "duration_min": 4,
+              "zone": 1,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "duration_min": 10,
+          "zone": 3
+        },
+        {
+          "type": "interval",
+          "duration_min": 23,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ],
+      "target": "time"
+    },
+    {
+      "id": "run_5km_1_easy",
+      "name": "5 km Easy",
+      "name_en": "5 km Easy",
+      "sport": "run",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "distance",
+      "run_distance_km": 5,
+      "description": "Rustig 5 km in zone 2.",
+      "description_en": "Easy 5 km in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 5,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "run_5km_3_tempo",
+      "name": "5 km Tempo",
+      "name_en": "5 km Tempo",
+      "sport": "run",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "distance",
+      "run_distance_km": 5,
+      "description": "3 km tempo in zone 3.",
+      "description_en": "3 km tempo in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 1,
+          "zone": 2
+        },
+        {
+          "type": "interval",
+          "distance_km": 3,
+          "zone": 3
+        },
+        {
+          "type": "interval",
+          "distance_km": 1,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "run_5km_5_vo2max",
+      "name": "5 km 400m Intervallen",
+      "name_en": "5 km 400 m Intervals",
+      "sport": "run",
+      "category": "vo2max",
+      "difficulty": 5,
+      "target": "distance",
+      "run_distance_km": 5,
+      "description": "Vier snelle stukken van 400 meter in zone 5.",
+      "description_en": "Four fast 400-meter repeats in zone 5.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 1,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 0.4,
+              "zone": 5
+            },
+            {
+              "type": "interval",
+              "distance_km": 0.4,
+              "zone": 1,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_km": 0.8,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "run_8km_2_progressive",
+      "name": "8 km Progressie",
+      "name_en": "8 km Progression",
+      "sport": "run",
+      "category": "progressive",
+      "difficulty": 2,
+      "target": "distance",
+      "run_distance_km": 8,
+      "description": "Loop elke kilometers iets sneller: Z2 naar Z3.",
+      "description_en": "Run each kilometer a little faster: Z2 to Z3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 4,
+          "zone": 2
+        },
+        {
+          "type": "interval",
+          "distance_km": 3,
+          "zone": 3
+        },
+        {
+          "type": "interval",
+          "distance_km": 1,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "run_8km_4_threshold",
+      "name": "8 km Drempel",
+      "name_en": "8 km Threshold",
+      "sport": "run",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "distance",
+      "run_distance_km": 8,
+      "description": "Vier kilometers in zone 4.",
+      "description_en": "Four kilometers in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 2,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 1,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "distance_km": 0.5,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "run_10km_1_easy",
+      "name": "10 km Easy",
+      "name_en": "10 km Easy",
+      "sport": "run",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "distance",
+      "run_distance_km": 10,
+      "description": "Rustige 10 km in zone 2.",
+      "description_en": "Easy 10 km in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 10,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "run_10km_3_tempo",
+      "name": "10 km Tempo",
+      "name_en": "10 km Tempo",
+      "sport": "run",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "distance",
+      "run_distance_km": 10,
+      "description": "6 km tempo in zone 3.",
+      "description_en": "6 km tempo in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 2,
+          "zone": 2
+        },
+        {
+          "type": "interval",
+          "distance_km": 6,
+          "zone": 3
+        },
+        {
+          "type": "interval",
+          "distance_km": 2,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "run_10km_4_threshold",
+      "name": "10 km Drempel",
+      "name_en": "10 km Threshold",
+      "sport": "run",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "distance",
+      "run_distance_km": 10,
+      "description": "Vijf blokken van 1 km in zone 4.",
+      "description_en": "Five 1 km blocks in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 2,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 1,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "distance_km": 0.4,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_km": 1,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "run_10km_5_vo2max",
+      "name": "10 km 800m Intervallen",
+      "name_en": "10 km 800 m Intervals",
+      "sport": "run",
+      "category": "vo2max",
+      "difficulty": 5,
+      "target": "distance",
+      "run_distance_km": 10,
+      "description": "Vijf keer 800 meter in zone 5.",
+      "description_en": "Five times 800 meters in zone 5.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 2,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 5,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 0.8,
+              "zone": 5
+            },
+            {
+              "type": "interval",
+              "distance_km": 0.8,
+              "zone": 1,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "run_12km_2_fartlek",
+      "name": "12 km Fartlek",
+      "name_en": "12 km Fartlek",
+      "sport": "run",
+      "category": "fartlek",
+      "difficulty": 2,
+      "target": "distance",
+      "run_distance_km": 12,
+      "description": "Zone 2 met korte stukken zone 3.",
+      "description_en": "Zone 2 with short zone 3 sections.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 2,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 2,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "distance_km": 0.5,
+              "zone": 3,
+              "label": "versnelling",
+              "label_en": "surge"
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "run_15km_1_easy",
+      "name": "15 km Duurloop",
+      "name_en": "15 km Endurance Run",
+      "sport": "run",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "distance",
+      "run_distance_km": 15,
+      "description": "Rustige duurloop in zone 2.",
+      "description_en": "Easy endurance run in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 15,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "run_15km_3_tempo",
+      "name": "15 km Tempoblokken",
+      "name_en": "15 km Tempo Blocks",
+      "sport": "run",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "distance",
+      "run_distance_km": 15,
+      "description": "Twee blokken van 4 km in zone 3.",
+      "description_en": "Two 4 km blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 3,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 2,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 4,
+              "zone": 3
+            },
+            {
+              "type": "interval",
+              "distance_km": 1,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_km": 2,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "run_15km_4_threshold",
+      "name": "15 km Drempel",
+      "name_en": "15 km Threshold",
+      "sport": "run",
+      "category": "threshold",
+      "difficulty": 4,
+      "target": "distance",
+      "run_distance_km": 15,
+      "description": "Vier blokken van 1,5 km in zone 4.",
+      "description_en": "Four 1.5 km blocks in zone 4.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 3,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 1.5,
+              "zone": 4
+            },
+            {
+              "type": "interval",
+              "distance_km": 0.75,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_km": 3,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "run_21_1km_1_easy",
+      "name": "Halve Marathon Easy",
+      "name_en": "Half Marathon Easy",
+      "sport": "run",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "distance",
+      "run_distance_km": 21.1,
+      "description": "Rustige halve marathon in zone 2.",
+      "description_en": "Easy half marathon in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 21.1,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "run_21_1km_2_fartlek",
+      "name": "Halve Marathon met Pickups",
+      "name_en": "Half Marathon with Pickups",
+      "sport": "run",
+      "category": "fartlek",
+      "difficulty": 2,
+      "target": "distance",
+      "run_distance_km": 21.1,
+      "description": "Zone 2 met blokken van 1 km zone 3.",
+      "description_en": "Zone 2 with 1 km blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 3.1,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 3,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 5,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "distance_km": 1,
+              "zone": 3
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "run_21_1km_3_tempo",
+      "name": "Halve Marathon Racepace",
+      "name_en": "Half Marathon Race Pace",
+      "sport": "run",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "distance",
+      "run_distance_km": 21.1,
+      "description": "12 km in zone 3.",
+      "description_en": "12 km in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 4,
+          "zone": 2
+        },
+        {
+          "type": "interval",
+          "distance_km": 12,
+          "zone": 3
+        },
+        {
+          "type": "interval",
+          "distance_km": 5.1,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "run_25km_2_fartlek",
+      "name": "25 km Lange Duurloop",
+      "name_en": "25 km Long Run",
+      "sport": "run",
+      "category": "fartlek",
+      "difficulty": 2,
+      "target": "distance",
+      "run_distance_km": 25,
+      "description": "Zone 2 met blokken van 1 km zone 3.",
+      "description_en": "Zone 2 with 1 km blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 5,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 4,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 4,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "distance_km": 1,
+              "zone": 3
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "run_32km_1_easy",
+      "name": "32 km Lange Duurloop",
+      "name_en": "32 km Long Run",
+      "sport": "run",
+      "category": "easy",
+      "difficulty": 1,
+      "target": "distance",
+      "run_distance_km": 32,
+      "description": "Lange rustige loop, begin in zone 1 en blijf in zone 2.",
+      "description_en": "Long easy run, start in zone 1 and stay in zone 2.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 2,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 30,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "run_32km_2_fartlek",
+      "name": "32 km met Pickups",
+      "name_en": "32 km with Pickups",
+      "sport": "run",
+      "category": "fartlek",
+      "difficulty": 2,
+      "target": "distance",
+      "run_distance_km": 32,
+      "description": "Zone 2 met drie blokken van 1 km zone 3.",
+      "description_en": "Zone 2 with three 1 km blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 8,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 3,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 7,
+              "zone": 2
+            },
+            {
+              "type": "interval",
+              "distance_km": 1,
+              "zone": 3
+            }
+          ]
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ]
+    },
+    {
+      "id": "run_32km_3_tempo",
+      "name": "32 km Tempo-duurloop",
+      "name_en": "32 km Tempo Long Run",
+      "sport": "run",
+      "category": "tempo",
+      "difficulty": 3,
+      "target": "distance",
+      "run_distance_km": 32,
+      "description": "Twee tempoblokken van 6 km in zone 3.",
+      "description_en": "Two 6 km tempo blocks in zone 3.",
+      "steps": [
+        {
+          "type": "warmup",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        },
+        {
+          "type": "interval",
+          "distance_km": 8,
+          "zone": 2
+        },
+        {
+          "type": "repeat",
+          "repeat": 2,
+          "steps": [
+            {
+              "type": "interval",
+              "distance_km": 6,
+              "zone": 3
+            },
+            {
+              "type": "interval",
+              "distance_km": 2,
+              "zone": 2,
+              "label": "herstel",
+              "label_en": "recovery"
+            }
+          ]
+        },
+        {
+          "type": "interval",
+          "distance_km": 8,
+          "zone": 2
+        },
+        {
+          "type": "cooldown",
+          "activity": "walk",
+          "duration_min": 5,
+          "zone": 1
+        }
+      ]
+    }
+  ],
+  "zones_en": {
+    "1": "Very easy, 50-60% max HR",
+    "2": "Easy, 60-70%",
+    "3": "Moderate/tempo, 70-80%",
+    "4": "Hard/threshold, 80-90%",
+    "5": "Maximal, 90-100%"
+  }
+}

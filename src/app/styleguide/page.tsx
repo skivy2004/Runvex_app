@@ -1,5 +1,6 @@
 // Development-only page to preview the design tokens and UI components.
 // Texts here are hardcoded on purpose; real pages will use translations.
+import { BottomNav } from "@/components/BottomNav";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { ProgressBar } from "@/components/ui/ProgressBar";
@@ -54,6 +55,9 @@ export default function StyleguidePage() {
       <Button fullWidth disabled>
         Disabled
       </Button>
+      {/* Spacer so the fixed tab bar doesn't cover the last button. */}
+      <div className="h-24" />
+      <BottomNav />
     </main>
   );
 }

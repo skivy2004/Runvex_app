@@ -16,6 +16,7 @@
   --color-accent: #38bdf8;
   --color-accent-foreground: #0e0f11;
   --color-danger: #ff6b5e;
+  --color-warning: #fbbf24;
 }
 
 /* `inline` because the font variable is set by next/font in layout.tsx. */
