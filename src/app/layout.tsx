@@ -1,4 +1,6 @@
 import type { Metadata, Viewport } from "next";
+import { NextIntlClientProvider } from "next-intl";
+import { getLocale } from "next-intl/server";
 import { Manrope } from "next/font/google";
 import "./globals.css";
 
@@ -8,7 +10,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "FitShift",
+  title: "Runvex",
   description: "Your training coach that fits around your work schedule.",
 };
 
@@ -17,14 +19,19 @@ export const viewport: Viewport = {
   themeColor: "#0e0f11",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default async function RootLayout({ children }: LayoutProps<"/">) {
+  const locale = await getLocale();
+
   return (
-    <html lang="en" className={`${manrope.variable} h-full antialiased`}>
+    <html lang={locale} className={`${manrope.variable} h-full antialiased`}>
       <body className="min-h-full bg-background font-sans text-foreground">
-        {/* Phone-width column, centered on larger screens. */}
-        <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-4">
-          {children}
-        </div>
+        {/* Makes the language and texts available to client components. */}
+        <NextIntlClientProvider>
+          {/* Phone-width column, centered on larger screens. */}
+          <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-4">
+            {children}
+          </div>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

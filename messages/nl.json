@@ -1,0 +1,175 @@
+{
+  "Home": {
+    "greeting": "Hoi {name}!",
+    "greetingNoName": "Hoi!",
+    "tagline": "Trainen dat past bij je werk.",
+    "logout": "Uitloggen",
+    "openStyleguide": "Open styleguide"
+  },
+  "Auth": {
+    "loginTitle": "Welkom terug",
+    "loginSubtitle": "Log in om je week te zien.",
+    "registerTitle": "Maak je account aan",
+    "registerSubtitle": "Trainen dat past bij je werk begint hier.",
+    "email": "E-mail",
+    "password": "Wachtwoord",
+    "passwordHint": "Minimaal {min} tekens",
+    "loginButton": "Inloggen",
+    "registerButton": "Account aanmaken",
+    "noAccount": "Nog geen account?",
+    "toRegister": "Registreren",
+    "haveAccount": "Heb je al een account?",
+    "toLogin": "Inloggen",
+    "checkEmailTitle": "Check je inbox",
+    "checkEmailText": "We hebben een bevestigingslink gestuurd naar {email}. Klik erop om je account te activeren.",
+    "confirmationFailed": "Deze bevestigingslink is ongeldig of verlopen. Probeer in te loggen, of registreer opnieuw.",
+    "errors": {
+      "invalidEmail": "Vul een geldig e-mailadres in.",
+      "passwordTooShort": "Je wachtwoord moet minimaal {min} tekens hebben.",
+      "invalidCredentials": "E-mail of wachtwoord klopt niet.",
+      "emailNotConfirmed": "Bevestig eerst je e-mailadres. Check je inbox.",
+      "weakPassword": "Dit wachtwoord is te zwak. Kies een sterker wachtwoord.",
+      "rateLimited": "Te veel pogingen. Wacht even en probeer het opnieuw.",
+      "generic": "Er ging iets mis. Probeer het opnieuw."
+    }
+  },
+  "Onboarding": {
+    "progress": "Stap {current} van {total}",
+    "previous": "Vorige",
+    "next": "Volgende",
+    "finish": "Afronden",
+    "saveFailed": "Opslaan is niet gelukt. Probeer het opnieuw.",
+    "about": {
+      "title": "Vertel iets over jezelf",
+      "subtitle": "Met je leeftijd stemmen we je trainingsadvies af.",
+      "name": "Hoe mogen we je noemen?",
+      "namePlaceholder": "Je voornaam",
+      "nameHint": "Optioneel",
+      "dateOfBirth": "Geboortedatum",
+      "tooYoung": "Je moet minimaal {minAge} jaar zijn om Runvex te gebruiken."
+    },
+    "sports": {
+      "title": "Welke sporten doe je?",
+      "subtitle": "Kies er één of meer."
+    },
+    "levels": {
+      "title": "Wat is je niveau?",
+      "subtitle": "Per sport, zodat we weten waar je begint."
+    },
+    "goal": {
+      "title": "Train je ergens voor?",
+      "hasGoal": "Ja, ik heb een doel",
+      "hasGoalDescription": "Een wedstrijd, een afstand of een persoonlijk doel.",
+      "noGoal": "Geen specifiek doel",
+      "noGoalDescription": "Ik wil gewoon fit blijven en regelmatig trainen.",
+      "categoryLabel": "Wat voor doel?",
+      "categories": {
+        "triathlon": "Triatlon",
+        "running": "Hardlopen",
+        "cycling": "Fietsen",
+        "swimming": "Zwemmen",
+        "other": "Anders"
+      },
+      "distanceLabel": "Afstand",
+      "custom": "Eigen afstand",
+      "customDescription": "Stel je eigen afstanden in",
+      "unitMeters": "In meters",
+      "unitKilometers": "In kilometers",
+      "invalidDistance": "Vul een afstand in groter dan 0 en maximaal 1.000 km.",
+      "description": "Je doel",
+      "descriptionPlaceholder": "bijv. Mijn eerste halve marathon uitlopen",
+      "sportsLabel": "Om welke sporten gaat het?",
+      "eventName": "Naam van de wedstrijd",
+      "eventNamePlaceholder": "bijv. Marathon Rotterdam",
+      "eventDate": "Datum van de wedstrijd",
+      "optional": "Optioneel"
+    },
+    "work": {
+      "title": "Hoe ziet je werkrooster eruit?",
+      "subtitle": "Zo begrijpt je coach hoe je week eruitziet."
+    },
+    "availability": {
+      "title": "Hoeveel tijd heb je?",
+      "subtitle": "Tik de dagen aan waarop je meestal kunt trainen en stel dan in hoeveel tijd je hebt. Je kunt dit later aanpassen.",
+      "restDay": "Rustdag",
+      "total": "Totaal per week: {total}"
+    },
+    "done": {
+      "title": "Je bent er klaar voor!",
+      "titleWithName": "Je bent er klaar voor, {name}!",
+      "text": "Je profiel staat klaar. Tijd om je eerste week te plannen.",
+      "button": "Naar mijn week"
+    }
+  },
+  "Sports": {
+    "running": "Hardlopen",
+    "cycling": "Fietsen",
+    "swimming": "Zwemmen",
+    "strength": "Krachttraining"
+  },
+  "Levels": {
+    "beginner": {
+      "title": "Beginner",
+      "description": "Nieuw in deze sport, of net weer begonnen."
+    },
+    "intermediate": {
+      "title": "Gemiddeld",
+      "description": "Traint al minstens een jaar regelmatig."
+    },
+    "advanced": {
+      "title": "Gevorderd",
+      "description": "Traint gestructureerd, vaak met wedstrijden."
+    }
+  },
+  "WorkPatterns": {
+    "fixed": {
+      "title": "Vaste dagen en tijden",
+      "description": "Ongeveer elke week hetzelfde rooster."
+    },
+    "variable": {
+      "title": "Wisselende dagen of tijden",
+      "description": "Mijn rooster verschilt per week."
+    },
+    "shifts": {
+      "title": "Ploegendienst",
+      "description": "Vroege, late en/of nachtdiensten."
+    }
+  },
+  "Weekdays": {
+    "monday": "Maandag",
+    "tuesday": "Dinsdag",
+    "wednesday": "Woensdag",
+    "thursday": "Donderdag",
+    "friday": "Vrijdag",
+    "saturday": "Zaterdag",
+    "sunday": "Zondag"
+  },
+  "RacePresets": {
+    "sprint_triathlon": { "label": "Sprint", "description": "Sprint triatlon" },
+    "olympic_triathlon": { "label": "Olympisch", "description": "Olympische triatlon" },
+    "ironman_70_3": { "label": "Ironman 70.3", "description": "Ironman 70.3" },
+    "ironman": { "label": "Ironman", "description": "Ironman" },
+    "run_5k": { "label": "5 km", "description": "5 km hardlopen" },
+    "run_10k": { "label": "10 km", "description": "10 km hardlopen" },
+    "half_marathon": { "label": "Halve marathon", "description": "Halve marathon" },
+    "marathon": { "label": "Marathon", "description": "Marathon" },
+    "ride_50k": { "label": "50 km", "description": "50 km fietsen" },
+    "ride_100k": { "label": "100 km", "description": "100 km fietsen" },
+    "ride_160k": { "label": "160 km", "description": "160 km fietsen" },
+    "swim_1k": { "label": "1 km", "description": "1 km zwemmen" },
+    "swim_2_5k": { "label": "2,5 km", "description": "2,5 km zwemmen" },
+    "swim_5k": { "label": "5 km", "description": "5 km zwemmen" }
+  },
+  "Distance": {
+    "meters": "{value} m",
+    "kilometers": "{value} km"
+  },
+  "Duration": {
+    "minutes": "{minutes} min",
+    "hours": "{hours} u",
+    "hoursMinutes": "{hours} u {minutes} min"
+  },
+  "LanguageSwitcher": {
+    "label": "Taal"
+  }
+}

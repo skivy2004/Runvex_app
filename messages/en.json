@@ -1,0 +1,175 @@
+{
+  "Home": {
+    "greeting": "Hi {name}!",
+    "greetingNoName": "Hi there!",
+    "tagline": "Training that fits around your work.",
+    "logout": "Log out",
+    "openStyleguide": "Open styleguide"
+  },
+  "Auth": {
+    "loginTitle": "Welcome back",
+    "loginSubtitle": "Log in to see your week.",
+    "registerTitle": "Create your account",
+    "registerSubtitle": "Training that fits around your work starts here.",
+    "email": "Email",
+    "password": "Password",
+    "passwordHint": "At least {min} characters",
+    "loginButton": "Log in",
+    "registerButton": "Create account",
+    "noAccount": "No account yet?",
+    "toRegister": "Sign up",
+    "haveAccount": "Already have an account?",
+    "toLogin": "Log in",
+    "checkEmailTitle": "Check your inbox",
+    "checkEmailText": "We sent a confirmation link to {email}. Click it to activate your account.",
+    "confirmationFailed": "This confirmation link is invalid or has expired. Try logging in, or sign up again.",
+    "errors": {
+      "invalidEmail": "Please enter a valid email address.",
+      "passwordTooShort": "Your password needs at least {min} characters.",
+      "invalidCredentials": "Email or password is incorrect.",
+      "emailNotConfirmed": "Please confirm your email first. Check your inbox.",
+      "weakPassword": "This password is too weak. Choose a stronger one.",
+      "rateLimited": "Too many attempts. Please wait a moment and try again.",
+      "generic": "Something went wrong. Please try again."
+    }
+  },
+  "Onboarding": {
+    "progress": "Step {current} of {total}",
+    "previous": "Previous",
+    "next": "Next",
+    "finish": "Finish",
+    "saveFailed": "Saving didn't work. Please try again.",
+    "about": {
+      "title": "Tell us about yourself",
+      "subtitle": "Your age helps us tailor your training advice.",
+      "name": "What should we call you?",
+      "namePlaceholder": "Your first name",
+      "nameHint": "Optional",
+      "dateOfBirth": "Date of birth",
+      "tooYoung": "You need to be at least {minAge} years old to use Runvex."
+    },
+    "sports": {
+      "title": "Which sports do you do?",
+      "subtitle": "Choose one or more."
+    },
+    "levels": {
+      "title": "What's your level?",
+      "subtitle": "Per sport, so we know where you're starting from."
+    },
+    "goal": {
+      "title": "Are you training for something?",
+      "hasGoal": "Yes, I have a goal",
+      "hasGoalDescription": "A race, a distance or a personal target.",
+      "noGoal": "No specific goal",
+      "noGoalDescription": "I just want to stay fit and train consistently.",
+      "categoryLabel": "What kind of goal?",
+      "categories": {
+        "triathlon": "Triathlon",
+        "running": "Running",
+        "cycling": "Cycling",
+        "swimming": "Swimming",
+        "other": "Other"
+      },
+      "distanceLabel": "Distance",
+      "custom": "Custom distance",
+      "customDescription": "Set your own distances",
+      "unitMeters": "In meters",
+      "unitKilometers": "In kilometers",
+      "invalidDistance": "Enter a distance greater than 0 and at most 1,000 km.",
+      "description": "Your goal",
+      "descriptionPlaceholder": "e.g. Finish my first half marathon",
+      "sportsLabel": "Which sports does it involve?",
+      "eventName": "Event name",
+      "eventNamePlaceholder": "e.g. Rotterdam Marathon",
+      "eventDate": "Event date",
+      "optional": "Optional"
+    },
+    "work": {
+      "title": "What does your work schedule look like?",
+      "subtitle": "This helps your coach understand your week."
+    },
+    "availability": {
+      "title": "How much time do you have?",
+      "subtitle": "Tap the days you can usually train, then set how much time you have. You can change this later.",
+      "restDay": "Rest day",
+      "total": "Total per week: {total}"
+    },
+    "done": {
+      "title": "You're all set!",
+      "titleWithName": "You're all set, {name}!",
+      "text": "Your profile is ready. Let's plan your first week.",
+      "button": "Go to my week"
+    }
+  },
+  "Sports": {
+    "running": "Running",
+    "cycling": "Cycling",
+    "swimming": "Swimming",
+    "strength": "Strength training"
+  },
+  "Levels": {
+    "beginner": {
+      "title": "Beginner",
+      "description": "New to this sport, or just getting back into it."
+    },
+    "intermediate": {
+      "title": "Intermediate",
+      "description": "Training regularly for at least a year."
+    },
+    "advanced": {
+      "title": "Advanced",
+      "description": "Structured training, often with races."
+    }
+  },
+  "WorkPatterns": {
+    "fixed": {
+      "title": "Fixed days and times",
+      "description": "Roughly the same schedule every week."
+    },
+    "variable": {
+      "title": "Changing days or times",
+      "description": "My schedule differs from week to week."
+    },
+    "shifts": {
+      "title": "Shift work",
+      "description": "Early, late and/or night shifts."
+    }
+  },
+  "Weekdays": {
+    "monday": "Monday",
+    "tuesday": "Tuesday",
+    "wednesday": "Wednesday",
+    "thursday": "Thursday",
+    "friday": "Friday",
+    "saturday": "Saturday",
+    "sunday": "Sunday"
+  },
+  "RacePresets": {
+    "sprint_triathlon": { "label": "Sprint", "description": "Sprint triathlon" },
+    "olympic_triathlon": { "label": "Olympic", "description": "Olympic triathlon" },
+    "ironman_70_3": { "label": "Ironman 70.3", "description": "Ironman 70.3" },
+    "ironman": { "label": "Ironman", "description": "Ironman" },
+    "run_5k": { "label": "5 km", "description": "Run 5 km" },
+    "run_10k": { "label": "10 km", "description": "Run 10 km" },
+    "half_marathon": { "label": "Half marathon", "description": "Half marathon" },
+    "marathon": { "label": "Marathon", "description": "Marathon" },
+    "ride_50k": { "label": "50 km", "description": "Ride 50 km" },
+    "ride_100k": { "label": "100 km", "description": "Ride 100 km" },
+    "ride_160k": { "label": "160 km", "description": "Ride 160 km" },
+    "swim_1k": { "label": "1 km", "description": "Swim 1 km" },
+    "swim_2_5k": { "label": "2.5 km", "description": "Swim 2.5 km" },
+    "swim_5k": { "label": "5 km", "description": "Swim 5 km" }
+  },
+  "Distance": {
+    "meters": "{value} m",
+    "kilometers": "{value} km"
+  },
+  "Duration": {
+    "minutes": "{minutes} min",
+    "hours": "{hours} h",
+    "hoursMinutes": "{hours} h {minutes} min"
+  },
+  "LanguageSwitcher": {
+    "label": "Language"
+  }
+}
