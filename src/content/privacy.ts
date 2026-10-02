@@ -6,7 +6,6 @@ import type { Locale } from "@/core/locale";
 
 /** Who is responsible for the data (the "controller" under the GDPR). */
 export const PRIVACY_CONTACT = {
-  // TODO(owner): fill in before publishing.
   name: "Jeremy Cordes",
   city: "Enschede, Netherlands",
   email: "Jeremycordes31@gmail.com",
