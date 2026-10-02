@@ -12,6 +12,8 @@ const manrope = Manrope({
 export const metadata: Metadata = {
   title: "Runvex",
   description: "Your training coach that fits around your work schedule.",
+  // On iPhone: open from the home screen as an app, without the browser bars.
+  appleWebApp: { capable: true, title: "Runvex" },
 };
 
 export const viewport: Viewport = {

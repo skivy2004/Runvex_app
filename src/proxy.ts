@@ -39,6 +39,9 @@ function redirectTo(pathname: string, request: NextRequest, response: NextRespon
 }
 
 export const config = {
-  // Skip static files and images so they always load.
-  matcher: ["/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)"],
+  // Skip static files, images and the app manifest so they always load, also
+  // when logged out (the phone fetches the manifest without your login).
+  matcher: [
+    "/((?!_next/static|_next/image|favicon.ico|manifest.webmanifest|.*\\.(?:svg|png|jpg|jpeg|gif|webp|ico)$).*)",
+  ],
 };
