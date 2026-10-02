@@ -82,3 +82,23 @@ export function zoneDescription(sport: LibrarySport, zone: Zone, locale: Locale)
 export function localized(text: LocalizedText, locale: Locale): string {
   return text[locale];
 }
+
+/** All zones used in these steps, lowest first. */
+export function usedZones(steps: WorkoutStep[]): Zone[] {
+  const zones = new Set<Zone>();
+  const collect = (list: WorkoutStep[]) => {
+    for (const step of list) {
+      if (step.type === "repeat") collect(step.steps);
+      else zones.add(step.zone);
+    }
+  };
+  collect(steps);
+  return [...zones].sort();
+}
+
+/** The zones of a workout with what they mean, e.g. [{ zone: 2, text: "Easy, 60-70%" }]. */
+export function zoneLegend(workout: Workout, locale: Locale): { zone: Zone; text: string }[] {
+  if (workout.sport === "strength") return [];
+  const sport = workout.sport;
+  return usedZones(workout.steps).map((zone) => ({ zone, text: zoneDescription(sport, zone, locale) }));
+}

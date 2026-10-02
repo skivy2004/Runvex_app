@@ -78,16 +78,3 @@ export function WorkoutSteps({ steps, sport, locale }: WorkoutStepsProps) {
     </ol>
   );
 }
-
-/** All zones used in a workout, lowest first. */
-export function usedZones(steps: WorkoutStep[]): Zone[] {
-  const zones = new Set<Zone>();
-  const collect = (list: WorkoutStep[]) => {
-    for (const step of list) {
-      if (step.type === "repeat") collect(step.steps);
-      else zones.add(step.zone);
-    }
-  };
-  collect(steps);
-  return [...zones].sort();
-}

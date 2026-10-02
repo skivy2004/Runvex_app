@@ -1,10 +1,13 @@
 // Development-only preview of the week view with sample data, without logging in.
-import { DayCard } from "@/components/week/DayCard";
+import { DayCard, type DayEditing } from "@/components/week/DayCard";
+import { WeekDragAndDrop } from "@/components/week/WeekDragAndDrop";
 import { WeekNavigation } from "@/components/week/WeekNavigation";
 import { WeekTotals } from "@/components/week/WeekTotals";
 import type { LongSessionSport } from "@/core/availability";
 import { addDays, startOfWeek, todayInTimeZone } from "@/core/dates";
+import { isHardWorkout, workoutAlternatives } from "@/core/planner";
 import { weekdays } from "@/core/training";
+import { getWorkout, zoneLegend } from "@/core/workouts/library";
 import { groupByWeekday } from "@/core/week";
 import type { PlannedWorkout } from "@/services/workouts";
 
@@ -41,6 +44,25 @@ export default function WeekPreviewPage() {
   // Saturday holds the long ride, Sunday the long run (not planned yet).
   const longSessions: LongSessionSport[][] = [[], [], [], [], [], ["cycling"], ["running"]];
 
+  // Buttons and dragging show, but saving needs a logged-in user (real week page).
+  const editing: DayEditing = {
+    weekDates: weekdays.map((_, index) => addDays(weekStart, index)),
+    alternativesFor: (item, isLong) => {
+      const current = item.template_id ? getWorkout(item.template_id) : undefined;
+      if (!current) return [];
+      return workoutAlternatives(current, "intermediate", 90, isLong).map((c) => ({
+        id: c.workout.id,
+        name: c.workout.name.en,
+        minutes: c.minutes,
+        isHard: isHardWorkout(c.workout),
+        description: c.workout.description["en"],
+        sport: c.workout.sport,
+        steps: c.workout.steps,
+        zones: zoneLegend(c.workout, "en"),
+      }));
+    },
+  };
+
   return (
     <main className="flex flex-col gap-4 py-6">
       <WeekNavigation weekStart={weekStart} isCurrentWeek />
@@ -48,6 +70,8 @@ export default function WeekPreviewPage() {
         plannedMinutes={workouts.reduce((sum, item) => sum + item.duration_minutes, 0)}
         availableMinutes={availability.reduce((sum, minutes) => sum + minutes, 0)}
       />
+      <WeekDragAndDrop>
+      <div className="flex flex-col gap-4">
       {weekdays.map((weekday, index) => {
         const date = addDays(weekStart, index);
         return (
@@ -59,9 +83,12 @@ export default function WeekPreviewPage() {
             workouts={groupByWeekday(weekStart, workouts)[index]}
             isToday={date === today}
             isPast={date < today}
+            editing={editing}
           />
         );
       })}
+      </div>
+      </WeekDragAndDrop>
     </main>
   );
 }

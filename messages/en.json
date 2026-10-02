@@ -41,10 +41,10 @@
     "restDay": "Rest day",
     "noTraining": "No training planned",
     "trainingOnRestDay": "Training planned on a rest day",
-    "overAvailable": "{over} more than your available time"
+    "overAvailable": "{over} more than your available time",
+    "addTraining": "Add training"
   },
   "Workout": {
-    "details": "Show the whole training",
     "estimated": "≈ {duration}",
     "stepsTitle": "Training",
     "zonesTitle": "Zones",
@@ -54,7 +54,45 @@
     "walk": "walking",
     "rest": "{seconds} s rest",
     "repeat": "Repeat {times}×",
-    "zone": "Z{zone}"
+    "zone": "Z{zone}",
+    "close": "Close"
+  },
+  "WorkoutActions": {
+    "swap": "Swap",
+    "swapTitle": "Choose another training of the same kind:",
+    "move": "Move",
+    "moveTitle": "Move to:",
+    "delete": "Delete",
+    "deleteQuestion": "Delete this training?",
+    "confirmDelete": "Yes, delete",
+    "cancel": "Cancel",
+    "hard": "hard",
+    "failed": "That didn't work. Please try again.",
+    "dragHandle": "Drag {name} to another day",
+    "dragInstructions": "To move a training, press Space or Enter, use the arrow keys to go to another day, and press Space or Enter again to drop it. Press Escape to cancel.",
+    "pickedUp": "Picked up {name}.",
+    "over": "{name} is over {day}.",
+    "dropped": "{name} moved to {day}.",
+    "cancelled": "Moving {name} was cancelled.",
+    "backToAlternatives": "All alternatives",
+    "swapToThis": "Swap to this training"
+  },
+  "AddWorkout": {
+    "title": "Add training",
+    "date": "Date",
+    "sport": "Sport",
+    "kind": "Kind of training",
+    "fromLibrary": "From the library",
+    "own": "My own training",
+    "workout": "Training",
+    "chooseWorkout": "Choose a training",
+    "easyGroup": "Easy",
+    "hardGroup": "Hard",
+    "titlePlaceholder": "e.g. Run with the club",
+    "strengthPlaceholder": "e.g. Core and legs",
+    "minutes": "Duration in minutes",
+    "submit": "Add",
+    "failed": "Adding didn't work. Please try again."
   },
   "PlanWeek": {
     "button": "Plan my week",
@@ -64,6 +102,11 @@
     "plannedByRules": "{count, plural, one {# training} other {# trainings}} planned.",
     "nothingToPlan": "There are no open training days left this week.",
     "failed": "Planning didn't work. Please try again."
+  },
+  "Watch": {
+    "sendWeek": "Send week to watch",
+    "sent": "Sent ✓",
+    "failed": "Didn't work, try again"
   },
   "Goal": {
     "title": "Your goal",
@@ -83,7 +126,8 @@
     "save": "Save",
     "saveFailed": "Saving didn't work. Please try again.",
     "invalidDetails": "Please check your name and date of birth.",
-    "logout": "Log out"
+    "logout": "Log out",
+    "privacy": "Privacy statement"
   },
   "Auth": {
     "loginTitle": "Welcome back",
@@ -234,20 +278,62 @@
     "sunday": "Sunday"
   },
   "RacePresets": {
-    "sprint_triathlon": { "label": "Sprint", "description": "Sprint triathlon" },
-    "olympic_triathlon": { "label": "Olympic", "description": "Olympic triathlon" },
-    "ironman_70_3": { "label": "Ironman 70.3", "description": "Ironman 70.3" },
-    "ironman": { "label": "Ironman", "description": "Ironman" },
-    "run_5k": { "label": "5 km", "description": "Run 5 km" },
-    "run_10k": { "label": "10 km", "description": "Run 10 km" },
-    "half_marathon": { "label": "Half marathon", "description": "Half marathon" },
-    "marathon": { "label": "Marathon", "description": "Marathon" },
-    "ride_50k": { "label": "50 km", "description": "Ride 50 km" },
-    "ride_100k": { "label": "100 km", "description": "Ride 100 km" },
-    "ride_160k": { "label": "160 km", "description": "Ride 160 km" },
-    "swim_1k": { "label": "1 km", "description": "Swim 1 km" },
-    "swim_2_5k": { "label": "2.5 km", "description": "Swim 2.5 km" },
-    "swim_5k": { "label": "5 km", "description": "Swim 5 km" }
+    "sprint_triathlon": {
+      "label": "Sprint",
+      "description": "Sprint triathlon"
+    },
+    "olympic_triathlon": {
+      "label": "Olympic",
+      "description": "Olympic triathlon"
+    },
+    "ironman_70_3": {
+      "label": "Ironman 70.3",
+      "description": "Ironman 70.3"
+    },
+    "ironman": {
+      "label": "Ironman",
+      "description": "Ironman"
+    },
+    "run_5k": {
+      "label": "5 km",
+      "description": "Run 5 km"
+    },
+    "run_10k": {
+      "label": "10 km",
+      "description": "Run 10 km"
+    },
+    "half_marathon": {
+      "label": "Half marathon",
+      "description": "Half marathon"
+    },
+    "marathon": {
+      "label": "Marathon",
+      "description": "Marathon"
+    },
+    "ride_50k": {
+      "label": "50 km",
+      "description": "Ride 50 km"
+    },
+    "ride_100k": {
+      "label": "100 km",
+      "description": "Ride 100 km"
+    },
+    "ride_160k": {
+      "label": "160 km",
+      "description": "Ride 160 km"
+    },
+    "swim_1k": {
+      "label": "1 km",
+      "description": "Swim 1 km"
+    },
+    "swim_2_5k": {
+      "label": "2.5 km",
+      "description": "Swim 2.5 km"
+    },
+    "swim_5k": {
+      "label": "5 km",
+      "description": "Swim 5 km"
+    }
   },
   "Distance": {
     "meters": "{value} m",

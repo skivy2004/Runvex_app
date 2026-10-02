@@ -56,10 +56,10 @@ export function BottomNav() {
           <TabLink key={tab.href} tab={tab} isActive={isActive(tab.href)} />
         ))}
 
-        {/* Raised round button in the middle, like in the design. Adding trainings comes in step 8. */}
+        {/* Raised round button in the middle, like in the design: add a training. */}
         <div className="flex flex-1 justify-center">
           <Link
-            href="/week"
+            href="/add"
             aria-label={t("add")}
             className="-mt-7 flex size-14 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-lg shadow-accent/20 ring-4 ring-background transition active:scale-95"
           >

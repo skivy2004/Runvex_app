@@ -1,20 +1,45 @@
 "use server";
 
 import { refresh } from "next/cache";
+import { redirect } from "next/navigation";
+import { after } from "next/server";
 import { buildPlanMessage, sessionsFromAnswer } from "@/core/aiPlan";
 import { addDays, startOfWeek, todayInTimeZone } from "@/core/dates";
 import { isLocale } from "@/core/locale";
 import { checkPlan, planningContext, planWeek, type PlannerInput } from "@/core/planner";
+import type { Sport } from "@/core/training";
+import {
+  addWorkoutSchema,
+  deleteWorkoutSchema,
+  moveWorkoutSchema,
+  swapWorkoutSchema,
+  type AddWorkoutInput,
+} from "@/core/validation/workouts";
 import { isValidIsoDate } from "@/core/week";
+import { estimatedMinutes } from "@/core/workouts/estimate";
 import { getWorkout } from "@/core/workouts/library";
 import { createClient } from "@/lib/supabase/server";
 import { requestAiPlan, isAiCoachConfigured } from "@/services/aiCoach";
 import { countAiRequestsSince, logAiRequest } from "@/services/aiRequests";
 import { getAthleteSports } from "@/services/athleteSports";
 import { getWeeklyAvailability } from "@/services/availability";
+import { removeFromWatch, sendToWatch } from "@/services/watchSync";
 import { getCurrentGoal } from "@/services/goals";
 import { getCurrentProfile } from "@/services/profile";
-import { getPlannedWorkouts, insertPlannedSessions } from "@/services/workouts";
+import {
+  addPlannedWorkout,
+  deletePlannedWorkout,
+  getPlannedWorkout,
+  getPlannedWorkouts,
+  insertPlannedSessions,
+  movePlannedWorkout,
+  swapPlannedWorkout,
+} from "@/services/workouts";
+
+/** The profile's language, or English when it's unknown. */
+function localeOf(value: string) {
+  return isLocale(value) ? value : "en";
+}
 
 /** At most this many AI week plans per user per 24 hours; after that the rules plan. */
 const AI_PLANS_PER_DAY = 10;
@@ -104,7 +129,7 @@ export async function planWeekAction(weekStart: string): Promise<PlanWeekResult>
   // 3. Fallback: the rule-based planner always gives a valid week.
   sessions ??= planWeek(input);
 
-  const { error } = await insertPlannedSessions(
+  const { data: inserted, error } = await insertPlannedSessions(
     supabase,
     profile.id,
     sessions.map((session) => ({
@@ -118,7 +143,145 @@ export async function planWeekAction(weekStart: string): Promise<PlanWeekResult>
     console.error("Saving the week plan failed:", error.message);
     return { ok: false, error: "saveFailed" };
   }
+  // After the response, so the user doesn't wait for the watch.
+  after(() => sendToWatch(inserted, locale));
 
   refresh();
   return { ok: true, planned: sessions.length, source };
+}
+
+// ---------------------------------------------------------------------------
+// Changing single trainings: swap, move, delete, add.
+// ---------------------------------------------------------------------------
+
+export type WorkoutActionResult = { ok: boolean };
+
+/** The level for this sport, used to estimate swim durations. */
+async function levelFor(supabase: Awaited<ReturnType<typeof createClient>>, userId: string, sport: Sport) {
+  const sports = await getAthleteSports(supabase, userId);
+  return sports.find((item) => item.sport === sport)?.level ?? "intermediate";
+}
+
+/** Replaces a training by another library workout of the same sport. */
+export async function swapWorkoutAction(id: string, templateId: string): Promise<WorkoutActionResult> {
+  const parsed = swapWorkoutSchema.safeParse({ id, templateId });
+  if (!parsed.success) return { ok: false };
+
+  const supabase = await createClient();
+  const profile = await getCurrentProfile(supabase);
+  if (!profile) return { ok: false };
+
+  const workout = await getPlannedWorkout(supabase, profile.id, parsed.data.id);
+  const template = getWorkout(parsed.data.templateId);
+  if (!workout || !template || template.sport !== workout.sport) return { ok: false };
+
+  const minutes = estimatedMinutes(template, await levelFor(supabase, profile.id, template.sport));
+  if (minutes === null) return { ok: false };
+
+  const locale = isLocale(profile.locale) ? profile.locale : "en";
+  const { error } = await swapPlannedWorkout(supabase, profile.id, workout.id, {
+    templateId: template.id,
+    title: template.name[locale],
+    durationMinutes: minutes,
+  });
+  if (error) {
+    console.error("Swapping a workout failed:", error.message);
+    return { ok: false };
+  }
+  after(async () => {
+    const updated = await getPlannedWorkout(supabase, profile.id, workout.id);
+    if (updated) await sendToWatch([updated], locale);
+  });
+  refresh();
+  return { ok: true };
+}
+
+/** Moves a training to another day (the "Move to" menu and dragging). */
+export async function moveWorkoutAction(id: string, date: string): Promise<WorkoutActionResult> {
+  const parsed = moveWorkoutSchema.safeParse({ id, date });
+  if (!parsed.success) return { ok: false };
+
+  const supabase = await createClient();
+  const profile = await getCurrentProfile(supabase);
+  if (!profile) return { ok: false };
+
+  const { error } = await movePlannedWorkout(supabase, profile.id, parsed.data.id, parsed.data.date);
+  if (error) {
+    console.error("Moving a workout failed:", error.message);
+    return { ok: false };
+  }
+  after(async () => {
+    const moved = await getPlannedWorkout(supabase, profile.id, parsed.data.id);
+    if (moved) await sendToWatch([moved], localeOf(profile.locale));
+  });
+  refresh();
+  return { ok: true };
+}
+
+export async function deleteWorkoutAction(id: string): Promise<WorkoutActionResult> {
+  const parsed = deleteWorkoutSchema.safeParse({ id });
+  if (!parsed.success) return { ok: false };
+
+  const supabase = await createClient();
+  const profile = await getCurrentProfile(supabase);
+  if (!profile) return { ok: false };
+
+  const { error } = await deletePlannedWorkout(supabase, profile.id, parsed.data.id);
+  if (error) {
+    console.error("Deleting a workout failed:", error.message);
+    return { ok: false };
+  }
+  after(() => removeFromWatch([parsed.data.id]));
+  refresh();
+  return { ok: true };
+}
+
+/** Adds a training: a library workout or your own (e.g. strength). Then shows its week. */
+export async function addWorkoutAction(input: AddWorkoutInput): Promise<WorkoutActionResult> {
+  const parsed = addWorkoutSchema.safeParse(input);
+  if (!parsed.success) return { ok: false };
+  const data = parsed.data;
+
+  const supabase = await createClient();
+  const profile = await getCurrentProfile(supabase);
+  if (!profile) return { ok: false };
+
+  let title = data.title;
+  let durationMinutes = data.durationMinutes;
+  if (data.templateId !== null) {
+    // A library workout: its name and duration come from the library, not from the form.
+    const template = getWorkout(data.templateId);
+    if (!template || template.sport !== data.sport) return { ok: false };
+    durationMinutes = estimatedMinutes(template, await levelFor(supabase, profile.id, data.sport));
+    title = template.name[isLocale(profile.locale) ? profile.locale : "en"];
+  }
+  if (durationMinutes === null) return { ok: false };
+
+  const { data: added, error } = await addPlannedWorkout(supabase, profile.id, {
+    date: data.date,
+    sport: data.sport,
+    templateId: data.templateId,
+    title,
+    durationMinutes,
+  });
+  if (error) {
+    console.error("Adding a workout failed:", error.message);
+    return { ok: false };
+  }
+  after(() => sendToWatch([added], localeOf(profile.locale)));
+  // redirect() works by throwing, so it must stay outside try/catch.
+  redirect(`/week?week=${startOfWeek(data.date)}`);
+}
+
+/** Sends all trainings of one week to the watch, e.g. ones planned before the watch was linked. */
+export async function sendWeekToWatchAction(weekStart: string): Promise<WorkoutActionResult> {
+  if (!isValidIsoDate(weekStart) || startOfWeek(weekStart) !== weekStart) return { ok: false };
+
+  const supabase = await createClient();
+  const profile = await getCurrentProfile(supabase);
+  if (!profile) return { ok: false };
+
+  const workouts = await getPlannedWorkouts(supabase, profile.id, weekStart, addDays(weekStart, 6));
+  // Here we wait for the answer, so the button can say whether it worked.
+  return { ok: await sendToWatch(workouts, localeOf(profile.locale)) };
 }

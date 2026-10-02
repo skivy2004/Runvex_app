@@ -1,19 +1,26 @@
-import { getTranslations } from "next-intl/server";
+import { getLocale, getTranslations } from "next-intl/server";
 import { PageHeading } from "@/components/PageHeading";
-import { DayCard } from "@/components/week/DayCard";
+import { DayCard, type DayEditing } from "@/components/week/DayCard";
 import { PlanWeekButton } from "@/components/week/PlanWeekButton";
+import { SendWeekToWatchButton } from "@/components/week/SendWeekToWatchButton";
+import { WeekDragAndDrop } from "@/components/week/WeekDragAndDrop";
 import { WeekNavigation } from "@/components/week/WeekNavigation";
 import { WeekTotals } from "@/components/week/WeekTotals";
-import { addDays, startOfWeek, todayInTimeZone } from "@/core/dates";
+import { addDays, daysBetween, startOfWeek, todayInTimeZone } from "@/core/dates";
+import { isHardWorkout, workoutAlternatives } from "@/core/planner";
 import { weekdays } from "@/core/training";
 import { groupByWeekday, resolveWeekStart } from "@/core/week";
+import { getWorkout, zoneLegend } from "@/core/workouts/library";
 import { createClient } from "@/lib/supabase/server";
+import { getAthleteSports } from "@/services/athleteSports";
 import { getWeeklyAvailability } from "@/services/availability";
 import { getCurrentProfile } from "@/services/profile";
+import { isWatchSyncConfigured } from "@/services/watchSync";
 import { getPlannedWorkouts } from "@/services/workouts";
 
 export default async function WeekPage({ searchParams }: PageProps<"/week">) {
   const t = await getTranslations("Week");
+  const locale = await getLocale();
   const supabase = await createClient();
   const profile = await getCurrentProfile(supabase);
   // The proxy already sends logged-out visitors to /login.
@@ -24,9 +31,10 @@ export default async function WeekPage({ searchParams }: PageProps<"/week">) {
   const { week } = await searchParams;
   const weekStart = resolveWeekStart(typeof week === "string" ? week : undefined, today);
 
-  const [availability, workouts] = await Promise.all([
+  const [availability, workouts, sports] = await Promise.all([
     getWeeklyAvailability(supabase, profile.id),
     getPlannedWorkouts(supabase, profile.id, weekStart, addDays(weekStart, 6)),
+    getAthleteSports(supabase, profile.id),
   ]);
   const workoutsPerDay = groupByWeekday(weekStart, workouts);
   // Show "Plan my week" while a training day from today on is still empty.
@@ -34,6 +42,27 @@ export default async function WeekPage({ searchParams }: PageProps<"/week">) {
     (day, index) =>
       day.minutes > 0 && addDays(weekStart, index) >= today && workoutsPerDay[index].length === 0,
   );
+
+  // What "Swap" offers per training: library workouts of the same kind that fit the day.
+  const editing: DayEditing = {
+    weekDates: weekdays.map((_, index) => addDays(weekStart, index)),
+    alternativesFor: (workout, isLongSession) => {
+      const current = workout.template_id ? getWorkout(workout.template_id) : undefined;
+      const level = sports.find((item) => item.sport === workout.sport)?.level;
+      if (!current || !level) return [];
+      const dayMinutes = availability[daysBetween(weekStart, workout.scheduled_on)]?.minutes ?? 0;
+      return workoutAlternatives(current, level, dayMinutes, isLongSession).map((candidate) => ({
+        id: candidate.workout.id,
+        name: candidate.workout.name[locale],
+        minutes: candidate.minutes,
+        isHard: isHardWorkout(candidate.workout),
+        description: candidate.workout.description[locale],
+        sport: candidate.workout.sport,
+        steps: candidate.workout.steps,
+        zones: zoneLegend(candidate.workout, locale),
+      }));
+    },
+  };
 
   return (
     <div className="flex flex-col gap-4">
@@ -44,22 +73,28 @@ export default async function WeekPage({ searchParams }: PageProps<"/week">) {
         availableMinutes={availability.reduce((sum, day) => sum + day.minutes, 0)}
       />
       {hasOpenDays && <PlanWeekButton weekStart={weekStart} />}
-      {weekdays.map((weekday, index) => {
-        const date = addDays(weekStart, index);
-        return (
-          <DayCard
-            key={weekday}
-            date={date}
-            availableMinutes={availability[index].minutes}
-            preferredSports={availability[index].sports}
-            longSessions={availability[index].longSessions}
-            workouts={workoutsPerDay[index]}
-            isToday={date === today}
-            // ISO dates compare correctly as plain text: "2026-09-30" < "2026-10-01".
-            isPast={date < today}
-          />
-        );
-      })}
+      {isWatchSyncConfigured() && workouts.length > 0 && <SendWeekToWatchButton weekStart={weekStart} />}
+      <WeekDragAndDrop>
+        <div className="flex flex-col gap-4">
+          {weekdays.map((weekday, index) => {
+            const date = addDays(weekStart, index);
+            return (
+              <DayCard
+                key={weekday}
+                date={date}
+                availableMinutes={availability[index].minutes}
+                preferredSports={availability[index].sports}
+                longSessions={availability[index].longSessions}
+                workouts={workoutsPerDay[index]}
+                isToday={date === today}
+                // ISO dates compare correctly as plain text: "2026-09-30" < "2026-10-01".
+                isPast={date < today}
+                editing={editing}
+              />
+            );
+          })}
+        </div>
+      </WeekDragAndDrop>
     </div>
   );
 }

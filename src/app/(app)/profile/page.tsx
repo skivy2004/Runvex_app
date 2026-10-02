@@ -1,4 +1,5 @@
 import { LogOut } from "lucide-react";
+import Link from "next/link";
 import { getTranslations } from "next-intl/server";
 import { signOut } from "@/app/(guest)/actions";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
@@ -42,6 +43,10 @@ export default async function ProfilePage() {
           {t("logout")}
         </Button>
       </form>
+
+      <Link href="/privacy" className="self-center text-sm text-muted underline-offset-4 hover:text-foreground hover:underline">
+        {t("privacy")}
+      </Link>
     </div>
   );
 }

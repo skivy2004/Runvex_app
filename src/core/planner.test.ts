@@ -8,6 +8,7 @@ import {
   pickWorkout,
   planningContext,
   planWeek,
+  workoutAlternatives,
   type PlannerInput,
 } from "./planner";
 import { estimatedMinutes } from "./workouts/estimate";
@@ -249,6 +250,31 @@ describe("pickWorkout", () => {
   it("picks the longest easy workout within the level's cap", () => {
     expect(pickWorkout("running", "beginner", 360, "easy")?.minutes).toBe(40);
     expect(pickWorkout("running", "beginner", 360, "long")?.minutes).toBe(60);
+  });
+});
+
+describe("workoutAlternatives", () => {
+  it("offers other workouts of the same sport and kind, closest in length first", () => {
+    const tempo = getWorkout("run_45_3_tempo")!;
+    const alternatives = workoutAlternatives(tempo, "intermediate", 60, false);
+    expect(alternatives.length).toBeGreaterThan(0);
+    expect(alternatives.length).toBeLessThanOrEqual(8);
+    expect(alternatives.every((a) => a.workout.sport === "running" && isHard(a.workout.id))).toBe(true);
+    expect(alternatives.every((a) => a.workout.difficulty <= 4 && a.minutes <= 60)).toBe(true);
+    expect(alternatives.some((a) => a.workout.id === tempo.id)).toBe(false);
+    expect(alternatives[0].minutes).toBe(45);
+  });
+
+  it("offers calm workouts for an easy session or a long session", () => {
+    const longRun = getWorkout("run_90_1_easy")!;
+    const alternatives = workoutAlternatives(longRun, "advanced", 90, true);
+    expect(alternatives[0].workout.id).toBe("run_90_2_fartlek");
+    expect(alternatives.every((a) => !isHard(a.workout.id))).toBe(true);
+  });
+
+  it("keeps the current length possible on a day with less time set", () => {
+    const ride = getWorkout("bike_90min_1_easy")!;
+    expect(workoutAlternatives(ride, "intermediate", 30, false).length).toBeGreaterThan(0);
   });
 });
 

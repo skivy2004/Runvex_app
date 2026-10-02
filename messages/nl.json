@@ -41,10 +41,10 @@
     "restDay": "Rustdag",
     "noTraining": "Geen training gepland",
     "trainingOnRestDay": "Training gepland op een rustdag",
-    "overAvailable": "{over} meer dan je beschikbare tijd"
+    "overAvailable": "{over} meer dan je beschikbare tijd",
+    "addTraining": "Training toevoegen"
   },
   "Workout": {
-    "details": "Toon de hele training",
     "estimated": "≈ {duration}",
     "stepsTitle": "Training",
     "zonesTitle": "Zones",
@@ -54,7 +54,45 @@
     "walk": "wandelen",
     "rest": "{seconds} s rust",
     "repeat": "{times}× herhalen",
-    "zone": "Z{zone}"
+    "zone": "Z{zone}",
+    "close": "Sluiten"
+  },
+  "WorkoutActions": {
+    "swap": "Wisselen",
+    "swapTitle": "Kies een andere training van dezelfde soort:",
+    "move": "Verplaatsen",
+    "moveTitle": "Verplaats naar:",
+    "delete": "Verwijderen",
+    "deleteQuestion": "Deze training verwijderen?",
+    "confirmDelete": "Ja, verwijder",
+    "cancel": "Annuleren",
+    "hard": "zwaar",
+    "failed": "Dat is niet gelukt. Probeer het opnieuw.",
+    "dragHandle": "Sleep {name} naar een andere dag",
+    "dragInstructions": "Om een training te verplaatsen: druk op Spatie of Enter, ga met de pijltjestoetsen naar een andere dag en druk nog eens op Spatie of Enter. Escape annuleert.",
+    "pickedUp": "{name} opgepakt.",
+    "over": "{name} staat boven {day}.",
+    "dropped": "{name} verplaatst naar {day}.",
+    "cancelled": "Verplaatsen van {name} geannuleerd.",
+    "backToAlternatives": "Alle alternatieven",
+    "swapToThis": "Wissel naar deze training"
+  },
+  "AddWorkout": {
+    "title": "Training toevoegen",
+    "date": "Datum",
+    "sport": "Sport",
+    "kind": "Soort training",
+    "fromLibrary": "Uit de bibliotheek",
+    "own": "Eigen training",
+    "workout": "Training",
+    "chooseWorkout": "Kies een training",
+    "easyGroup": "Rustig",
+    "hardGroup": "Zwaar",
+    "titlePlaceholder": "bijv. Lopen met de club",
+    "strengthPlaceholder": "bijv. Core en benen",
+    "minutes": "Duur in minuten",
+    "submit": "Toevoegen",
+    "failed": "Toevoegen is niet gelukt. Probeer het opnieuw."
   },
   "PlanWeek": {
     "button": "Plan mijn week",
@@ -64,6 +102,11 @@
     "plannedByRules": "{count, plural, one {# training} other {# trainingen}} gepland.",
     "nothingToPlan": "Er zijn deze week geen open trainingsdagen meer.",
     "failed": "Plannen is niet gelukt. Probeer het opnieuw."
+  },
+  "Watch": {
+    "sendWeek": "Stuur week naar horloge",
+    "sent": "Verstuurd ✓",
+    "failed": "Mislukt, probeer opnieuw"
   },
   "Goal": {
     "title": "Jouw doel",
@@ -83,7 +126,8 @@
     "save": "Opslaan",
     "saveFailed": "Opslaan is niet gelukt. Probeer het opnieuw.",
     "invalidDetails": "Controleer je naam en geboortedatum.",
-    "logout": "Uitloggen"
+    "logout": "Uitloggen",
+    "privacy": "Privacyverklaring"
   },
   "Auth": {
     "loginTitle": "Welkom terug",
@@ -234,20 +278,62 @@
     "sunday": "Zondag"
   },
   "RacePresets": {
-    "sprint_triathlon": { "label": "Sprint", "description": "Sprint triatlon" },
-    "olympic_triathlon": { "label": "Olympisch", "description": "Olympische triatlon" },
-    "ironman_70_3": { "label": "Ironman 70.3", "description": "Ironman 70.3" },
-    "ironman": { "label": "Ironman", "description": "Ironman" },
-    "run_5k": { "label": "5 km", "description": "5 km hardlopen" },
-    "run_10k": { "label": "10 km", "description": "10 km hardlopen" },
-    "half_marathon": { "label": "Halve marathon", "description": "Halve marathon" },
-    "marathon": { "label": "Marathon", "description": "Marathon" },
-    "ride_50k": { "label": "50 km", "description": "50 km fietsen" },
-    "ride_100k": { "label": "100 km", "description": "100 km fietsen" },
-    "ride_160k": { "label": "160 km", "description": "160 km fietsen" },
-    "swim_1k": { "label": "1 km", "description": "1 km zwemmen" },
-    "swim_2_5k": { "label": "2,5 km", "description": "2,5 km zwemmen" },
-    "swim_5k": { "label": "5 km", "description": "5 km zwemmen" }
+    "sprint_triathlon": {
+      "label": "Sprint",
+      "description": "Sprint triatlon"
+    },
+    "olympic_triathlon": {
+      "label": "Olympisch",
+      "description": "Olympische triatlon"
+    },
+    "ironman_70_3": {
+      "label": "Ironman 70.3",
+      "description": "Ironman 70.3"
+    },
+    "ironman": {
+      "label": "Ironman",
+      "description": "Ironman"
+    },
+    "run_5k": {
+      "label": "5 km",
+      "description": "5 km hardlopen"
+    },
+    "run_10k": {
+      "label": "10 km",
+      "description": "10 km hardlopen"
+    },
+    "half_marathon": {
+      "label": "Halve marathon",
+      "description": "Halve marathon"
+    },
+    "marathon": {
+      "label": "Marathon",
+      "description": "Marathon"
+    },
+    "ride_50k": {
+      "label": "50 km",
+      "description": "50 km fietsen"
+    },
+    "ride_100k": {
+      "label": "100 km",
+      "description": "100 km fietsen"
+    },
+    "ride_160k": {
+      "label": "160 km",
+      "description": "160 km fietsen"
+    },
+    "swim_1k": {
+      "label": "1 km",
+      "description": "1 km zwemmen"
+    },
+    "swim_2_5k": {
+      "label": "2,5 km",
+      "description": "2,5 km zwemmen"
+    },
+    "swim_5k": {
+      "label": "5 km",
+      "description": "5 km zwemmen"
+    }
   },
   "Distance": {
     "meters": "{value} m",

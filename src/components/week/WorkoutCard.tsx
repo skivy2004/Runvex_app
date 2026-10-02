@@ -1,12 +1,12 @@
-import { ChevronDown } from "lucide-react";
 import { useLocale, useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import { SportIcon } from "@/components/SportIcon";
 import { useFormatDistance } from "@/components/useFormatDistance";
 import { useFormatDuration } from "@/components/useFormatDuration";
-import { getWorkout, zoneDescription } from "@/core/workouts/library";
+import { getWorkout, zoneLegend } from "@/core/workouts/library";
 import type { PlannedWorkout } from "@/services/workouts";
-import { usedZones, WorkoutSteps, ZoneBadge } from "./WorkoutSteps";
+import { WorkoutDetails } from "./WorkoutDetails";
+import { WorkoutDialog } from "./WorkoutDialog";
 
 type WorkoutCardProps = {
   workout: PlannedWorkout;
@@ -14,14 +14,15 @@ type WorkoutCardProps = {
   isLongSession?: boolean;
   /** Optional content on the right, e.g. "Tomorrow". */
   trailing?: ReactNode;
+  /** Buttons at the bottom of the window: swap, move, delete. */
+  actions?: ReactNode;
 };
 
 /**
- * A training in the week view. Closed it shows sport, name and length; tap it to
- * open the whole workout. <details> does the opening and closing itself, without
- * JavaScript, and works with the keyboard and screen readers out of the box.
+ * A training. On the page it shows sport, name and length; tap it and it opens as
+ * a window with the whole workout.
  */
-export function WorkoutCard({ workout, isLongSession = false, trailing }: WorkoutCardProps) {
+export function WorkoutCard({ workout, isLongSession = false, trailing, actions }: WorkoutCardProps) {
   const t = useTranslations("Workout");
   const tSports = useTranslations("Sports");
   const tLong = useTranslations("LongSessions");
@@ -32,9 +33,8 @@ export function WorkoutCard({ workout, isLongSession = false, trailing }: Workou
   const template = workout.template_id ? getWorkout(workout.template_id) : undefined;
   const libraryName = template?.name[locale];
   // The long session simply shows as "Long run" / "Long ride"; the workout name is inside.
-  const longName = isLongSession && (workout.sport === "running" || workout.sport === "cycling")
-    ? tLong(workout.sport)
-    : null;
+  const longName =
+    isLongSession && (workout.sport === "running" || workout.sport === "cycling") ? tLong(workout.sport) : null;
   const title = longName ?? libraryName ?? workout.title;
 
   // Swims are planned by distance; their duration is an estimate for your level.
@@ -56,61 +56,34 @@ export function WorkoutCard({ workout, isLongSession = false, trailing }: Workou
     </span>
   );
 
-  // A training you added yourself without notes has nothing to open.
-  if (!template && !workout.notes) {
+  // A training you added yourself, without notes or actions, has nothing to open.
+  if (!template && !workout.notes && !actions) {
     return <div className="rounded-2xl bg-surface-raised p-3">{summary}</div>;
   }
 
-  const sport = template?.sport;
   return (
-    <details className="workout-card group rounded-2xl bg-surface-raised">
-      <summary className="flex cursor-pointer list-none items-center gap-2 rounded-2xl p-3 focus-visible:outline-2 focus-visible:outline-accent [&::-webkit-details-marker]:hidden">
-        <span className="min-w-0 flex-1">{summary}</span>
-        <ChevronDown
-          aria-hidden
-          className="size-5 shrink-0 text-muted transition-transform group-open:rotate-180 motion-reduce:transition-none"
-        />
-        <span className="sr-only">{t("details")}</span>
-      </summary>
+    <WorkoutDialog summary={summary} title={title}>
+      {template && (
+        <>
+          {longName && <p className="-mb-2 font-semibold">{libraryName}</p>}
+          <WorkoutDetails
+            description={template.description[locale]}
+            sport={template.sport}
+            steps={template.steps}
+            zones={zoneLegend(template, locale)}
+            locale={locale}
+          />
+        </>
+      )}
 
-      <div className="flex flex-col gap-4 px-3 pb-4">
-        {template && (
-          <>
-            {(longName || template.description) && (
-              <div className="flex flex-col gap-1">
-                {longName && <p className="font-semibold">{libraryName}</p>}
-                <p className="text-sm text-muted">{template.description[locale]}</p>
-              </div>
-            )}
+      {workout.notes && (
+        <section className="flex flex-col gap-1 rounded-xl bg-accent/10 p-3">
+          <h3 className="text-xs font-semibold uppercase tracking-wide text-accent">{t("whyTitle")}</h3>
+          <p className="text-sm">{workout.notes}</p>
+        </section>
+      )}
 
-            <section className="flex flex-col gap-2">
-              <h3 className="text-xs font-semibold uppercase tracking-wide text-muted">{t("stepsTitle")}</h3>
-              <WorkoutSteps steps={template.steps} sport={template.sport} locale={locale} />
-            </section>
-
-            {sport && sport !== "strength" && (
-              <section className="flex flex-col gap-2">
-                <h3 className="text-xs font-semibold uppercase tracking-wide text-muted">{t("zonesTitle")}</h3>
-                <ul className="flex flex-col gap-1.5">
-                  {usedZones(template.steps).map((zone) => (
-                    <li key={zone} className="flex items-center gap-2 text-sm">
-                      <ZoneBadge zone={zone} />
-                      <span className="text-muted">{zoneDescription(sport, zone, locale)}</span>
-                    </li>
-                  ))}
-                </ul>
-              </section>
-            )}
-          </>
-        )}
-
-        {workout.notes && (
-          <section className="flex flex-col gap-1 rounded-xl bg-accent/10 p-3">
-            <h3 className="text-xs font-semibold uppercase tracking-wide text-accent">{t("whyTitle")}</h3>
-            <p className="text-sm">{workout.notes}</p>
-          </section>
-        )}
-      </div>
-    </details>
+      {actions}
+    </WorkoutDialog>
   );
 }

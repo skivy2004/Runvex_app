@@ -1,12 +1,23 @@
-import { TriangleAlert } from "lucide-react";
-import { useFormatter, useTranslations } from "next-intl";
+import { Plus, TriangleAlert } from "lucide-react";
+import Link from "next/link";
+import { useFormatter, useLocale, useTranslations } from "next-intl";
 import { SportIcon } from "@/components/SportIcon";
 import { useFormatDuration } from "@/components/useFormatDuration";
-import { WorkoutCard } from "./WorkoutCard";
 import { toFormattableDate } from "@/core/dates";
 import type { LongSessionSport } from "@/core/availability";
 import type { Sport } from "@/core/training";
+import { getWorkout } from "@/core/workouts/library";
 import type { PlannedWorkout } from "@/services/workouts";
+import { DraggableWorkout, DroppableDay } from "./WeekDragAndDrop";
+import { WorkoutActions, type Alternative } from "./WorkoutActions";
+import { WorkoutCard } from "./WorkoutCard";
+
+/** Turns on changing trainings: swap, move, delete, drag and add. */
+export type DayEditing = {
+  /** The 7 dates of the shown week. */
+  weekDates: string[];
+  alternativesFor: (workout: PlannedWorkout, isLongSession: boolean) => Alternative[];
+};
 
 type DayCardProps = {
   date: string;
@@ -18,6 +29,7 @@ type DayCardProps = {
   workouts: PlannedWorkout[];
   isToday: boolean;
   isPast: boolean;
+  editing?: DayEditing;
 };
 
 export function DayCard({
@@ -28,11 +40,13 @@ export function DayCard({
   workouts,
   isToday,
   isPast,
+  editing,
 }: DayCardProps) {
   const t = useTranslations("Week");
   const tSports = useTranslations("Sports");
   const tLong = useTranslations("LongSessions");
   const format = useFormatter();
+  const locale = useLocale();
   const formatDuration = useFormatDuration();
 
   // The first workout of a long session's sport on this day is that long session.
@@ -56,7 +70,8 @@ export function DayCard({
           ? t("overAvailable", { over: formatDuration(plannedMinutes - availableMinutes) })
           : null;
 
-  return (
+  const card = (
+    // The day itself, as a card. While editing it's wrapped in a drop zone below.
     <section
       // aria-current tells screen readers which day is today.
       aria-current={isToday ? "date" : undefined}
@@ -110,14 +125,41 @@ export function DayCard({
 
       {workouts.length > 0 ? (
         <ul className="flex flex-col gap-2">
-          {workouts.map((workout) => (
-            <li key={workout.id}>
+          {workouts.map((workout) => {
+            const isLongSession = longSessionWorkouts.has(workout.id);
+            const workoutCard = (
               <WorkoutCard
                 workout={workout}
-                isLongSession={longSessionWorkouts.has(workout.id)}
+                isLongSession={isLongSession}
+                actions={
+                  editing && (
+                    <WorkoutActions
+                      workoutId={workout.id}
+                      date={date}
+                      weekDates={editing.weekDates}
+                      alternatives={editing.alternativesFor(workout, isLongSession)}
+                    />
+                  )
+                }
               />
-            </li>
-          ))}
+            );
+            // The same name as on the card, for the drag handle's label.
+            const name =
+              isLongSession && (workout.sport === "running" || workout.sport === "cycling")
+                ? tLong(workout.sport)
+                : (workout.template_id && getWorkout(workout.template_id)?.name[locale]) || workout.title;
+            return (
+              <li key={workout.id}>
+                {editing ? (
+                  <DraggableWorkout id={workout.id} date={date} name={name}>
+                    {workoutCard}
+                  </DraggableWorkout>
+                ) : (
+                  workoutCard
+                )}
+              </li>
+            );
+          })}
         </ul>
       ) : (
         !isRestDay && <p className="text-sm text-muted">{t("noTraining")}</p>
@@ -129,6 +171,19 @@ export function DayCard({
           {warning}
         </p>
       )}
+
+      {editing && !isPast && (
+        <Link
+          href={`/add?date=${date}`}
+          className="flex items-center gap-1.5 self-start rounded-full px-1 text-sm font-semibold text-accent hover:underline"
+        >
+          <Plus aria-hidden className="size-4" />
+          {t("addTraining")}
+        </Link>
+      )}
     </section>
   );
+
+  // While editing, the whole day is a drop zone for dragged trainings.
+  return editing ? <DroppableDay date={date}>{card}</DroppableDay> : card;
 }

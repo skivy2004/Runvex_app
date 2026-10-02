@@ -356,6 +356,36 @@ function compareScores(a: number[], b: number[]): number {
   return 0;
 }
 
+/** How many alternatives "Swap" offers. */
+export const MAX_ALTERNATIVES = 8;
+
+/**
+ * Other library workouts that can replace this one: same sport, same kind (easy,
+ * hard or long session), suited to the level and fitting the day. Closest in
+ * length first, so a swap doesn't change the week too much.
+ */
+export function workoutAlternatives(
+  current: Workout,
+  level: ExperienceLevel,
+  availableMinutes: number,
+  isLongSession: boolean,
+): Candidate[] {
+  if (!isPlannable(current.sport)) return [];
+  const currentMinutes = estimatedMinutes(current, level) ?? 0;
+  const kind: Kind = isLongSession ? "long" : isHardWorkout(current) ? "hard" : "easy";
+  // At least as much time as the current workout, also on a day with less time set.
+  const minutes = Math.max(availableMinutes, currentMinutes);
+  return fittingWorkouts(current.sport, level, minutes, kind)
+    .filter((candidate) => candidate.workout.id !== current.id)
+    .sort(
+      (a, b) =>
+        Math.abs(a.minutes - currentMinutes) - Math.abs(b.minutes - currentMinutes) ||
+        b.minutes - a.minutes ||
+        a.workout.difficulty - b.workout.difficulty,
+    )
+    .slice(0, MAX_ALTERNATIVES);
+}
+
 /**
  * The best library workout for one session: it fits in the time, matches the kind
  * and the level, and is as long as allowed. Workouts already used this week are

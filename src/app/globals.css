@@ -30,28 +30,85 @@ html {
 }
 
 /*
- * Workout cards in the week view open with a smooth height animation.
- * interpolate-size lets the browser animate to "auto"; older browsers simply
- * open the card without animation.
+ * Workout pop-up (WorkoutDialog). A <dialog> opened with showModal() sits on top
+ * of the page; ::backdrop is the layer behind it, which blurs the page.
  */
-:root {
-  interpolate-size: allow-keywords;
+.workout-dialog {
+  margin: auto;
+  width: min(100% - 2rem, 28rem);
+  max-height: 85dvh;
+  padding: 0;
+  border: 0;
+  border-radius: 1.5rem;
+  background: var(--color-surface);
+  color: var(--color-foreground);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  box-shadow: 0 24px 64px rgb(0 0 0 / 0.5);
 }
 
-.workout-card::details-content {
-  block-size: 0;
-  overflow-y: clip;
+.workout-dialog::backdrop {
+  background: rgb(0 0 0 / 0.45);
+  backdrop-filter: blur(10px);
+}
+
+/* The page behind an open pop-up doesn't scroll. */
+html:has(.workout-dialog[open]) {
+  overflow: hidden;
+}
+
+/*
+ * Fallback animation (no View Transitions): fade and zoom in and out.
+ * @starting-style is where an opening animation starts from; allow-discrete lets
+ * display and overlay wait until the closing animation is done.
+ */
+.workout-dialog,
+.workout-dialog::backdrop {
   transition:
-    block-size 250ms ease,
-    content-visibility 250ms allow-discrete;
+    opacity 200ms ease,
+    scale 200ms ease,
+    backdrop-filter 200ms ease,
+    display 200ms allow-discrete,
+    overlay 200ms allow-discrete;
 }
 
-.workout-card[open]::details-content {
-  block-size: auto;
+.workout-dialog:not([open]) {
+  opacity: 0;
+  scale: 0.94;
+}
+
+.workout-dialog:not([open])::backdrop {
+  opacity: 0;
+  backdrop-filter: blur(0);
+}
+
+@starting-style {
+  .workout-dialog[open] {
+    opacity: 0;
+    scale: 0.94;
+  }
+
+  .workout-dialog[open]::backdrop {
+    opacity: 0;
+    backdrop-filter: blur(0);
+  }
+}
+
+/* While the card morphs into the window (View Transition), the fallback is off. */
+html[data-morphing] .workout-dialog,
+html[data-morphing] .workout-dialog::backdrop {
+  transition: none;
+}
+
+/* The morph itself: a little slower and smoother than the browser default. */
+::view-transition-group(*) {
+  animation-duration: 320ms;
+  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .workout-card::details-content {
+  .workout-dialog,
+  .workout-dialog::backdrop {
     transition: none;
   }
 }
