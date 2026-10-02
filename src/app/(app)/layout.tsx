@@ -10,8 +10,10 @@ export default async function AppLayout({ children }: LayoutProps<"/">) {
 
   return (
     <>
-      {/* pb-32 keeps the last content clear of the tab bar. */}
-      <main className="flex flex-1 flex-col pt-6 pb-32">{children}</main>
+      {/* Keeps the last content clear of the tab bar, which is taller on iPhones with a home bar. */}
+      <main className="flex flex-1 flex-col pt-6 pb-[calc(8rem+env(safe-area-inset-bottom))]">
+        {children}
+      </main>
       <BottomNav />
     </>
   );

@@ -48,12 +48,10 @@ export function BottomNav() {
 
   return (
     // Fixed to the bottom of the screen; the inner div keeps it as wide as the app column.
-    // pb-[env(safe-area-inset-bottom)] keeps it clear of the iPhone home bar.
-    <nav
-      aria-label={t("label")}
-      className="fixed inset-x-0 bottom-0 z-10 pb-[env(safe-area-inset-bottom)]"
-    >
-      <div className="mx-auto flex max-w-md items-end rounded-t-3xl border-t border-line bg-surface px-2 pt-2 pb-3">
+    // The bar's own background runs down behind the iPhone home bar (the safe area),
+    // while the tabs stay above it.
+    <nav aria-label={t("label")} className="fixed inset-x-0 bottom-0 z-10">
+      <div className="mx-auto flex max-w-md items-end rounded-t-3xl border-t border-line bg-surface px-2 pt-2 pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
         {leftTabs.map((tab) => (
           <TabLink key={tab.href} tab={tab} isActive={isActive(tab.href)} />
         ))}
