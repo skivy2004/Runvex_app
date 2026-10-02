@@ -2,6 +2,7 @@
 import { DayCard } from "@/components/week/DayCard";
 import { WeekNavigation } from "@/components/week/WeekNavigation";
 import { WeekTotals } from "@/components/week/WeekTotals";
+import type { LongSessionSport } from "@/core/availability";
 import { addDays, startOfWeek, todayInTimeZone } from "@/core/dates";
 import { weekdays } from "@/core/training";
 import { groupByWeekday } from "@/core/week";
@@ -10,23 +11,35 @@ import type { PlannedWorkout } from "@/services/workouts";
 export default function WeekPreviewPage() {
   const today = todayInTimeZone("Europe/Amsterdam");
   const weekStart = startOfWeek(today);
-  const availability = [90, 0, 120, 105, 90, 105, 0];
+  const availability = [90, 0, 120, 105, 90, 105, 90];
 
-  const workout = (dayIndex: number, sport: PlannedWorkout["sport"], title: string, minutes: number) => ({
+  const workout = (
+    dayIndex: number,
+    sport: PlannedWorkout["sport"],
+    title: string,
+    minutes: number,
+    templateId: string | null = null,
+    notes: string | null = null,
+  ) => ({
     id: `${dayIndex}-${title}`,
     scheduled_on: addDays(weekStart, dayIndex),
     sport,
     title,
     duration_minutes: minutes,
     position: 0,
+    template_id: templateId,
+    notes,
   });
   const workouts: PlannedWorkout[] = [
-    workout(0, "swimming", "Technique swim", 60),
-    workout(1, "running", "Easy run", 45), // on a rest day -> warning
-    workout(2, "cycling", "Intervals", 75),
+    workout(0, "swimming", "1500m Duur", 35, "swim_1500m_2_endurance", "Rustige duur in het water na het weekend."),
+    workout(1, "running", "Easy run", 45), // on a rest day -> warning, own training without details
+    workout(2, "cycling", "Intervals", 75, "bike_75min_4_threshold", "Je zware rit van de week, met een rustdag ervoor."),
     workout(2, "running", "Brick run", 60), // too much for the day -> warning
-    workout(5, "cycling", "Long ride", 105),
+    workout(4, "running", "Fartlek", 45, "run_45_3_tempo"),
+    workout(5, "cycling", "Long ride", 90,"bike_90min_1_easy", "Je lange rit: rustig in zone 2."),
   ];
+  // Saturday holds the long ride, Sunday the long run (not planned yet).
+  const longSessions: LongSessionSport[][] = [[], [], [], [], [], ["cycling"], ["running"]];
 
   return (
     <main className="flex flex-col gap-4 py-6">
@@ -42,6 +55,7 @@ export default function WeekPreviewPage() {
             key={weekday}
             date={date}
             availableMinutes={availability[index]}
+            longSessions={longSessions[index]}
             workouts={groupByWeekday(weekStart, workouts)[index]}
             isToday={date === today}
             isPast={date < today}

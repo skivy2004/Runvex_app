@@ -77,6 +77,27 @@ export type Database = {
         }
         Relationships: []
       }
+      ai_requests: {
+        Row: {
+          created_at: string
+          id: string
+          kind: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          kind: string
+          user_id?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          kind?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       planned_workouts: {
         Row: {
           created_at: string
@@ -86,6 +107,7 @@ export type Database = {
           position: number
           scheduled_on: string
           sport: Database["public"]["Enums"]["sport"]
+          template_id: string | null
           title: string
           updated_at: string
           user_id: string
@@ -98,6 +120,7 @@ export type Database = {
           position?: number
           scheduled_on: string
           sport: Database["public"]["Enums"]["sport"]
+          template_id?: string | null
           title: string
           updated_at?: string
           user_id?: string
@@ -110,6 +133,7 @@ export type Database = {
           position?: number
           scheduled_on?: string
           sport?: Database["public"]["Enums"]["sport"]
+          template_id?: string | null
           title?: string
           updated_at?: string
           user_id?: string

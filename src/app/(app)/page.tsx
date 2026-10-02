@@ -37,7 +37,16 @@ export default async function HomePage() {
         availability={availability.map((day) => day.minutes)}
         todayWeekday={isoWeekday(today)}
       />
-      <NextWorkoutCard workout={nextWorkout} today={today} />
+      <NextWorkoutCard
+        workout={nextWorkout}
+        today={today}
+        isLongSession={
+          nextWorkout !== null &&
+          (availability[isoWeekday(nextWorkout.scheduled_on) - 1].longSessions as string[]).includes(
+            nextWorkout.sport,
+          )
+        }
+      />
       <GoalCard goal={goal} today={today} />
     </div>
   );

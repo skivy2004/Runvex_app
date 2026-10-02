@@ -10,7 +10,6 @@
     "nextTraining": "Volgende training",
     "nothingPlanned": "Nog niets gepland",
     "nothingPlannedText": "Plan je trainingen voor deze week, dan zie je ze hier.",
-    "planWeek": "Plan mijn week",
     "today": "Vandaag",
     "tomorrow": "Morgen",
     "goal": "Jouw doel",
@@ -43,6 +42,28 @@
     "noTraining": "Geen training gepland",
     "trainingOnRestDay": "Training gepland op een rustdag",
     "overAvailable": "{over} meer dan je beschikbare tijd"
+  },
+  "Workout": {
+    "details": "Toon de hele training",
+    "estimated": "≈ {duration}",
+    "stepsTitle": "Training",
+    "zonesTitle": "Zones",
+    "whyTitle": "Waarom deze training",
+    "warmup": "warming-up",
+    "cooldown": "cooling-down",
+    "walk": "wandelen",
+    "rest": "{seconds} s rust",
+    "repeat": "{times}× herhalen",
+    "zone": "Z{zone}"
+  },
+  "PlanWeek": {
+    "button": "Plan mijn week",
+    "planning": "Je coach is aan het plannen…",
+    "planningHint": "Dit kan tot een minuut duren.",
+    "plannedByCoach": "Je coach heeft {count, plural, one {# training} other {# trainingen}} gepland.",
+    "plannedByRules": "{count, plural, one {# training} other {# trainingen}} gepland.",
+    "nothingToPlan": "Er zijn deze week geen open trainingsdagen meer.",
+    "failed": "Plannen is niet gelukt. Probeer het opnieuw."
   },
   "Goal": {
     "title": "Jouw doel",

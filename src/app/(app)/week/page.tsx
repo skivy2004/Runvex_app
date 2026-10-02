@@ -1,6 +1,7 @@
 import { getTranslations } from "next-intl/server";
 import { PageHeading } from "@/components/PageHeading";
 import { DayCard } from "@/components/week/DayCard";
+import { PlanWeekButton } from "@/components/week/PlanWeekButton";
 import { WeekNavigation } from "@/components/week/WeekNavigation";
 import { WeekTotals } from "@/components/week/WeekTotals";
 import { addDays, startOfWeek, todayInTimeZone } from "@/core/dates";
@@ -28,6 +29,11 @@ export default async function WeekPage({ searchParams }: PageProps<"/week">) {
     getPlannedWorkouts(supabase, profile.id, weekStart, addDays(weekStart, 6)),
   ]);
   const workoutsPerDay = groupByWeekday(weekStart, workouts);
+  // Show "Plan my week" while a training day from today on is still empty.
+  const hasOpenDays = availability.some(
+    (day, index) =>
+      day.minutes > 0 && addDays(weekStart, index) >= today && workoutsPerDay[index].length === 0,
+  );
 
   return (
     <div className="flex flex-col gap-4">
@@ -37,6 +43,7 @@ export default async function WeekPage({ searchParams }: PageProps<"/week">) {
         plannedMinutes={workouts.reduce((sum, workout) => sum + workout.duration_minutes, 0)}
         availableMinutes={availability.reduce((sum, day) => sum + day.minutes, 0)}
       />
+      {hasOpenDays && <PlanWeekButton weekStart={weekStart} />}
       {weekdays.map((weekday, index) => {
         const date = addDays(weekStart, index);
         return (

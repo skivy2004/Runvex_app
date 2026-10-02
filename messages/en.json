@@ -10,7 +10,6 @@
     "nextTraining": "Next training",
     "nothingPlanned": "Nothing planned yet",
     "nothingPlannedText": "Plan your trainings for this week and they'll show up here.",
-    "planWeek": "Plan my week",
     "today": "Today",
     "tomorrow": "Tomorrow",
     "goal": "Your goal",
@@ -43,6 +42,28 @@
     "noTraining": "No training planned",
     "trainingOnRestDay": "Training planned on a rest day",
     "overAvailable": "{over} more than your available time"
+  },
+  "Workout": {
+    "details": "Show the whole training",
+    "estimated": "≈ {duration}",
+    "stepsTitle": "Training",
+    "zonesTitle": "Zones",
+    "whyTitle": "Why this training",
+    "warmup": "warm-up",
+    "cooldown": "cool-down",
+    "walk": "walking",
+    "rest": "{seconds} s rest",
+    "repeat": "Repeat {times}×",
+    "zone": "Z{zone}"
+  },
+  "PlanWeek": {
+    "button": "Plan my week",
+    "planning": "Your coach is planning…",
+    "planningHint": "This can take up to a minute.",
+    "plannedByCoach": "Your coach planned {count, plural, one {# training} other {# trainings}}.",
+    "plannedByRules": "{count, plural, one {# training} other {# trainings}} planned.",
+    "nothingToPlan": "There are no open training days left this week.",
+    "failed": "Planning didn't work. Please try again."
   },
   "Goal": {
     "title": "Your goal",

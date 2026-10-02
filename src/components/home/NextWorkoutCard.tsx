@@ -1,19 +1,20 @@
 import { CalendarPlus } from "lucide-react";
-import Link from "next/link";
 import { useFormatter, useTranslations } from "next-intl";
-import { buttonClassName } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { WorkoutRow } from "@/components/WorkoutRow";
-import { daysBetween, toFormattableDate } from "@/core/dates";
+import { PlanWeekButton } from "@/components/week/PlanWeekButton";
+import { WorkoutCard } from "@/components/week/WorkoutCard";
+import { daysBetween, startOfWeek, toFormattableDate } from "@/core/dates";
 import type { PlannedWorkout } from "@/services/workouts";
 import { CardHeader } from "./CardHeader";
 
 type NextWorkoutCardProps = {
   workout: PlannedWorkout | null;
   today: string;
+  /** True when this workout is the long run / long ride of its day. */
+  isLongSession?: boolean;
 };
 
-export function NextWorkoutCard({ workout, today }: NextWorkoutCardProps) {
+export function NextWorkoutCard({ workout, today, isLongSession = false }: NextWorkoutCardProps) {
   const t = useTranslations("Home");
   const format = useFormatter();
 
@@ -33,9 +34,7 @@ export function NextWorkoutCard({ workout, today }: NextWorkoutCardProps) {
             <p className="text-sm text-muted">{t("nothingPlannedText")}</p>
           </div>
         </div>
-        <Link href="/week" className={buttonClassName({ fullWidth: true })}>
-          {t("planWeek")}
-        </Link>
+        <PlanWeekButton weekStart={startOfWeek(today)} />
       </Card>
     );
   }
@@ -46,20 +45,23 @@ export function NextWorkoutCard({ workout, today }: NextWorkoutCardProps) {
       ? t("today")
       : daysAway === 1
         ? t("tomorrow")
-        : format.dateTime(toFormattableDate(workout.scheduled_on), {
-            weekday: "long",
+        : // Short ("Sat 4 Oct"), so it fits next to the title and the arrow.
+          format.dateTime(toFormattableDate(workout.scheduled_on), {
+            weekday: "short",
             day: "numeric",
-            month: "long",
+            month: "short",
             timeZone: "UTC",
           });
 
   return (
     <Card className="flex flex-col gap-4">
       <CardHeader title={t("nextTraining")} link={{ href: "/week", label: t("seeWeek") }} />
-      <WorkoutRow
+      {/* The same card as in the week view: tap it to see the whole training. */}
+      <WorkoutCard
         workout={workout}
+        isLongSession={isLongSession}
         trailing={
-          <span className="text-sm font-semibold text-accent first-letter:uppercase">{when}</span>
+          <span className="shrink-0 text-sm font-semibold text-accent first-letter:uppercase">{when}</span>
         }
       />
     </Card>

@@ -2,7 +2,7 @@ import { TriangleAlert } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { SportIcon } from "@/components/SportIcon";
 import { useFormatDuration } from "@/components/useFormatDuration";
-import { WorkoutRow } from "@/components/WorkoutRow";
+import { WorkoutCard } from "./WorkoutCard";
 import { toFormattableDate } from "@/core/dates";
 import type { LongSessionSport } from "@/core/availability";
 import type { Sport } from "@/core/training";
@@ -34,6 +34,15 @@ export function DayCard({
   const tLong = useTranslations("LongSessions");
   const format = useFormatter();
   const formatDuration = useFormatDuration();
+
+  // The first workout of a long session's sport on this day is that long session.
+  // Its card is then called "Long run" / "Long ride", so the separate label can go.
+  const longSessionWorkouts = new Set(
+    longSessions.flatMap((sport) => workouts.find((workout) => workout.sport === sport)?.id ?? []),
+  );
+  const openLongSessions = longSessions.filter(
+    (sport) => !workouts.some((workout) => workout.sport === sport),
+  );
 
   const plannedMinutes = workouts.reduce((sum, workout) => sum + workout.duration_minutes, 0);
   const isRestDay = availableMinutes === 0;
@@ -86,9 +95,9 @@ export function DayCard({
         </span>
       </header>
 
-      {!isRestDay && longSessions.length > 0 && (
+      {!isRestDay && openLongSessions.length > 0 && (
         <div className="flex flex-wrap gap-1.5">
-          {longSessions.map((sport) => (
+          {openLongSessions.map((sport) => (
             <span
               key={sport}
               className="rounded-full border border-accent/40 px-2.5 py-0.5 text-xs font-semibold text-accent"
@@ -103,7 +112,10 @@ export function DayCard({
         <ul className="flex flex-col gap-2">
           {workouts.map((workout) => (
             <li key={workout.id}>
-              <WorkoutRow workout={workout} />
+              <WorkoutCard
+                workout={workout}
+                isLongSession={longSessionWorkouts.has(workout.id)}
+              />
             </li>
           ))}
         </ul>

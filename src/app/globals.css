@@ -28,3 +28,30 @@ html {
   /* Tells the browser to render scrollbars and form controls dark too. */
   color-scheme: dark;
 }
+
+/*
+ * Workout cards in the week view open with a smooth height animation.
+ * interpolate-size lets the browser animate to "auto"; older browsers simply
+ * open the card without animation.
+ */
+:root {
+  interpolate-size: allow-keywords;
+}
+
+.workout-card::details-content {
+  block-size: 0;
+  overflow-y: clip;
+  transition:
+    block-size 250ms ease,
+    content-visibility 250ms allow-discrete;
+}
+
+.workout-card[open]::details-content {
+  block-size: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .workout-card::details-content {
+    transition: none;
+  }
+}

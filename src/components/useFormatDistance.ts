@@ -2,13 +2,16 @@ import { useFormatter, useTranslations } from "next-intl";
 import { distanceUnit } from "@/core/racePresets";
 import type { Sport } from "@/core/training";
 
-/** Returns a function that turns 21098 into "21.1 km" (or "21,1 km" in Dutch). */
+/**
+ * Returns a function that turns 21098 into "21.1 km" (or "21,1 km" in Dutch).
+ * Pass the sport to use its usual unit: swimming always shows meters ("1,500 m").
+ */
 export function useFormatDistance() {
   const t = useTranslations("Distance");
   const format = useFormatter();
 
-  return (meters: number) =>
-    meters < 1000
+  return (meters: number, sport?: Sport) =>
+    meters < 1000 || (sport !== undefined && distanceUnit(sport) === "m")
       ? t("meters", { value: format.number(meters) })
       : t("kilometers", { value: format.number(meters / 1000, { maximumFractionDigits: 1 }) });
 }
