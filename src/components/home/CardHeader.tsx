@@ -14,6 +14,7 @@ export function CardHeader({ title, link }: CardHeaderProps) {
       {link && (
         <Link
           href={link.href}
+          prefetch
           className="flex items-center gap-0.5 text-sm font-semibold text-accent hover:underline"
         >
           {link.label}

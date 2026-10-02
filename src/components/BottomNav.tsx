@@ -27,6 +27,8 @@ function TabLink({ tab, isActive }: { tab: Tab; isActive: boolean }) {
   return (
     <Link
       href={tab.href}
+      // Load the whole tab in the background right away, so switching tabs is instant.
+      prefetch
       // Tells screen readers which tab is the current page.
       aria-current={isActive ? "page" : undefined}
       className={`flex flex-1 flex-col items-center gap-1 py-2 text-[11px] font-medium transition ${
@@ -60,6 +62,7 @@ export function BottomNav() {
         <div className="flex flex-1 justify-center">
           <Link
             href="/add"
+            prefetch
             aria-label={t("add")}
             className="-mt-7 flex size-14 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-lg shadow-accent/20 ring-4 ring-background transition active:scale-95"
           >

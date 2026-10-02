@@ -2,6 +2,7 @@
 
 import { onboardingSchema, type OnboardingInput } from "@/core/validation/onboarding";
 import { createClient } from "@/lib/supabase/server";
+import { refreshAppData } from "@/lib/refreshAppData";
 import { saveOnboarding } from "@/services/onboarding";
 
 export async function completeOnboarding(input: OnboardingInput): Promise<{ ok: boolean }> {
@@ -16,5 +17,6 @@ export async function completeOnboarding(input: OnboardingInput): Promise<{ ok: 
     return { ok: false };
   }
 
+  refreshAppData();
   return { ok: true };
 }

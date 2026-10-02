@@ -19,7 +19,7 @@ export function WeekNavigation({ weekStart, isCurrentWeek }: WeekNavigationProps
 
   return (
     <div className="flex items-center justify-between gap-2">
-      <Link href={weekHref(-7)} aria-label={t("previousWeek")} className={arrowClassName}>
+      <Link href={weekHref(-7)} prefetch aria-label={t("previousWeek")} className={arrowClassName}>
         <ChevronLeft aria-hidden className="size-5" />
       </Link>
 
@@ -34,13 +34,13 @@ export function WeekNavigation({ weekStart, isCurrentWeek }: WeekNavigationProps
         {isCurrentWeek ? (
           <span className="text-xs text-accent">{t("thisWeek")}</span>
         ) : (
-          <Link href="/week" className="text-xs text-muted underline hover:text-foreground">
+          <Link href="/week" prefetch className="text-xs text-muted underline hover:text-foreground">
             {t("backToThisWeek")}
           </Link>
         )}
       </div>
 
-      <Link href={weekHref(7)} aria-label={t("nextWeek")} className={arrowClassName}>
+      <Link href={weekHref(7)} prefetch aria-label={t("nextWeek")} className={arrowClassName}>
         <ChevronRight aria-hidden className="size-5" />
       </Link>
     </div>

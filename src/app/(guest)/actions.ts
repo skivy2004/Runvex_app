@@ -7,6 +7,7 @@ import { isLocale } from "@/core/locale";
 import { loginSchema, registerSchema } from "@/core/validation/auth";
 import { writeLocaleCookie } from "@/i18n/cookie";
 import { createClient } from "@/lib/supabase/server";
+import { refreshAppData } from "@/lib/refreshAppData";
 import type { AuthErrorKey, AuthFormState } from "./form-state";
 
 export async function signUp(_previous: AuthFormState, formData: FormData): Promise<AuthFormState> {
@@ -56,6 +57,8 @@ export async function signIn(_previous: AuthFormState, formData: FormData): Prom
     .single();
   if (isLocale(profile?.locale)) await writeLocaleCookie(profile.locale);
 
+  // Never show pages that were cached for someone else on this device.
+  refreshAppData();
   // redirect() works by throwing, so never call it inside try/catch.
   redirect("/");
 }
@@ -63,6 +66,7 @@ export async function signIn(_previous: AuthFormState, formData: FormData): Prom
 export async function signOut() {
   const supabase = await createClient();
   await supabase.auth.signOut();
+  refreshAppData();
   redirect("/login");
 }
 

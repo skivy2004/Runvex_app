@@ -1,6 +1,5 @@
 "use server";
 
-import { refresh } from "next/cache";
 import { redirect } from "next/navigation";
 import { after } from "next/server";
 import { buildPlanMessage, sessionsFromAnswer } from "@/core/aiPlan";
@@ -26,6 +25,7 @@ import { getWeeklyAvailability } from "@/services/availability";
 import { removeFromWatch, sendToWatch } from "@/services/watchSync";
 import { getCurrentGoal } from "@/services/goals";
 import { getCurrentProfile } from "@/services/profile";
+import { refreshAppData } from "@/lib/refreshAppData";
 import {
   addPlannedWorkout,
   deletePlannedWorkout,
@@ -146,7 +146,7 @@ export async function planWeekAction(weekStart: string): Promise<PlanWeekResult>
   // After the response, so the user doesn't wait for the watch.
   after(() => sendToWatch(inserted, locale));
 
-  refresh();
+  refreshAppData();
   return { ok: true, planned: sessions.length, source };
 }
 
@@ -192,7 +192,7 @@ export async function swapWorkoutAction(id: string, templateId: string): Promise
     const updated = await getPlannedWorkout(supabase, profile.id, workout.id);
     if (updated) await sendToWatch([updated], locale);
   });
-  refresh();
+  refreshAppData();
   return { ok: true };
 }
 
@@ -214,7 +214,7 @@ export async function moveWorkoutAction(id: string, date: string): Promise<Worko
     const moved = await getPlannedWorkout(supabase, profile.id, parsed.data.id);
     if (moved) await sendToWatch([moved], localeOf(profile.locale));
   });
-  refresh();
+  refreshAppData();
   return { ok: true };
 }
 
@@ -232,7 +232,7 @@ export async function deleteWorkoutAction(id: string): Promise<WorkoutActionResu
     return { ok: false };
   }
   after(() => removeFromWatch([parsed.data.id]));
-  refresh();
+  refreshAppData();
   return { ok: true };
 }
 
@@ -269,6 +269,7 @@ export async function addWorkoutAction(input: AddWorkoutInput): Promise<WorkoutA
     return { ok: false };
   }
   after(() => sendToWatch([added], localeOf(profile.locale)));
+  refreshAppData();
   // redirect() works by throwing, so it must stay outside try/catch.
   redirect(`/week?week=${startOfWeek(data.date)}`);
 }

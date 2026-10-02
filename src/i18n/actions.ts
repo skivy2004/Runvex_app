@@ -2,6 +2,7 @@
 
 import { isLocale } from "@/core/locale";
 import { createClient } from "@/lib/supabase/server";
+import { refreshAppData } from "@/lib/refreshAppData";
 import { writeLocaleCookie } from "./cookie";
 
 /**
@@ -21,4 +22,6 @@ export async function setLocale(locale: string) {
   if (userId) {
     await supabase.from("profiles").update({ locale }).eq("id", userId);
   }
+  // Prefetched pages are still in the old language.
+  refreshAppData();
 }

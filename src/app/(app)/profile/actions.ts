@@ -6,6 +6,7 @@ import { availabilitySchema, profileDetailsSchema } from "@/core/validation/onbo
 import { createClient } from "@/lib/supabase/server";
 import { getAthleteSports } from "@/services/athleteSports";
 import { saveWeeklyAvailability } from "@/services/availability";
+import { refreshAppData } from "@/lib/refreshAppData";
 import { updateProfileDetails } from "@/services/profile";
 
 export type DetailsFormState = { error: "tooYoung" | "invalid" | "saveFailed" | null };
@@ -39,6 +40,7 @@ export async function saveProfileDetails(
     return { error: "saveFailed" };
   }
 
+  refreshAppData();
   // redirect() works by throwing, so it must stay outside try/catch.
   redirect("/profile");
 }
@@ -63,5 +65,6 @@ export async function saveAvailability(week: DayAvailability[]): Promise<{ ok: b
     return { ok: false };
   }
 
+  refreshAppData();
   redirect("/profile");
 }

@@ -14,6 +14,7 @@ export function SettingsLink({ href, icon: Icon, title, description }: SettingsL
   return (
     <Link
       href={href}
+      prefetch
       className="flex items-center gap-3 rounded-2xl bg-surface p-4 transition hover:bg-surface-raised"
     >
       <span
