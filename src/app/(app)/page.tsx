@@ -3,15 +3,14 @@ import { HomeHeader } from "@/components/home/HomeHeader";
 import { NextWorkoutCard } from "@/components/home/NextWorkoutCard";
 import { WeekSummaryCard } from "@/components/home/WeekSummaryCard";
 import { addDays, isoWeekday, startOfWeek, todayInTimeZone } from "@/core/dates";
-import { createClient } from "@/lib/supabase/server";
 import { getWeeklyAvailability } from "@/services/availability";
 import { getCurrentGoal } from "@/services/goals";
-import { getCurrentProfile } from "@/services/profile";
+import { getRequestClient, getRequestProfile } from "@/lib/currentUser";
 import { getNextWorkout, getPlannedWorkouts } from "@/services/workouts";
 
 export default async function HomePage() {
-  const supabase = await createClient();
-  const profile = await getCurrentProfile(supabase);
+  const supabase = await getRequestClient();
+  const profile = await getRequestProfile();
   // The proxy already sends logged-out visitors to /login.
   if (!profile) return null;
 

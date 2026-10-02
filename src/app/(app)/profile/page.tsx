@@ -7,16 +7,15 @@ import { PageHeading } from "@/components/PageHeading";
 import { ProfileSettings } from "@/components/profile/ProfileSettings";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
-import { createClient } from "@/lib/supabase/server";
+import { getRequestClient, getRequestProfile } from "@/lib/currentUser";
 import { getWeeklyAvailability } from "@/services/availability";
-import { getCurrentProfile } from "@/services/profile";
 
 export default async function ProfilePage() {
   const t = await getTranslations("Profile");
-  const supabase = await createClient();
+  const supabase = await getRequestClient();
   const [{ data: auth }, profile] = await Promise.all([
     supabase.auth.getClaims(),
-    getCurrentProfile(supabase),
+    getRequestProfile(),
   ]);
   if (!profile) return null;
 

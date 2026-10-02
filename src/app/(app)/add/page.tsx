@@ -7,16 +7,15 @@ import { isHardWorkout, maxDifficulty, plannableSports } from "@/core/planner";
 import { isValidIsoDate } from "@/core/week";
 import { estimatedMinutes } from "@/core/workouts/estimate";
 import { workoutsForSport } from "@/core/workouts/library";
-import { createClient } from "@/lib/supabase/server";
+import { getRequestClient, getRequestProfile } from "@/lib/currentUser";
 import { getAthleteSports } from "@/services/athleteSports";
-import { getCurrentProfile } from "@/services/profile";
 
 export default async function AddWorkoutPage({ searchParams }: PageProps<"/add">) {
   const t = await getTranslations("AddWorkout");
   const tWeek = await getTranslations("Week");
   const locale = await getLocale();
-  const supabase = await createClient();
-  const profile = await getCurrentProfile(supabase);
+  const supabase = await getRequestClient();
+  const profile = await getRequestProfile();
   if (!profile) return null;
 
   // ?date=2026-10-05 comes from "Add training" on a day; otherwise today.

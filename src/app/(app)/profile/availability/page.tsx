@@ -2,15 +2,14 @@ import { getTranslations } from "next-intl/server";
 import { PageHeading } from "@/components/PageHeading";
 import { AvailabilityForm } from "@/components/profile/AvailabilityForm";
 import { BackLink } from "@/components/profile/BackLink";
-import { createClient } from "@/lib/supabase/server";
 import { getAthleteSports } from "@/services/athleteSports";
+import { getRequestClient, getRequestProfile } from "@/lib/currentUser";
 import { getWeeklyAvailability } from "@/services/availability";
-import { getCurrentProfile } from "@/services/profile";
 
 export default async function AvailabilitySettingsPage() {
   const t = await getTranslations("Profile");
-  const supabase = await createClient();
-  const profile = await getCurrentProfile(supabase);
+  const supabase = await getRequestClient();
+  const profile = await getRequestProfile();
   if (!profile) return null;
 
   const [week, athleteSports] = await Promise.all([

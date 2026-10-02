@@ -11,18 +11,17 @@ import { isHardWorkout, workoutAlternatives } from "@/core/planner";
 import { weekdays } from "@/core/training";
 import { groupByWeekday, resolveWeekStart } from "@/core/week";
 import { getWorkout, zoneLegend } from "@/core/workouts/library";
-import { createClient } from "@/lib/supabase/server";
 import { getAthleteSports } from "@/services/athleteSports";
 import { getWeeklyAvailability } from "@/services/availability";
-import { getCurrentProfile } from "@/services/profile";
 import { isWatchSyncConfigured } from "@/services/watchSync";
+import { getRequestClient, getRequestProfile } from "@/lib/currentUser";
 import { getPlannedWorkouts } from "@/services/workouts";
 
 export default async function WeekPage({ searchParams }: PageProps<"/week">) {
   const t = await getTranslations("Week");
   const locale = await getLocale();
-  const supabase = await createClient();
-  const profile = await getCurrentProfile(supabase);
+  const supabase = await getRequestClient();
+  const profile = await getRequestProfile();
   // The proxy already sends logged-out visitors to /login.
   if (!profile) return null;
 

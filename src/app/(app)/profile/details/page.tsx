@@ -1,13 +1,12 @@
 import { getTranslations } from "next-intl/server";
 import { PageHeading } from "@/components/PageHeading";
 import { BackLink } from "@/components/profile/BackLink";
+import { getRequestProfile } from "@/lib/currentUser";
 import { ProfileDetailsForm } from "@/components/profile/ProfileDetailsForm";
-import { createClient } from "@/lib/supabase/server";
-import { getCurrentProfile } from "@/services/profile";
 
 export default async function ProfileDetailsPage() {
   const t = await getTranslations("Profile");
-  const profile = await getCurrentProfile(await createClient());
+  const profile = await getRequestProfile();
   if (!profile) return null;
 
   return (

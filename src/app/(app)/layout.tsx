@@ -1,11 +1,10 @@
 import { redirect } from "next/navigation";
 import { BottomNav } from "@/components/BottomNav";
-import { createClient } from "@/lib/supabase/server";
-import { getCurrentProfile } from "@/services/profile";
+import { getRequestProfile } from "@/lib/currentUser";
 
 // Shared frame for all pages with the tab bar: Home, Week, Goal and Profile.
 export default async function AppLayout({ children }: LayoutProps<"/">) {
-  const profile = await getCurrentProfile(await createClient());
+  const profile = await getRequestProfile();
   // New users first fill in the intake.
   if (profile && !profile.onboarding_completed_at) redirect("/onboarding");
 
