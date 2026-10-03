@@ -34,6 +34,8 @@ export type AiPlanAnswer = z.infer<typeof aiPlanAnswerSchema>;
 /** Extra information for the coach that the rules don't need. No name, e-mail or birth date. */
 export type CoachContext = {
   locale: Locale;
+  /** How last week went: trainings done and skipped, and the average effort (RPE 1-10). */
+  lastWeekFeedback?: LastWeekFeedback;
   workPattern: WorkPattern | null;
   goal: { description: string; racePreset: string | null; eventDate: string | null } | null;
 };
@@ -51,6 +53,7 @@ How to plan:
 - Prefer workouts that weren't done last week, and don't repeat a workout within the week.
 - Use the available time well, but an easier or shorter session is better than too much for the level. You may leave a day empty when rest is wiser, e.g. right before a race or for a beginner with many days.
 - Shift workers and people with changing schedules benefit from a calm session after a heavy day.
+- "lastWeekFeedback" tells how last week went. Many skipped sessions or a high average effort (8 or more) mean the athlete needs an easier week: fewer hard sessions and shorter ones. Everything done at a moderate effort means the athlete can handle the same or a bit more.
 
 Answer with the sessions you plan. For each session give a short reason (one sentence, max 200 characters) in the athlete's language, addressing the athlete as "you" (Dutch: "je").`;
 
@@ -86,6 +89,7 @@ export function buildPlanMessage(input: PlannerInput, context: PlanningContext, 
       ...(workout.templateId ? describe(workout.templateId) : {}),
     })),
     lastWeek: input.recentTemplateIds,
+    lastWeekFeedback: coach.lastWeekFeedback,
     openDays: context.days.map((day) => ({
       date: day.date,
       weekday: weekdays[isoWeekday(day.date) - 1],
@@ -147,5 +151,19 @@ function swimOptions(context: PlanningContext, day: PlanningContext["days"][numb
     main: list(blocks.main),
     speed: day.canBeHard ? list(blocks.speed) : [],
     cooldown: list(blocks.cooldown),
+  };
+}
+
+export type LastWeekFeedback = { planned: number; done: number; skipped: number; averageRpe: number | null };
+
+/** Sums up last week's check-offs for the coach. */
+export function lastWeekFeedback(workouts: { status: string; rpe: number | null }[]): LastWeekFeedback {
+  const done = workouts.filter((workout) => workout.status === "done");
+  const rated = done.flatMap((workout) => (workout.rpe === null ? [] : [workout.rpe]));
+  return {
+    planned: workouts.length,
+    done: done.length,
+    skipped: workouts.filter((workout) => workout.status === "skipped").length,
+    averageRpe: rated.length === 0 ? null : Math.round((rated.reduce((a, b) => a + b, 0) / rated.length) * 10) / 10,
   };
 }

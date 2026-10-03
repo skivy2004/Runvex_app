@@ -11,7 +11,7 @@ export const PRIVACY_CONTACT = {
   email: "Jeremycordes31@gmail.com",
 };
 
-export const LAST_UPDATED = "2026-10-02";
+export const LAST_UPDATED = "2026-10-03";
 
 export type PrivacySection = {
   heading: string;
@@ -43,7 +43,7 @@ export const privacyContent: Record<Locale, PrivacyContent> = {
         items: [
           "Account: je e-mailadres en je wachtwoord. Je wachtwoord wordt alleen versleuteld (gehasht) opgeslagen; niemand kan het lezen, ook wij niet.",
           "Profiel: je voornaam (als je die invult), je geboortedatum, je taal, je tijdzone en het soort werkrooster dat je hebt.",
-          "Training: je sporten en niveau per sport, je doel (beschrijving, wedstrijd, datum en afstanden), hoeveel tijd je per dag hebt, je geplande trainingen en de uitleg van de coach daarbij.",
+          "Training: je sporten en niveau per sport, je doel (beschrijving, wedstrijd, datum en afstanden), hoeveel tijd je per dag hebt, je geplande trainingen en de uitleg van de coach daarbij, of je een training hebt gedaan of overgeslagen, hoe zwaar die voelde (1-10) met je eventuele notitie, en je zwembad en zwemmateriaal.",
           "AI-coach: het tijdstip waarop je een weekplanning laat maken, zodat we een daglimiet kunnen bewaken.",
           "Technische gegevens: je IP-adres en browsergegevens komen in de logbestanden van onze hosting en database, voor beveiliging en het oplossen van storingen.",
         ],
@@ -64,7 +64,7 @@ export const privacyContent: Record<Locale, PrivacyContent> = {
       {
         heading: "De AI-coach",
         paragraphs: [
-          "Als je op ‘Plan mijn week’ tikt, sturen we een samenvatting naar Claude, het AI-model van Anthropic: je sporten en niveaus, je werkrooster, je beschikbare tijd per dag, je doel en je trainingen van deze en vorige week. Je naam, e-mailadres en geboortedatum sturen we niet mee. Anthropic gebruikt deze gegevens niet om zijn modellen te trainen.",
+          "Als je op ‘Plan mijn week’ tikt, sturen we een samenvatting naar Claude, het AI-model van Anthropic: je sporten en niveaus, je werkrooster, je beschikbare tijd per dag, je doel, je trainingen van deze en vorige week en hoeveel je daarvan gedaan of overgeslagen hebt met de gemiddelde zwaarte (zonder je notities). Je naam, e-mailadres en geboortedatum sturen we niet mee. Anthropic gebruikt deze gegevens niet om zijn modellen te trainen.",
           "Elke planning van de coach wordt eerst gecontroleerd met vaste trainingsregels. Lukt dat niet, dan maakt Runvex de planning zelf, zonder AI.",
         ],
       },
@@ -90,7 +90,7 @@ export const privacyContent: Record<Locale, PrivacyContent> = {
       {
         heading: "Hoe lang bewaren we je gegevens?",
         paragraphs: [
-          `Zolang je account bestaat. Wil je je account laten verwijderen? Mail naar ${email}; dan verwijderen we je account en al je gegevens binnen een maand. Gegevens kunnen daarna nog kort in automatische back-ups staan, tot die worden overschreven. Technische logbestanden worden na korte tijd automatisch verwijderd door onze dienstverleners.`,
+          `Zolang je account bestaat. Je kunt je account zelf verwijderen in Profiel → Account verwijderen: dan worden je account en al je gegevens direct gewist. Lukt dat niet, mail dan naar ${email}; dan doen wij het binnen een maand. Gegevens kunnen daarna nog kort in automatische back-ups staan, tot die worden overschreven. Technische logbestanden worden na korte tijd automatisch verwijderd door onze dienstverleners.`,
         ],
       },
       {
@@ -144,7 +144,7 @@ export const privacyContent: Record<Locale, PrivacyContent> = {
         items: [
           "Account: your email address and password. Your password is only stored encrypted (hashed); nobody can read it, not even us.",
           "Profile: your first name (if you fill it in), date of birth, language, time zone and the kind of work schedule you have.",
-          "Training: your sports and level per sport, your goal (description, race, date and distances), how much time you have per day, your planned trainings and the coach's explanation for them.",
+          "Training: your sports and level per sport, your goal (description, race, date and distances), how much time you have per day, your planned trainings and the coach's explanation for them, whether you did or skipped a training, how hard it felt (1-10) with any note you add, and your pool and swim equipment.",
           "AI coach: the time you ask for a week plan, so we can keep a daily limit.",
           "Technical data: your IP address and browser details end up in the log files of our hosting and database, for security and fixing problems.",
         ],
@@ -165,7 +165,7 @@ export const privacyContent: Record<Locale, PrivacyContent> = {
       {
         heading: "The AI coach",
         paragraphs: [
-          "When you tap ‘Plan my week’, we send a summary to Claude, Anthropic's AI model: your sports and levels, your work schedule, your available time per day, your goal and your trainings of this week and last week. We don't send your name, email address or date of birth. Anthropic doesn't use this data to train its models.",
+          "When you tap ‘Plan my week’, we send a summary to Claude, Anthropic's AI model: your sports and levels, your work schedule, your available time per day, your goal, your trainings of this week and last week and how many of them you did or skipped with the average effort (without your notes). We don't send your name, email address or date of birth. Anthropic doesn't use this data to train its models.",
           "Every plan from the coach is first checked against fixed training rules. If that fails, Runvex makes the plan itself, without AI.",
         ],
       },
@@ -191,7 +191,7 @@ export const privacyContent: Record<Locale, PrivacyContent> = {
       {
         heading: "How long do we keep your data?",
         paragraphs: [
-          `As long as your account exists. Want your account deleted? Email ${email}; we'll delete your account and all your data within a month. Data may stay in automatic backups for a short while until they are overwritten. Technical log files are deleted automatically after a short time by our service providers.`,
+          `As long as your account exists. You can delete your account yourself in Profile → Delete account: your account and all your data are erased right away. If that doesn't work, email ${email} and we'll do it within a month. Data may stay in automatic backups for a short while until they are overwritten. Technical log files are deleted automatically after a short time by our service providers.`,
         ],
       },
       {

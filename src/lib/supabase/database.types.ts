@@ -102,11 +102,14 @@ export type Database = {
         Row: {
           created_at: string
           duration_minutes: number
+          feedback_note: string | null
           id: string
           notes: string | null
           position: number
+          rpe: number | null
           scheduled_on: string
           sport: Database["public"]["Enums"]["sport"]
+          status: string
           template_id: string | null
           title: string
           updated_at: string
@@ -116,10 +119,13 @@ export type Database = {
           created_at?: string
           duration_minutes: number
           id?: string
+          feedback_note?: string | null
           notes?: string | null
           position?: number
+          rpe?: number | null
           scheduled_on: string
           sport: Database["public"]["Enums"]["sport"]
+          status?: string
           template_id?: string | null
           title: string
           updated_at?: string
@@ -129,10 +135,13 @@ export type Database = {
           created_at?: string
           duration_minutes?: number
           id?: string
+          feedback_note?: string | null
           notes?: string | null
           position?: number
+          rpe?: number | null
           scheduled_on?: string
           sport?: Database["public"]["Enums"]["sport"]
+          status?: string
           template_id?: string | null
           title?: string
           updated_at?: string
@@ -214,6 +223,7 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      delete_my_account: { Args: never; Returns: undefined }
       complete_onboarding: {
         Args: {
           p_availability: Json

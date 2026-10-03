@@ -1,12 +1,16 @@
+import { Check, Printer } from "lucide-react";
+import Link from "next/link";
 import { useLocale, useTranslations } from "next-intl";
 import type { ReactNode } from "react";
 import { SportIcon } from "@/components/SportIcon";
 import { useFormatDistance } from "@/components/useFormatDistance";
 import { useFormatDuration } from "@/components/useFormatDuration";
+import { statusOf } from "@/core/validation/feedback";
 import { getWorkout, zoneLegend } from "@/core/workouts/library";
 import type { PlannedWorkout } from "@/services/workouts";
 import { WorkoutDetails } from "./WorkoutDetails";
 import { WorkoutDialog } from "./WorkoutDialog";
+import { WorkoutFeedback } from "./WorkoutFeedback";
 
 type WorkoutCardProps = {
   workout: PlannedWorkout;
@@ -16,14 +20,24 @@ type WorkoutCardProps = {
   trailing?: ReactNode;
   /** Buttons at the bottom of the window: swap, move, delete. */
   actions?: ReactNode;
+  /** True from the training's day on: then you can check it off as done or skipped. */
+  canCheckOff?: boolean;
 };
 
 /**
  * A training. On the page it shows sport, name and length; tap it and it opens as
  * a window with the whole workout.
  */
-export function WorkoutCard({ workout, isLongSession = false, trailing, actions }: WorkoutCardProps) {
+export function WorkoutCard({
+  workout,
+  isLongSession = false,
+  trailing,
+  actions,
+  canCheckOff = false,
+}: WorkoutCardProps) {
   const t = useTranslations("Workout");
+  const tFeedback = useTranslations("Feedback");
+  const status = statusOf(workout.status);
   const tSports = useTranslations("Sports");
   const tLong = useTranslations("LongSessions");
   const locale = useLocale();
@@ -46,18 +60,25 @@ export function WorkoutCard({ workout, isLongSession = false, trailing, actions 
   const summary = (
     <span className="flex items-center gap-3">
       <SportIcon sport={workout.sport} />
-      <span className="flex min-w-0 flex-1 flex-col">
-        <span className="truncate font-semibold">{title}</span>
+      <span className={`flex min-w-0 flex-1 flex-col ${status === "skipped" ? "opacity-50" : ""}`}>
+        <span className={`truncate font-semibold ${status === "skipped" ? "line-through" : ""}`}>{title}</span>
         <span className="text-sm text-muted">
           {tSports(workout.sport)} · {length}
         </span>
       </span>
+      {status === "done" && (
+        <span className="flex shrink-0 items-center gap-1 rounded-full bg-accent/15 px-2 py-0.5 text-xs font-semibold text-accent">
+          <Check aria-hidden className="size-3.5" strokeWidth={3} />
+          {workout.rpe ? tFeedback("rpeShort", { rpe: workout.rpe }) : tFeedback("done")}
+        </span>
+      )}
+      {status === "skipped" && <span className="shrink-0 text-xs font-semibold text-muted">{tFeedback("skipped")}</span>}
       {trailing}
     </span>
   );
 
   // A training you added yourself, without notes or actions, has nothing to open.
-  if (!template && !workout.notes && !actions) {
+  if (!template && !workout.notes && !actions && !canCheckOff) {
     return <div className="rounded-2xl bg-surface-raised p-3">{summary}</div>;
   }
 
@@ -84,6 +105,21 @@ export function WorkoutCard({ workout, isLongSession = false, trailing, actions 
         </section>
       )}
 
+      {template?.swim && (
+        <Link
+          href={`/print/${workout.id}`}
+          className="flex items-center justify-center gap-2 rounded-full bg-surface-raised px-4 py-2.5 text-sm font-semibold transition hover:bg-line"
+        >
+          <Printer aria-hidden className="size-4" />
+          {t("printCard")}
+        </Link>
+      )}
+
+      {canCheckOff && (
+        <WorkoutFeedback workoutId={workout.id} status={status} rpe={workout.rpe} note={workout.feedback_note} />
+      )}
+
+      {/* A training you did can't be swapped or moved anymore, only deleted. */}
       {actions}
     </WorkoutDialog>
   );

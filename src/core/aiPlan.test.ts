@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { buildPlanMessage, sessionsFromAnswer, type CoachContext } from "./aiPlan";
+import { buildPlanMessage, lastWeekFeedback, sessionsFromAnswer, type CoachContext } from "./aiPlan";
 import { checkPlan, planningContext, type PlannerInput } from "./planner";
 
 const input: PlannerInput = {
@@ -121,5 +121,20 @@ describe("swim days for the AI coach", () => {
     // Sculling needs a snorkel, which this athlete doesn't have.
     const noSnorkel = { sessions: [{ ...answer.sessions[0], workoutId: "swim_25_i_w1_t3_m1_s1_c1" }] };
     expect(checkPlan(swimContext, sessionsFromAnswer(swimContext, noSnorkel))).toHaveLength(1);
+  });
+});
+
+describe("lastWeekFeedback", () => {
+  it("counts done and skipped trainings and averages the effort", () => {
+    expect(
+      lastWeekFeedback([
+        { status: "done", rpe: 7 },
+        { status: "done", rpe: 8 },
+        { status: "done", rpe: null },
+        { status: "skipped", rpe: null },
+        { status: "planned", rpe: null },
+      ]),
+    ).toEqual({ planned: 5, done: 3, skipped: 1, averageRpe: 7.5 });
+    expect(lastWeekFeedback([]).averageRpe).toBeNull();
   });
 });

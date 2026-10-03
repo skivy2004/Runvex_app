@@ -27,6 +27,9 @@ export default function HomePreviewPage() {
           position: 0,
           template_id: "bike_90min_1_easy",
           notes: "Rustige rit om de week mee te beginnen.",
+          status: "planned",
+          rpe: null,
+          feedback_note: null,
         }}
       />
       <GoalCard

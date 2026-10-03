@@ -32,6 +32,9 @@ export default function WeekPreviewPage() {
     position: 0,
     template_id: templateId,
     notes,
+    status: "planned",
+    rpe: null,
+    feedback_note: null,
   });
   const workouts: PlannedWorkout[] = [
     workout(0, "swimming", "Watergevoel · Rustige duur", 45, "swim_25_i_w2_t1_m1_s0_c1", "Rustige duur in het water na het weekend."),

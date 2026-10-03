@@ -1,6 +1,6 @@
 import type { ButtonHTMLAttributes } from "react";
 
-type ButtonVariant = "primary" | "secondary";
+type ButtonVariant = "primary" | "secondary" | "danger";
 
 type ButtonStyle = {
   variant?: ButtonVariant;
@@ -12,6 +12,8 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & ButtonStyle;
 const variantClasses: Record<ButtonVariant, string> = {
   primary: "bg-accent text-accent-foreground hover:brightness-95",
   secondary: "bg-surface-raised text-foreground hover:bg-line",
+  // For actions that can't be undone, like deleting your account.
+  danger: "bg-danger text-background hover:brightness-95",
 };
 
 /**

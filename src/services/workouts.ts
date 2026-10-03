@@ -2,7 +2,8 @@ import type { PlannedSession } from "@/core/planner";
 import type { Sport } from "@/core/training";
 import type { AppSupabaseClient } from "./types";
 
-const WORKOUT_COLUMNS = "id, scheduled_on, sport, title, duration_minutes, position, template_id, notes";
+const WORKOUT_COLUMNS =
+  "id, scheduled_on, sport, title, duration_minutes, position, template_id, notes, status, rpe, feedback_note";
 
 /** Planned workouts between two dates (both included), in order. */
 export async function getPlannedWorkouts(
@@ -23,12 +24,13 @@ export async function getPlannedWorkouts(
   return data;
 }
 
-/** The first workout on or after `from`, or null when nothing is planned. */
+/** The first workout still to do on or after `from`, or null when nothing is planned. */
 export async function getNextWorkout(supabase: AppSupabaseClient, userId: string, from: string) {
   const { data, error } = await supabase
     .from("planned_workouts")
     .select(WORKOUT_COLUMNS)
     .eq("user_id", userId)
+    .eq("status", "planned")
     .gte("scheduled_on", from)
     .order("scheduled_on")
     .order("position")
@@ -166,6 +168,20 @@ export async function changePlannedTemplate(
       title: replacement.title,
       duration_minutes: replacement.durationMinutes,
     })
+    .eq("user_id", userId)
+    .eq("id", id);
+}
+
+/** Checks a training off: done (with RPE and note), skipped, or back to planned. */
+export async function setWorkoutFeedback(
+  supabase: AppSupabaseClient,
+  userId: string,
+  id: string,
+  feedback: { status: string; rpe: number | null; note: string | null },
+) {
+  return supabase
+    .from("planned_workouts")
+    .update({ status: feedback.status, rpe: feedback.rpe, feedback_note: feedback.note })
     .eq("user_id", userId)
     .eq("id", id);
 }

@@ -35,6 +35,10 @@ export default async function HomePage() {
         plannedMinutes={plannedMinutes}
         availability={availability.map((day) => day.minutes)}
         todayWeekday={isoWeekday(today)}
+        trainings={{
+          done: weekWorkouts.filter((workout) => workout.status === "done").length,
+          total: weekWorkouts.length,
+        }}
       />
       <NextWorkoutCard
         workout={nextWorkout}

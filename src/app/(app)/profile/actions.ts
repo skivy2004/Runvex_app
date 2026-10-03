@@ -87,3 +87,21 @@ export async function saveSwimSettings(settings: SwimSettingsData): Promise<{ ok
   refreshAppData();
   redirect("/profile");
 }
+
+/** Deletes the logged-in user's account and all their data (GDPR right to erasure). */
+export async function deleteAccountAction(): Promise<{ ok: boolean }> {
+  const supabase = await createClient();
+  const { data } = await supabase.auth.getClaims();
+  if (!data?.claims.sub) return { ok: false };
+
+  // The database function deletes only the caller; all their data goes with the account.
+  const { error } = await supabase.rpc("delete_my_account");
+  if (error) {
+    console.error("Deleting an account failed:", error.message);
+    return { ok: false };
+  }
+  // The account is gone; also remove the login cookies from this browser.
+  await supabase.auth.signOut();
+  refreshAppData();
+  redirect("/login?deleted=1");
+}

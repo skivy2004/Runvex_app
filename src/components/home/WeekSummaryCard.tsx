@@ -11,10 +11,13 @@ type WeekSummaryCardProps = {
   availability: number[];
   /** 1 = Monday ... 7 = Sunday */
   todayWeekday: number;
+  /** Trainings of this week: how many there are and how many you did. */
+  trainings?: { done: number; total: number };
 };
 
-export function WeekSummaryCard({ plannedMinutes, availability, todayWeekday }: WeekSummaryCardProps) {
+export function WeekSummaryCard({ plannedMinutes, availability, todayWeekday, trainings }: WeekSummaryCardProps) {
   const t = useTranslations("Home");
+  const tFeedback = useTranslations("Feedback");
   const tShort = useTranslations("WeekdaysShort");
   const tWeekdays = useTranslations("Weekdays");
   const formatDuration = useFormatDuration();
@@ -32,6 +35,9 @@ export function WeekSummaryCard({ plannedMinutes, availability, todayWeekday }: 
           </span>
         </p>
         <ProgressBar value={plannedMinutes} max={availableMinutes} label={t("progressLabel")} />
+        {trainings && trainings.total > 0 && (
+          <p className="text-sm font-semibold text-muted">{tFeedback("weekDone", trainings)}</p>
+        )}
       </div>
 
       {/* Mini week: which days you have time to train, with today highlighted. */}

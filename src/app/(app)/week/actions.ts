@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 import { after } from "next/server";
-import { buildPlanMessage, sessionsFromAnswer } from "@/core/aiPlan";
+import { buildPlanMessage, lastWeekFeedback, sessionsFromAnswer } from "@/core/aiPlan";
 import { addDays, startOfWeek, todayInTimeZone } from "@/core/dates";
 import { isLocale } from "@/core/locale";
 import { checkPlan, planningContext, planWeek, type PlannerInput } from "@/core/planner";
@@ -14,6 +14,7 @@ import {
   swapWorkoutSchema,
   type AddWorkoutInput,
 } from "@/core/validation/workouts";
+import { canCheckOff, workoutFeedbackSchema, type WorkoutFeedbackInput } from "@/core/validation/feedback";
 import { swimSettingsOf } from "@/core/validation/swim";
 import { isValidIsoDate } from "@/core/week";
 import { estimatedMinutes } from "@/core/workouts/estimate";
@@ -37,6 +38,7 @@ import {
   getPlannedWorkouts,
   insertPlannedSessions,
   movePlannedWorkout,
+  setWorkoutFeedback,
   swapPlannedWorkout,
 } from "@/services/workouts";
 
@@ -105,6 +107,7 @@ export async function planWeekAction(weekStart: string): Promise<PlanWeekResult>
         await logAiRequest(supabase, profile.id, "plan_week");
         const message = buildPlanMessage(input, context, {
           locale,
+          lastWeekFeedback: lastWeekFeedback(lastWeek),
           workPattern: profile.work_pattern,
           goal: goal && {
             description: goal.description,
@@ -178,7 +181,8 @@ export async function swapWorkoutAction(id: string, templateId: string): Promise
 
   const workout = await getPlannedWorkout(supabase, profile.id, parsed.data.id);
   const template = getWorkout(parsed.data.templateId);
-  if (!workout || !template || template.sport !== workout.sport) return { ok: false };
+  // A training you did stays as it was, so your history stays right.
+  if (!workout || workout.status === "done" || !template || template.sport !== workout.sport) return { ok: false };
 
   const minutes = estimatedMinutes(template, await levelFor(supabase, profile.id, template.sport));
   if (minutes === null) return { ok: false };
@@ -209,6 +213,9 @@ export async function moveWorkoutAction(id: string, date: string): Promise<Worko
   const supabase = await createClient();
   const profile = await getCurrentProfile(supabase);
   if (!profile) return { ok: false };
+
+  const current = await getPlannedWorkout(supabase, profile.id, parsed.data.id);
+  if (!current || current.status === "done") return { ok: false };
 
   const { error } = await movePlannedWorkout(supabase, profile.id, parsed.data.id, parsed.data.date);
   if (error) {
@@ -305,7 +312,7 @@ export async function changeSwimPoolAction(id: string, poolLength: number): Prom
   const workout = await getPlannedWorkout(supabase, profile.id, parsed.data.id);
   const templateId = workout?.template_id ? swimWorkoutInPool(workout.template_id, pool) : null;
   const template = templateId ? getWorkout(templateId) : undefined;
-  if (!workout || !template) return { ok: false };
+  if (!workout || workout.status === "done" || !template) return { ok: false };
 
   const minutes = estimatedMinutes(template, await levelFor(supabase, profile.id, "swimming"));
   if (minutes === null) return { ok: false };
@@ -320,6 +327,30 @@ export async function changeSwimPoolAction(id: string, poolLength: number): Prom
     return { ok: false };
   }
   // Swims don't go to the watch, so nothing to sync.
+  refreshAppData();
+  return { ok: true };
+}
+
+/** Checks a training off: done (with how hard it felt), skipped, or back to planned. */
+export async function saveWorkoutFeedbackAction(input: WorkoutFeedbackInput): Promise<WorkoutActionResult> {
+  const parsed = workoutFeedbackSchema.safeParse(input);
+  if (!parsed.success) return { ok: false };
+
+  const supabase = await createClient();
+  const profile = await getCurrentProfile(supabase);
+  if (!profile) return { ok: false };
+
+  const workout = await getPlannedWorkout(supabase, profile.id, parsed.data.id);
+  if (!workout) return { ok: false };
+  // Not in advance: you can only say you did (or skipped) a training from its day on.
+  const today = todayInTimeZone(profile.timezone);
+  if (parsed.data.status !== "planned" && !canCheckOff(workout.scheduled_on, today)) return { ok: false };
+
+  const { error } = await setWorkoutFeedback(supabase, profile.id, workout.id, parsed.data);
+  if (error) {
+    console.error("Saving workout feedback failed:", error.message);
+    return { ok: false };
+  }
   refreshAppData();
   return { ok: true };
 }

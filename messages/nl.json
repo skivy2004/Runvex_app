@@ -64,7 +64,8 @@
       "main": "Kern 2 duur",
       "speed": "Kern 3 snelheid",
       "cooldown": "Uitzwemmen"
-    }
+    },
+    "printCard": "Print voor je bidon"
   },
   "WorkoutActions": {
     "swap": "Wisselen",
@@ -140,7 +141,8 @@
     "logout": "Uitloggen",
     "privacy": "Privacyverklaring",
     "swimming": "Zwemmen",
-    "poolSummary": "{length}m-bad"
+    "poolSummary": "{length}m-bad",
+    "deleteAccount": "Account verwijderen"
   },
   "Auth": {
     "loginTitle": "Welkom terug",
@@ -167,7 +169,8 @@
       "weakPassword": "Dit wachtwoord is te zwak. Kies een sterker wachtwoord.",
       "rateLimited": "Te veel pogingen. Wacht even en probeer het opnieuw.",
       "generic": "Er ging iets mis. Probeer het opnieuw."
-    }
+    },
+    "accountDeleted": "Je account en al je gegevens zijn verwijderd."
   },
   "Onboarding": {
     "progress": "Stap {current} van {total}",
@@ -381,5 +384,47 @@
     "poolHint": "Oefeningen gaan altijd per hele baan, dus je wisselt aan de kant.",
     "equipment": "Mijn materiaal",
     "equipmentHint": "Je krijgt alleen oefeningen waarvoor je het materiaal hebt."
+  },
+  "Feedback": {
+    "markDone": "Gedaan",
+    "markSkipped": "Overgeslagen",
+    "done": "Gedaan",
+    "doneWithRpe": "Gedaan · zwaarte {rpe}/10",
+    "rpeShort": "{rpe}/10",
+    "skipped": "Overgeslagen",
+    "undo": "Ongedaan maken",
+    "edit": "Aanpassen",
+    "rpeQuestion": "Hoe zwaar voelde het?",
+    "rpeEasy": "1 heel licht",
+    "rpeMax": "10 maximaal",
+    "noteLabel": "Notitie (optioneel)",
+    "notePlaceholder": "Bijv. zware benen, knie voelde goed",
+    "save": "Opslaan",
+    "cancel": "Annuleren",
+    "failed": "Opslaan is niet gelukt. Probeer het opnieuw.",
+    "weekDone": "{done} van {total} gedaan"
+  },
+  "DeleteAccount": {
+    "title": "Account verwijderen",
+    "subtitle": "Dit kan niet ongedaan worden gemaakt.",
+    "whatGoes1": "Je account en je inloggegevens worden gewist.",
+    "whatGoes2": "Al je gegevens gaan mee: profiel, sporten, doel, rooster, trainingen en hoe ze gingen.",
+    "whatGoes3": "Je kunt daarna opnieuw een account maken, maar je oude gegevens komen niet terug.",
+    "confirmWord": "VERWIJDER",
+    "confirmLabel": "Typ {word} om te bevestigen",
+    "button": "Verwijder mijn account",
+    "failed": "Verwijderen is niet gelukt. Probeer het opnieuw of mail ons."
+  },
+  "Print": {
+    "intro": "Print dit kaartje, knip het uit langs de stippellijn en plak het op je bidon.",
+    "pool": "{length}m-bad",
+    "bring": "Neem mee",
+    "legend": "BC borstcrawl · RC rugcrawl · SS schoolslag · Z zone · r rust in seconden",
+    "print": "Printen",
+    "tip": "Tip: plak er doorzichtige tape overheen of gebruik een laminaathoesje, dan blijft het leesbaar in het water.",
+    "accent": "Accent",
+    "task": "Opdracht",
+    "rest": "Rust",
+    "total": "Totaal"
   }
 }

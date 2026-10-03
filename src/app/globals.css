@@ -113,3 +113,23 @@ html[data-morphing] .workout-dialog::backdrop {
     transition: none;
   }
 }
+
+/* Printing (the swim card for your water bottle): black on white, without the app around it. */
+@media print {
+  html {
+    color-scheme: light;
+  }
+  body,
+  body * {
+    color: #000 !important;
+    background: transparent !important;
+    border-color: #999 !important;
+    box-shadow: none !important;
+  }
+  .print-hidden {
+    display: none !important;
+  }
+  @page {
+    margin: 1cm;
+  }
+}

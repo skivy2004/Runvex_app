@@ -128,18 +128,26 @@ export function DayCard({
         <ul className="flex flex-col gap-2">
           {workouts.map((workout) => {
             const isLongSession = longSessionWorkouts.has(workout.id);
+            // A training you did stays as it was: only deleting is still possible.
+            const isDone = workout.status === "done";
             const workoutCard = (
               <WorkoutCard
                 workout={workout}
                 isLongSession={isLongSession}
+                canCheckOff={isPast || isToday}
                 actions={
                   editing && (
                     <WorkoutActions
                       workoutId={workout.id}
                       date={date}
                       weekDates={editing.weekDates}
-                      alternatives={editing.alternativesFor(workout, isLongSession)}
-                      poolLength={workout.template_id ? (parseSwimWorkoutId(workout.template_id)?.poolLength ?? null) : null}
+                      alternatives={isDone ? [] : editing.alternativesFor(workout, isLongSession)}
+                      poolLength={
+                        !isDone && workout.template_id
+                          ? (parseSwimWorkoutId(workout.template_id)?.poolLength ?? null)
+                          : null
+                      }
+                      canMove={!isDone}
                     />
                   )
                 }
@@ -152,7 +160,7 @@ export function DayCard({
                 : (workout.template_id && getWorkout(workout.template_id)?.name[locale]) || workout.title;
             return (
               <li key={workout.id}>
-                {editing ? (
+                {editing && !isDone ? (
                   <DraggableWorkout id={workout.id} date={date} name={name}>
                     {workoutCard}
                   </DraggableWorkout>

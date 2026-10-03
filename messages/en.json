@@ -64,7 +64,8 @@
       "main": "Main 2 endurance",
       "speed": "Main 3 speed",
       "cooldown": "Cool-down"
-    }
+    },
+    "printCard": "Print for your bottle"
   },
   "WorkoutActions": {
     "swap": "Swap",
@@ -140,7 +141,8 @@
     "logout": "Log out",
     "privacy": "Privacy statement",
     "swimming": "Swimming",
-    "poolSummary": "{length} m pool"
+    "poolSummary": "{length} m pool",
+    "deleteAccount": "Delete account"
   },
   "Auth": {
     "loginTitle": "Welcome back",
@@ -167,7 +169,8 @@
       "weakPassword": "This password is too weak. Choose a stronger one.",
       "rateLimited": "Too many attempts. Please wait a moment and try again.",
       "generic": "Something went wrong. Please try again."
-    }
+    },
+    "accountDeleted": "Your account and all your data have been deleted."
   },
   "Onboarding": {
     "progress": "Step {current} of {total}",
@@ -381,5 +384,47 @@
     "poolHint": "Drills always cover whole lengths, so you switch at the wall.",
     "equipment": "My equipment",
     "equipmentHint": "You only get drills you have the equipment for."
+  },
+  "Feedback": {
+    "markDone": "Done",
+    "markSkipped": "Skipped",
+    "done": "Done",
+    "doneWithRpe": "Done · effort {rpe}/10",
+    "rpeShort": "{rpe}/10",
+    "skipped": "Skipped",
+    "undo": "Undo",
+    "edit": "Edit",
+    "rpeQuestion": "How hard did it feel?",
+    "rpeEasy": "1 very easy",
+    "rpeMax": "10 maximal",
+    "noteLabel": "Note (optional)",
+    "notePlaceholder": "E.g. heavy legs, knee felt fine",
+    "save": "Save",
+    "cancel": "Cancel",
+    "failed": "Saving didn't work. Please try again.",
+    "weekDone": "{done} of {total} done"
+  },
+  "DeleteAccount": {
+    "title": "Delete account",
+    "subtitle": "This can't be undone.",
+    "whatGoes1": "Your account and login details are erased.",
+    "whatGoes2": "All your data goes with it: profile, sports, goal, schedule, trainings and how they went.",
+    "whatGoes3": "You can create a new account afterwards, but your old data won't come back.",
+    "confirmWord": "DELETE",
+    "confirmLabel": "Type {word} to confirm",
+    "button": "Delete my account",
+    "failed": "Deleting didn't work. Please try again or email us."
+  },
+  "Print": {
+    "intro": "Print this card, cut it out along the dashed line and stick it on your water bottle.",
+    "pool": "{length} m pool",
+    "bring": "Bring",
+    "legend": "free freestyle · back backstroke · breast breaststroke · Z zone · r rest in seconds",
+    "print": "Print",
+    "tip": "Tip: cover it with clear tape or a laminating pouch, so it stays readable in the water.",
+    "accent": "Focus",
+    "task": "Set",
+    "rest": "Rest",
+    "total": "Total"
   }
 }

@@ -60,6 +60,7 @@ export function NextWorkoutCard({ workout, today, isLongSession = false }: NextW
       <WorkoutCard
         workout={workout}
         isLongSession={isLongSession}
+        canCheckOff={daysAway <= 0}
         trailing={
           <span className="shrink-0 text-sm font-semibold text-accent first-letter:uppercase">{when}</span>
         }

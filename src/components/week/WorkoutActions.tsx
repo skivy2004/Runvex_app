@@ -34,12 +34,21 @@ type WorkoutActionsProps = {
   alternatives: Alternative[];
   /** For a block swim: the pool it's planned for, so you can switch to the other one. */
   poolLength?: PoolLength | null;
+  /** False for a training you did: it stays on its day. */
+  canMove?: boolean;
 };
 
 type Panel = "swap" | "move" | "delete" | null;
 
 /** Swap, move and delete, at the bottom of the workout window. */
-export function WorkoutActions({ workoutId, date, weekDates, alternatives, poolLength = null }: WorkoutActionsProps) {
+export function WorkoutActions({
+  workoutId,
+  date,
+  weekDates,
+  alternatives,
+  poolLength = null,
+  canMove = true,
+}: WorkoutActionsProps) {
   const t = useTranslations("WorkoutActions");
   const format = useFormatter();
   const locale = useLocale();
@@ -113,10 +122,12 @@ export function WorkoutActions({ workoutId, date, weekDates, alternatives, poolL
             {t("swap")}
           </button>
         )}
-        <button type="button" className={tabClass("move")} aria-expanded={panel === "move"} onClick={() => toggle("move")}>
-          <CalendarArrowUp aria-hidden className="size-4" />
-          {t("move")}
-        </button>
+        {canMove && (
+          <button type="button" className={tabClass("move")} aria-expanded={panel === "move"} onClick={() => toggle("move")}>
+            <CalendarArrowUp aria-hidden className="size-4" />
+            {t("move")}
+          </button>
+        )}
         <button type="button" className={tabClass("delete")} aria-expanded={panel === "delete"} onClick={() => toggle("delete")}>
           <Trash2 aria-hidden className="size-4" />
           <span className="sr-only">{t("delete")}</span>
