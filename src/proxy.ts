@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from "next/server";
 import { updateSession } from "@/lib/supabase/proxy";
 
 // Pages only for logged-out visitors. Logged-in users are sent home.
-const GUEST_ONLY_PATHS = ["/login", "/register"];
+const GUEST_ONLY_PATHS = ["/login", "/register", "/forgot-password"];
 // Pages anyone may open.
 const PUBLIC_PATHS = ["/auth/confirm", "/privacy"];
 // Preview pages, only reachable while developing.

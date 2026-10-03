@@ -42,6 +42,21 @@ export async function getNextWorkout(supabase: AppSupabaseClient, userId: string
 
 export type PlannedWorkout = NonNullable<Awaited<ReturnType<typeof getNextWorkout>>>;
 
+/** The next trainings still to do, from `from` on, in order. */
+export async function getUpcomingWorkouts(supabase: AppSupabaseClient, userId: string, from: string, limit: number) {
+  const { data, error } = await supabase
+    .from("planned_workouts")
+    .select(WORKOUT_COLUMNS)
+    .eq("user_id", userId)
+    .eq("status", "planned")
+    .gte("scheduled_on", from)
+    .order("scheduled_on")
+    .order("position")
+    .limit(limit);
+  if (error) throw error;
+  return data;
+}
+
 /** Saves the sessions of a new plan. `title` is the workout name, `notes` the coach's reason. */
 export async function insertPlannedSessions(
   supabase: AppSupabaseClient,

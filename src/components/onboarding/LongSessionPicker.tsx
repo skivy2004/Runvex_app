@@ -28,7 +28,7 @@ export function LongSessionPicker({ week, onChange, userSports }: LongSessionPic
   if (sports.length === 0) return null;
 
   return (
-    <section className="flex flex-col gap-4 rounded-3xl bg-surface p-5">
+    <section className="flex flex-col gap-4 rounded-[1.75rem] border border-white/[0.08] bg-surface/70 backdrop-blur-xl p-5">
       <div className="flex flex-col gap-1">
         <h2 className="font-semibold">{t("longSessionsTitle")}</h2>
         <p className="text-sm text-muted">{t("longSessionsText")}</p>

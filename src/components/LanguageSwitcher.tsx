@@ -15,7 +15,7 @@ export function LanguageSwitcher() {
     <div
       role="group"
       aria-label={t("label")}
-      className={`flex rounded-full bg-surface p-1 text-xs font-semibold ${isPending ? "opacity-60" : ""}`}
+      className={`flex rounded-full border border-white/10 bg-surface/70 p-1 text-xs font-bold backdrop-blur-xl ${isPending ? "opacity-60" : ""}`}
     >
       {locales.map((locale) => {
         const isActive = locale === currentLocale;

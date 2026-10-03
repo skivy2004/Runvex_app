@@ -10,8 +10,8 @@ type ButtonStyle = {
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & ButtonStyle;
 
 const variantClasses: Record<ButtonVariant, string> = {
-  primary: "bg-accent text-accent-foreground hover:brightness-95",
-  secondary: "bg-surface-raised text-foreground hover:bg-line",
+  primary: "bg-accent text-accent-foreground shadow-[0_0_24px_rgb(239_106_69/0.25)] hover:brightness-95",
+  secondary: "border border-white/10 bg-white/[0.05] text-foreground hover:bg-white/[0.09]",
   // For actions that can't be undone, like deleting your account.
   danger: "bg-danger text-background hover:brightness-95",
 };
@@ -21,7 +21,7 @@ const variantClasses: Record<ButtonVariant, string> = {
  * Use a link when it goes to another page, a button when it does something.
  */
 export function buttonClassName({ variant = "primary", fullWidth = false }: ButtonStyle = {}) {
-  return `inline-flex h-12 items-center justify-center gap-2 rounded-full px-6 text-sm font-semibold transition active:scale-[0.98] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-not-allowed disabled:opacity-50 ${variantClasses[variant]} ${fullWidth ? "w-full" : ""}`;
+  return `inline-flex h-12 items-center justify-center gap-2 rounded-2xl px-6 text-sm font-bold transition active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-not-allowed disabled:opacity-50 ${variantClasses[variant]} ${fullWidth ? "w-full" : ""}`;
 }
 
 export function Button({

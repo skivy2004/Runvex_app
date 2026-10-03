@@ -4,7 +4,7 @@ import { getLocale } from "next-intl/server";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import { isLocale } from "@/core/locale";
-import { loginSchema, registerSchema } from "@/core/validation/auth";
+import { forgotPasswordSchema, loginSchema, newPasswordSchema, registerSchema } from "@/core/validation/auth";
 import { writeLocaleCookie } from "@/i18n/cookie";
 import { createClient } from "@/lib/supabase/server";
 import { refreshAppData } from "@/lib/refreshAppData";
@@ -16,6 +16,9 @@ export async function signUp(_previous: AuthFormState, formData: FormData): Prom
   if (!parsed.success) {
     const field = parsed.error.issues[0]?.path[0];
     return { status: "error", error: field === "password" ? "passwordTooShort" : "invalidEmail", email };
+  }
+  if (formData.get("confirmPassword") !== parsed.data.password) {
+    return { status: "error", error: "passwordsDontMatch", email };
   }
 
   const supabase = await createClient();
@@ -78,6 +81,8 @@ function toErrorKey(code: string | undefined): AuthErrorKey {
       return "emailNotConfirmed";
     case "weak_password":
       return "weakPassword";
+    case "same_password":
+      return "samePassword";
     case "email_address_invalid":
       return "invalidEmail";
     case "over_email_send_rate_limit":
@@ -87,4 +92,39 @@ function toErrorKey(code: string | undefined): AuthErrorKey {
       console.error("Unexpected auth error:", code);
       return "generic";
   }
+}
+
+/** "Forgot password": sends an email with a link to choose a new password. */
+export async function requestPasswordReset(_previous: AuthFormState, formData: FormData): Promise<AuthFormState> {
+  const email = String(formData.get("email") ?? "");
+  const parsed = forgotPasswordSchema.safeParse({ email });
+  if (!parsed.success) return { status: "error", error: "invalidEmail", email };
+
+  const supabase = await createClient();
+  const origin = (await headers()).get("origin");
+  const { error } = await supabase.auth.resetPasswordForEmail(parsed.data.email, {
+    // The email template builds the link from this: {{ .RedirectTo }}?token_hash=...&type=recovery
+    redirectTo: origin ? `${origin}/auth/confirm` : undefined,
+  });
+  if (error?.code === "over_email_send_rate_limit" || error?.status === 429) {
+    return { status: "error", error: "rateLimited", email };
+  }
+  if (error) console.error("Password reset email failed:", error.message);
+
+  // Always the same answer, also for an unknown email, so nobody can find out who
+  // has an account.
+  return { status: "reset-sent", email: parsed.data.email };
+}
+
+/** Saves a new password for the user who came in through the reset link. */
+export async function updatePassword(_previous: AuthFormState, formData: FormData): Promise<AuthFormState> {
+  const parsed = newPasswordSchema.safeParse({ password: formData.get("password") });
+  if (!parsed.success) return { status: "error", error: "passwordTooShort", email: "" };
+
+  const supabase = await createClient();
+  const { error } = await supabase.auth.updateUser({ password: parsed.data.password });
+  if (error) return { status: "error", error: toErrorKey(error.code), email: "" };
+
+  refreshAppData();
+  redirect("/");
 }

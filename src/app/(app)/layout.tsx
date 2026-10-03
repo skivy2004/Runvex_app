@@ -10,8 +10,10 @@ export default async function AppLayout({ children }: LayoutProps<"/">) {
 
   return (
     <>
-      {/* Keeps the last content clear of the tab bar, which is taller on iPhones with a home bar. */}
-      <main className="flex flex-1 flex-col pt-6 pb-[calc(7rem+env(safe-area-inset-bottom))]">
+      {/* The soft French Blue and coral glow behind every page. */}
+      <div aria-hidden className="app-glow" />
+      {/* Keeps the last content clear of the floating tab bar (taller on iPhones with a home bar). */}
+      <main className="flex flex-1 flex-col pt-[max(1.5rem,env(safe-area-inset-top))] pb-[calc(7.5rem+env(safe-area-inset-bottom))]">
         {children}
       </main>
       <BottomNav />

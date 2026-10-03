@@ -76,8 +76,10 @@ export function DayCard({
     <section
       // aria-current tells screen readers which day is today.
       aria-current={isToday ? "date" : undefined}
-      className={`flex flex-col gap-3 rounded-3xl border p-4 ${
-        isToday ? "border-accent bg-accent/5" : "border-transparent bg-surface"
+      className={`flex flex-col gap-3 rounded-[1.75rem] border p-4 backdrop-blur-xl ${
+        isToday
+          ? "border-accent/60 bg-accent/[0.06] shadow-[0_0_30px_rgb(239_106_69/0.12)]"
+          : "border-white/[0.08] bg-surface/70"
       } ${isPast ? "opacity-60" : ""}`}
     >
       <header className="flex items-center justify-between gap-2">
@@ -91,7 +93,7 @@ export function DayCard({
             })}
           </h2>
           {isToday && (
-            <span className="rounded-full bg-accent px-2 py-0.5 text-[11px] font-semibold text-accent-foreground">
+            <span className="rounded-full bg-accent px-2 py-0.5 text-[11px] font-bold uppercase tracking-wider text-accent-foreground">
               {t("today")}
             </span>
           )}

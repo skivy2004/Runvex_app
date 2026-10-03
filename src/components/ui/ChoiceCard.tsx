@@ -15,7 +15,7 @@ export function ChoiceCard({ title, description, selected, onSelect, kind }: Cho
       aria-checked={selected}
       onClick={onSelect}
       className={`flex w-full flex-col items-start gap-1 rounded-2xl border p-4 text-left transition focus-visible:outline-2 focus-visible:outline-accent ${
-        selected ? "border-accent bg-accent/10" : "border-line bg-surface hover:border-muted"
+        selected ? "border-accent bg-accent/10 shadow-[0_0_20px_rgb(239_106_69/0.12)]" : "border-white/10 bg-white/[0.04] hover:border-white/25"
       }`}
     >
       <span className="font-semibold">{title}</span>

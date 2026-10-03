@@ -15,11 +15,11 @@ export function SettingsLink({ href, icon: Icon, title, description }: SettingsL
     <Link
       href={href}
       prefetch
-      className="flex items-center gap-3 rounded-2xl bg-surface p-4 transition hover:bg-surface-raised"
+      className="flex items-center gap-3 rounded-[1.5rem] border border-white/[0.08] bg-surface/70 backdrop-blur-xl p-4 transition hover:bg-surface-raised/70 active:scale-[0.98]"
     >
       <span
         aria-hidden
-        className="flex size-10 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent"
+        className="flex size-11 shrink-0 items-center justify-center rounded-2xl bg-accent/15 text-accent"
       >
         <Icon className="size-5" />
       </span>

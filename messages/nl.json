@@ -1,24 +1,49 @@
 {
   "Home": {
-    "greeting": "Hoi {name}!",
-    "greetingNoName": "Hoi!",
+    "greeting": {
+      "morning": "Goedemorgen, {name}",
+      "afternoon": "Goedemiddag, {name}",
+      "evening": "Goedenavond, {name}"
+    },
+    "greetingNoName": {
+      "morning": "Goedemorgen",
+      "afternoon": "Goedemiddag",
+      "evening": "Goedenavond"
+    },
     "thisWeek": "Deze week",
-    "seeWeek": "Bekijk week",
-    "ofAvailable": "van {available} beschikbaar",
-    "progressLabel": "Geplande trainingstijd deze week",
     "restDay": "Rustdag",
-    "nextTraining": "Volgende training",
     "nothingPlanned": "Nog niets gepland",
     "nothingPlannedText": "Plan je trainingen voor deze week, dan zie je ze hier.",
     "today": "Vandaag",
     "tomorrow": "Morgen",
     "goal": "Jouw doel",
-    "seeGoal": "Details",
     "noGoal": "Nog geen doel",
     "noGoalText": "Een doel geeft je training een duidelijke focus.",
-    "setGoal": "Stel een doel",
-    "daysToGo": "{days, plural, one {dag te gaan} other {dagen te gaan}}",
-    "raceDay": "Wedstrijddag!"
+    "raceDay": "Wedstrijddag!",
+    "streak": "{count, plural, one {# training op rij} other {# trainingen op rij}}",
+    "todaysSession": "Je training",
+    "week": "Week",
+    "weekDoneLabel": "{percent}% van deze week gedaan",
+    "intensity": "Zwaarte",
+    "intensityLevel": {
+      "easy": "Rustig",
+      "moderate": "Gemiddeld",
+      "hard": "Hoog"
+    },
+    "startWorkout": "Start training",
+    "viewWorkout": "Bekijk training",
+    "race": "Wedstrijd",
+    "countdownDays": "dagen",
+    "countdownHours": "uur",
+    "countdownMinutes": "min",
+    "trainingOverview": "Trainingsoverzicht",
+    "seePlan": "Bekijk planning",
+    "ofPlanned": "van {planned}",
+    "sportDoneLabel": "{sport}: {done} van {planned} gedaan",
+    "coachEyebrow": "Runvex AI",
+    "coachTitle": "Je coach",
+    "coachAbout": "Over: {name}",
+    "comingUp": "Hierna"
   },
   "Nav": {
     "label": "Hoofdmenu",
@@ -26,7 +51,8 @@
     "week": "Week",
     "add": "Training toevoegen",
     "goal": "Doel",
-    "profile": "Profiel"
+    "profile": "Profiel",
+    "plan": "Planning"
   },
   "Week": {
     "title": "Jouw week",
@@ -168,9 +194,33 @@
       "emailNotConfirmed": "Bevestig eerst je e-mailadres. Check je inbox.",
       "weakPassword": "Dit wachtwoord is te zwak. Kies een sterker wachtwoord.",
       "rateLimited": "Te veel pogingen. Wacht even en probeer het opnieuw.",
-      "generic": "Er ging iets mis. Probeer het opnieuw."
+      "generic": "Er ging iets mis. Probeer het opnieuw.",
+      "samePassword": "Kies een ander wachtwoord dan je oude.",
+      "passwordsDontMatch": "Wachtwoorden zijn niet hetzelfde"
     },
-    "accountDeleted": "Je account en al je gegevens zijn verwijderd."
+    "accountDeleted": "Je account en al je gegevens zijn verwijderd.",
+    "eyebrow": "Jouw voorsprong",
+    "heroLine1": "Train rustig.",
+    "heroLine2": "Race",
+    "heroAccent": "hard.",
+    "heroSubtitle": "AI-coaching voor zwemmen, fietsen en lopen, gebouwd rond jouw rooster en jouw doel.",
+    "letsGo": "Aan de slag",
+    "noAccountYet": "Nieuw bij Runvex?",
+    "createAccount": "Account maken",
+    "forgotLink": "Wachtwoord vergeten?",
+    "forgotTitle": "Wachtwoord vergeten",
+    "forgotText": "Vul je e-mailadres in. Je krijgt een link om een nieuw wachtwoord te kiezen.",
+    "forgotButton": "Stuur link",
+    "forgotSentText": "Als er een account is voor {email}, krijg je een e-mail met een link om een nieuw wachtwoord te kiezen.",
+    "backToLogin": "Terug naar inloggen",
+    "resetTitle": "Kies een nieuw wachtwoord",
+    "newPassword": "Nieuw wachtwoord",
+    "resetButton": "Wachtwoord opslaan",
+    "repeatPassword": "Herhaal wachtwoord",
+    "passwordsMatch": "Wachtwoorden zijn hetzelfde",
+    "passwordsDontMatch": "Wachtwoorden zijn niet hetzelfde",
+    "showPassword": "Wachtwoord tonen",
+    "hidePassword": "Wachtwoord verbergen"
   },
   "Onboarding": {
     "progress": "Stap {current} van {total}",

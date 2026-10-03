@@ -37,7 +37,7 @@ export default async function PrivacyPage() {
       </div>
 
       {content.sections.map((section) => (
-        <section key={section.heading} className="flex flex-col gap-3 rounded-3xl bg-surface p-5">
+        <section key={section.heading} className="flex flex-col gap-3 rounded-[1.75rem] border border-white/[0.08] bg-surface/70 backdrop-blur-xl p-5">
           <h2 className="text-lg font-semibold">{section.heading}</h2>
           {section.items && (
             <ul className="flex list-disc flex-col gap-2 pl-5 text-sm marker:text-accent">

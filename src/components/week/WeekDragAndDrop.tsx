@@ -118,7 +118,7 @@ export function DroppableDay({ date, children }: { date: string; children: React
   return (
     <div
       ref={setNodeRef}
-      className={`rounded-3xl transition ${isOver ? "ring-2 ring-accent ring-offset-2 ring-offset-background" : ""}`}
+      className={`rounded-[1.75rem] transition ${isOver ? "ring-2 ring-accent ring-offset-2 ring-offset-background" : ""}`}
     >
       {children}
     </div>

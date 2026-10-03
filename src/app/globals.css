@@ -7,22 +7,33 @@
  * look can be changed in one place.
  */
 @theme {
-  --color-background: #0e0f11;
-  --color-surface: #1c1d21;
-  --color-surface-raised: #2a2b30;
-  --color-line: #34353b;
-  --color-foreground: #ffffff;
-  --color-muted: #8a8b90;
-  /* The blue of the Runvex logo (public/logo.svg). */
-  --color-accent: #4abaeb;
-  --color-accent-foreground: #0e0f11;
-  --color-danger: #ff6b5e;
-  --color-warning: #fbbf24;
+  /*
+   * Palette:
+   *   French Blue  #3E5889  swim, recovery, secondary cards, gradients
+   *   Burnt Coral  #EF6A45  primary accent: buttons, active states, highlights, run
+   *   Chalk        #DED9D3  text on dark, bike
+   *   Gradient     French Blue → Burnt Coral
+   * The dark backgrounds are a very dark French Blue, so everything feels like one family.
+   */
+  --color-background: #0f1420;
+  --color-surface: #182031;
+  --color-surface-raised: #212a3e;
+  --color-line: #2e3850;
+  --color-foreground: #ded9d3;
+  --color-muted: #8c93a3;
+  --color-accent: #ef6a45;
+  --color-accent-foreground: #0f1420;
+  --color-blue: #3e5889;
+  /* French Blue made lighter for text and icons, which would be too dark to read on the background. */
+  --color-blue-light: #8fa6d6;
+  --color-coral: #ef6a45;
+  --color-danger: #f2545b;
+  --color-warning: #f2b544;
 }
 
 /* `inline` because the font variable is set by next/font in layout.tsx. */
 @theme inline {
-  --font-sans: var(--font-manrope);
+  --font-sans: var(--font-space-grotesk);
 }
 
 html {
@@ -39,9 +50,9 @@ html {
   width: min(100% - 2rem, 28rem);
   max-height: 85dvh;
   padding: 0;
-  border: 0;
-  border-radius: 1.5rem;
-  background: var(--color-surface);
+  border: 1px solid rgb(255 255 255 / 0.08);
+  border-radius: 1.75rem;
+  background: color-mix(in srgb, var(--color-surface) 92%, transparent);
   color: var(--color-foreground);
   overflow-y: auto;
   overscroll-behavior: contain;
@@ -49,7 +60,7 @@ html {
 }
 
 .workout-dialog::backdrop {
-  background: rgb(0 0 0 / 0.45);
+  background: rgb(15 14 15 / 0.55);
   backdrop-filter: blur(10px);
 }
 
@@ -131,5 +142,245 @@ html[data-morphing] .workout-dialog::backdrop {
   }
   @page {
     margin: 1cm;
+  }
+}
+
+/*
+ * Login and register (components/auth).
+ */
+
+/* Two soft color blobs drifting slowly behind the page. */
+.auth-blob {
+  position: absolute;
+  width: 32rem;
+  height: 32rem;
+  border-radius: 9999px;
+  filter: blur(80px);
+  opacity: 0.45;
+}
+.auth-blob-blue {
+  top: -10rem;
+  left: -12rem;
+  background: var(--color-blue);
+  opacity: 0.6;
+  animation: blob-drift 18s ease-in-out infinite alternate;
+}
+.auth-blob-coral {
+  top: -4rem;
+  right: -16rem;
+  background: var(--color-coral);
+  opacity: 0.3;
+  animation: blob-drift 22s ease-in-out -6s infinite alternate-reverse;
+}
+@keyframes blob-drift {
+  from {
+    transform: translate(0, 0) scale(1);
+  }
+  to {
+    transform: translate(6rem, 4rem) scale(1.15);
+  }
+}
+
+/* Fine film grain over the background. */
+.auth-grain {
+  opacity: 0.07;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+/* The headline: words slide up one by one (the delay is set per word). */
+.word-in {
+  animation: word-in 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes word-in {
+  from {
+    opacity: 0;
+    transform: translateY(0.4em);
+    filter: blur(6px);
+  }
+}
+
+/* The main button breathes with a soft glow. */
+.auth-cta {
+  animation: cta-breathe 3s ease-in-out infinite;
+}
+@keyframes cta-breathe {
+  0%,
+  100% {
+    box-shadow: 0 0 24px rgb(239 106 69 / 0.25);
+  }
+  50% {
+    box-shadow: 0 0 40px rgb(239 106 69 / 0.45);
+  }
+}
+
+/* While logging in, swim, bike and run take turns inside the button. */
+.sport-cycle {
+  opacity: 0;
+  animation: sport-cycle 1.2s linear infinite;
+}
+@keyframes sport-cycle {
+  0%,
+  30% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  33%,
+  100% {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+/* Swim, bike, run at the bottom: each glows in turn (2.4 s round, 0.8 s apart). */
+.sport-dot {
+  animation: sport-dot 2.4s ease-in-out infinite;
+}
+@keyframes sport-dot {
+  0%,
+  100% {
+    color: var(--color-muted);
+    border-color: var(--color-line);
+    box-shadow: 0 0 0 rgb(239 106 69 / 0);
+  }
+  12% {
+    color: var(--color-accent);
+    border-color: rgb(239 106 69 / 0.6);
+    box-shadow: 0 0 22px rgb(239 106 69 / 0.55);
+  }
+  33% {
+    color: var(--color-muted);
+    border-color: var(--color-line);
+    box-shadow: 0 0 0 rgb(239 106 69 / 0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auth-blob,
+  .auth-cta,
+  .sport-dot,
+  .word-in {
+    animation: none;
+  }
+}
+
+/* "Passwords match": the check draws itself. */
+.check-draw {
+  stroke-dasharray: 24;
+  stroke-dashoffset: 24;
+  animation: check-draw 0.4s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+@keyframes check-draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .check-draw {
+    animation: none;
+    stroke-dashoffset: 0;
+  }
+}
+
+/*
+ * Shared redesign styles.
+ */
+
+/* Small uppercase label above titles, e.g. "THIS WEEK". */
+.eyebrow {
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Progress rings fill from 0 to their value when they appear. */
+.ring-fill {
+  transition: stroke-dashoffset 0.6s;
+  animation: ring-fill 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes ring-fill {
+  from {
+    stroke-dashoffset: var(--ring-from);
+  }
+}
+
+/* Bars grow from the left when they appear. */
+.bar-grow {
+  transform-origin: left;
+  animation: bar-grow 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes bar-grow {
+  from {
+    transform: scaleX(0);
+  }
+}
+
+/* Page elements come in one after the other (the delay is set per element). */
+.rise-in {
+  animation: rise-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes rise-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+}
+
+/* A blinking text cursor while the coach "types". */
+.typing-cursor::after {
+  content: "";
+  display: inline-block;
+  width: 2px;
+  height: 1em;
+  margin-left: 2px;
+  vertical-align: -0.15em;
+  background: var(--color-accent);
+  animation: cursor-blink 0.9s steps(1) infinite;
+}
+@keyframes cursor-blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* The page background: the same slow color blobs as the login, but calmer. */
+.app-glow {
+  position: fixed;
+  inset: 0;
+  z-index: -10;
+  pointer-events: none;
+  background:
+    radial-gradient(40rem 30rem at -10% -10%, rgb(62 88 137 / 0.18), transparent 60%),
+    radial-gradient(36rem 28rem at 110% 20%, rgb(239 106 69 / 0.1), transparent 60%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring-fill,
+  .bar-grow,
+  .rise-in,
+  .typing-cursor::after {
+    animation: none;
+  }
+}
+
+/* The streak flame flickers softly. */
+.streak-flame {
+  animation: flame 1.6s ease-in-out infinite;
+  transform-origin: bottom;
+}
+@keyframes flame {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15) rotate(-4deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .streak-flame {
+    animation: none;
   }
 }

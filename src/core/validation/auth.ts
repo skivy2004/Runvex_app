@@ -19,3 +19,8 @@ export const loginSchema = z.object({
 });
 
 export type Credentials = z.infer<typeof registerSchema>;
+
+export const forgotPasswordSchema = z.object({ email });
+
+/** A new password follows the same rules as when the account was created. */
+export const newPasswordSchema = registerSchema.pick({ password: true });

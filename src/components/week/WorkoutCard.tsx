@@ -22,6 +22,9 @@ type WorkoutCardProps = {
   actions?: ReactNode;
   /** True from the training's day on: then you can check it off as done or skipped. */
   canCheckOff?: boolean;
+  /** A different look on the page (e.g. the big card on Home); the window stays the same. */
+  trigger?: ReactNode;
+  triggerClassName?: string;
 };
 
 /**
@@ -34,6 +37,8 @@ export function WorkoutCard({
   trailing,
   actions,
   canCheckOff = false,
+  trigger,
+  triggerClassName,
 }: WorkoutCardProps) {
   const t = useTranslations("Workout");
   const tFeedback = useTranslations("Feedback");
@@ -79,11 +84,15 @@ export function WorkoutCard({
 
   // A training you added yourself, without notes or actions, has nothing to open.
   if (!template && !workout.notes && !actions && !canCheckOff) {
-    return <div className="rounded-2xl bg-surface-raised p-3">{summary}</div>;
+    return trigger ? (
+      <div className={triggerClassName}>{trigger}</div>
+    ) : (
+      <div className="rounded-2xl border border-white/[0.06] bg-white/[0.04] p-3">{summary}</div>
+    );
   }
 
   return (
-    <WorkoutDialog summary={summary} title={title}>
+    <WorkoutDialog summary={summary} title={title} trigger={trigger} triggerClassName={triggerClassName}>
       {template && (
         <>
           {longName && <p className="-mb-2 font-semibold">{libraryName}</p>}

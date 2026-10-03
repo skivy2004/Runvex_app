@@ -1,77 +1,74 @@
 "use client";
 
-import { CalendarDays, House, Plus, Target, User, type LucideIcon } from "lucide-react";
+import { CalendarDays, House, Target, User, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 type Tab = {
   href: string;
-  labelKey: "home" | "week" | "goal" | "profile";
+  labelKey: "home" | "plan" | "goal" | "profile";
   icon: LucideIcon;
 };
 
-const leftTabs: Tab[] = [
+const tabs: Tab[] = [
   { href: "/", labelKey: "home", icon: House },
-  { href: "/week", labelKey: "week", icon: CalendarDays },
-];
-const rightTabs: Tab[] = [
+  { href: "/week", labelKey: "plan", icon: CalendarDays },
   { href: "/goal", labelKey: "goal", icon: Target },
   { href: "/profile", labelKey: "profile", icon: User },
 ];
 
-function TabLink({ tab, isActive }: { tab: Tab; isActive: boolean }) {
-  const t = useTranslations("Nav");
-  const Icon = tab.icon;
-
-  return (
-    <Link
-      href={tab.href}
-      // Load the whole tab in the background right away, so switching tabs is instant.
-      prefetch
-      // Tells screen readers which tab is the current page.
-      aria-current={isActive ? "page" : undefined}
-      className={`flex flex-1 flex-col items-center gap-1 py-1.5 text-[11px] font-medium transition ${
-        isActive ? "text-accent" : "text-muted hover:text-foreground"
-      }`}
-    >
-      <Icon aria-hidden className="size-5" strokeWidth={isActive ? 2.5 : 2} />
-      {t(tab.labelKey)}
-    </Link>
-  );
-}
-
+/**
+ * The floating glass tab bar. A Burnt Coral square sits behind the active tab's icon
+ * and slides to the next tab when you switch.
+ */
 export function BottomNav() {
   const t = useTranslations("Nav");
   const pathname = usePathname();
   const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
+  // "Add training" (/add) belongs to the plan.
+  const activeIndex = pathname.startsWith("/add") ? 1 : tabs.findIndex((tab) => isActive(tab.href));
 
   return (
-    // Fixed to the bottom of the screen; the inner div keeps it as wide as the app column.
-    // The bar's own background runs down behind the iPhone home bar (the safe area);
-    // the tabs sit just above that bar, tucked slightly into it to keep the bar low,
-    // like the tab bars in iPhone apps.
-    <nav aria-label={t("label")} className="fixed inset-x-0 bottom-0 z-10">
-      <div className="mx-auto flex max-w-md items-end rounded-t-3xl border-t border-line bg-surface px-2 pt-2 pb-[max(0.5rem,calc(env(safe-area-inset-bottom)-0.5rem))]">
-        {leftTabs.map((tab) => (
-          <TabLink key={tab.href} tab={tab} isActive={isActive(tab.href)} />
-        ))}
-
-        {/* Raised round button in the middle, like in the design: add a training. */}
-        <div className="flex flex-1 justify-center">
-          <Link
-            href="/add"
-            prefetch
-            aria-label={t("add")}
-            className="-mt-7 flex size-14 items-center justify-center rounded-full bg-accent text-accent-foreground shadow-lg shadow-accent/20 ring-4 ring-background transition active:scale-95"
+    <nav
+      aria-label={t("label")}
+      className="fixed inset-x-0 bottom-0 z-10 px-4 pb-[max(0.75rem,calc(env(safe-area-inset-bottom)-0.5rem))]"
+    >
+      <div className="relative mx-auto grid max-w-md grid-cols-4 rounded-[1.75rem] border border-white/10 bg-surface/75 p-2 shadow-2xl shadow-black/50 backdrop-blur-xl">
+        {/* The sliding indicator: one quarter wide, moved to the active tab. */}
+        {activeIndex >= 0 && (
+          <span
+            aria-hidden
+            className="pointer-events-none absolute top-2 left-2 flex h-10 w-[calc((100%-1rem)/4)] justify-center transition-transform duration-500 ease-[cubic-bezier(0.2,0.9,0.2,1.1)] motion-reduce:transition-none"
+            style={{ transform: `translateX(${activeIndex * 100}%)` }}
           >
-            <Plus aria-hidden className="size-7" strokeWidth={2.5} />
-          </Link>
-        </div>
-
-        {rightTabs.map((tab) => (
-          <TabLink key={tab.href} tab={tab} isActive={isActive(tab.href)} />
-        ))}
+            <span className="size-10 rounded-2xl bg-accent shadow-[0_0_20px_rgb(239_106_69/0.45)]" />
+          </span>
+        )}
+        {tabs.map((tab, index) => {
+          const Icon = tab.icon;
+          const active = index === activeIndex;
+          return (
+            <Link
+              key={tab.href}
+              href={tab.href}
+              // Load the whole tab in the background right away, so switching tabs is instant.
+              prefetch
+              // Tells screen readers which tab is the current page.
+              aria-current={active ? "page" : undefined}
+              className="relative flex flex-col items-center gap-1 text-[11px] font-semibold"
+            >
+              <span
+                className={`flex size-10 items-center justify-center transition-colors duration-300 ${
+                  active ? "text-accent-foreground" : "text-muted"
+                }`}
+              >
+                <Icon aria-hidden className="size-5" strokeWidth={active ? 2.5 : 2} />
+              </span>
+              <span className={active ? "text-accent" : "text-muted"}>{t(tab.labelKey)}</span>
+            </Link>
+          );
+        })}
       </div>
     </nav>
   );

@@ -22,7 +22,7 @@ export function DoneStep({ name, mode }: DoneStepProps) {
 
   return (
     <div className="flex flex-1 flex-col justify-center py-8">
-      <div className="flex flex-col items-center gap-6 rounded-3xl bg-accent p-8 text-center text-accent-foreground">
+      <div className="flex flex-col items-center gap-6 auth-cta rounded-[2rem] bg-accent p-8 text-center text-accent-foreground">
         <div
           aria-hidden
           className="flex size-20 items-center justify-center rounded-full bg-accent-foreground text-4xl text-accent ring-8 ring-accent-foreground/15"

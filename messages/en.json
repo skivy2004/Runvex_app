@@ -1,24 +1,49 @@
 {
   "Home": {
-    "greeting": "Hi {name}!",
-    "greetingNoName": "Hi there!",
+    "greeting": {
+      "morning": "Good morning, {name}",
+      "afternoon": "Good afternoon, {name}",
+      "evening": "Good evening, {name}"
+    },
+    "greetingNoName": {
+      "morning": "Good morning",
+      "afternoon": "Good afternoon",
+      "evening": "Good evening"
+    },
     "thisWeek": "This week",
-    "seeWeek": "See week",
-    "ofAvailable": "of {available} available",
-    "progressLabel": "Planned training time this week",
     "restDay": "Rest day",
-    "nextTraining": "Next training",
     "nothingPlanned": "Nothing planned yet",
     "nothingPlannedText": "Plan your trainings for this week and they'll show up here.",
     "today": "Today",
     "tomorrow": "Tomorrow",
     "goal": "Your goal",
-    "seeGoal": "Details",
     "noGoal": "No goal yet",
     "noGoalText": "A goal gives your training a clear focus.",
-    "setGoal": "Set a goal",
-    "daysToGo": "{days, plural, one {day to go} other {days to go}}",
-    "raceDay": "Race day!"
+    "raceDay": "Race day!",
+    "streak": "{count, plural, one {# training in a row} other {# trainings in a row}}",
+    "todaysSession": "Today's session",
+    "week": "Week",
+    "weekDoneLabel": "{percent}% of this week done",
+    "intensity": "Intensity",
+    "intensityLevel": {
+      "easy": "Easy",
+      "moderate": "Moderate",
+      "hard": "High"
+    },
+    "startWorkout": "Start workout",
+    "viewWorkout": "View workout",
+    "race": "Race",
+    "countdownDays": "days",
+    "countdownHours": "hrs",
+    "countdownMinutes": "min",
+    "trainingOverview": "Training overview",
+    "seePlan": "See plan",
+    "ofPlanned": "of {planned}",
+    "sportDoneLabel": "{sport}: {done} of {planned} done",
+    "coachEyebrow": "Runvex AI",
+    "coachTitle": "Your coach",
+    "coachAbout": "About: {name}",
+    "comingUp": "Coming up"
   },
   "Nav": {
     "label": "Main navigation",
@@ -26,7 +51,8 @@
     "week": "Week",
     "add": "Add training",
     "goal": "Goal",
-    "profile": "Profile"
+    "profile": "Profile",
+    "plan": "Plan"
   },
   "Week": {
     "title": "Your week",
@@ -168,9 +194,33 @@
       "emailNotConfirmed": "Please confirm your email first. Check your inbox.",
       "weakPassword": "This password is too weak. Choose a stronger one.",
       "rateLimited": "Too many attempts. Please wait a moment and try again.",
-      "generic": "Something went wrong. Please try again."
+      "generic": "Something went wrong. Please try again.",
+      "samePassword": "Choose a different password than your old one.",
+      "passwordsDontMatch": "Passwords don't match"
     },
-    "accountDeleted": "Your account and all your data have been deleted."
+    "accountDeleted": "Your account and all your data have been deleted.",
+    "eyebrow": "Your edge, amplified",
+    "heroLine1": "Train easy.",
+    "heroLine2": "Race",
+    "heroAccent": "hard.",
+    "heroSubtitle": "AI coaching for swim, bike and run, built around your schedule and your race.",
+    "letsGo": "Let's go",
+    "noAccountYet": "New to Runvex?",
+    "createAccount": "Create account",
+    "forgotLink": "Forgot password?",
+    "forgotTitle": "Forgot your password",
+    "forgotText": "Enter your email address and we'll send you a link to choose a new password.",
+    "forgotButton": "Send link",
+    "forgotSentText": "If there's an account for {email}, you'll get an email with a link to choose a new password.",
+    "backToLogin": "Back to log in",
+    "resetTitle": "Choose a new password",
+    "newPassword": "New password",
+    "resetButton": "Save password",
+    "repeatPassword": "Repeat password",
+    "passwordsMatch": "Passwords match",
+    "passwordsDontMatch": "Passwords don't match",
+    "showPassword": "Show password",
+    "hidePassword": "Hide password"
   },
   "Onboarding": {
     "progress": "Step {current} of {total}",

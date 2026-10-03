@@ -24,6 +24,10 @@ type WorkoutDialogProps = {
   title: string;
   /** Everything in the window under the summary. */
   children: ReactNode;
+  /** What to tap on the page, when it isn't the summary (e.g. a big "Start workout" card). */
+  trigger?: ReactNode;
+  /** Classes for that tap area, replacing the default small-card look. */
+  triggerClassName?: string;
 };
 
 function withViewTransition(update: () => void, cleanup: () => void) {
@@ -44,7 +48,7 @@ function withViewTransition(update: () => void, cleanup: () => void) {
   });
 }
 
-export function WorkoutDialog({ summary, title, children }: WorkoutDialogProps) {
+export function WorkoutDialog({ summary, title, children, trigger, triggerClassName }: WorkoutDialogProps) {
   const t = useTranslations("Workout");
   const cardRef = useRef<HTMLButtonElement>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
@@ -93,9 +97,12 @@ export function WorkoutDialog({ summary, title, children }: WorkoutDialogProps) 
         type="button"
         aria-haspopup="dialog"
         onClick={open}
-        className="w-full rounded-2xl bg-surface-raised p-3 text-left transition hover:bg-line focus-visible:outline-2 focus-visible:outline-accent active:scale-[0.99]"
+        className={
+          triggerClassName ??
+          "w-full rounded-2xl border border-white/[0.06] bg-white/[0.04] p-3 text-left transition hover:bg-white/[0.07] focus-visible:outline-2 focus-visible:outline-accent active:scale-[0.98]"
+        }
       >
-        {summary}
+        {trigger ?? summary}
       </button>
 
       <dialog

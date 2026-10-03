@@ -3,7 +3,7 @@ import { redirect } from "next/navigation";
 import type { NextRequest } from "next/server";
 import { createClient } from "@/lib/supabase/server";
 
-const ALLOWED_TYPES: EmailOtpType[] = ["email", "signup"];
+const ALLOWED_TYPES: EmailOtpType[] = ["email", "signup", "recovery"];
 
 function isAllowedType(value: string | null): value is EmailOtpType {
   return ALLOWED_TYPES.includes(value as EmailOtpType);
@@ -32,7 +32,8 @@ export async function GET(request: NextRequest) {
     if (!error) redirect("/");
   } else if (tokenHash && isAllowedType(type)) {
     const { error } = await supabase.auth.verifyOtp({ type, token_hash: tokenHash });
-    if (!error) redirect("/");
+    // A "forgot password" link: you're logged in now, so choose a new password.
+    if (!error) redirect(type === "recovery" ? "/reset-password" : "/");
   }
 
   redirect("/login?error=confirmation");

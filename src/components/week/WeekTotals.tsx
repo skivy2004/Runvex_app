@@ -16,7 +16,7 @@ export function WeekTotals({ plannedMinutes, availableMinutes }: WeekTotalsProps
     <Card className="flex flex-col gap-3 py-4">
       <p className="flex items-baseline justify-between gap-2 text-sm">
         <span>
-          <span className="text-lg font-bold text-accent">{formatDuration(plannedMinutes)}</span>{" "}
+          <span className="text-2xl font-bold tracking-tight text-accent">{formatDuration(plannedMinutes)}</span>{" "}
           <span className="text-muted">{t("planned")}</span>
         </span>
         <span className="text-muted">

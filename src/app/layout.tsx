@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
-import { Manrope } from "next/font/google";
+import { Space_Grotesk } from "next/font/google";
 import "./globals.css";
 
-const manrope = Manrope({
-  variable: "--font-manrope",
+const spaceGrotesk = Space_Grotesk({
+  variable: "--font-space-grotesk",
   subsets: ["latin"],
 });
 
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   // Colors the browser bar on mobile to match the app background.
-  themeColor: "#0e0f11",
+  themeColor: "#0f1420",
   // Lets the app use the full iPhone screen; the tab bar keeps clear of the home bar.
   viewportFit: "cover",
 };
@@ -27,7 +27,7 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   const locale = await getLocale();
 
   return (
-    <html lang={locale} className={`${manrope.variable} h-full antialiased`}>
+    <html lang={locale} className={`${spaceGrotesk.variable} h-full antialiased`}>
       <body className="min-h-full bg-background font-sans text-foreground">
         {/* Makes the language and texts available to client components. */}
         <NextIntlClientProvider>
