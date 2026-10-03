@@ -45,7 +45,7 @@ export function AuthField({ label, icon: Icon, hint, below, type, ...props }: Au
         />
         <label
           htmlFor={id}
-          className="pointer-events-none absolute top-1/2 left-12 -translate-y-1/2 text-muted transition-all peer-focus:top-4 peer-focus:text-xs peer-focus:text-accent peer-[:not(:placeholder-shown)]:top-4 peer-[:not(:placeholder-shown)]:text-xs"
+          className="pointer-events-none absolute top-1/2 left-12 origin-left -translate-y-1/2 text-muted transition-[translate,scale,color] duration-200 ease-out peer-focus:-translate-y-[calc(50%+0.75rem)] peer-focus:scale-75 peer-focus:text-accent peer-[:not(:placeholder-shown)]:-translate-y-[calc(50%+0.75rem)] peer-[:not(:placeholder-shown)]:scale-75"
         >
           {label}
         </label>

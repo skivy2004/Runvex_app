@@ -135,7 +135,7 @@ export function WorkoutActions({
       </div>
 
       {panel === "swap" && !preview && (
-        <div className="flex flex-col gap-2">
+        <div className="enter-panel flex flex-col gap-2">
           <p className="text-sm text-muted">{t("swapTitle")}</p>
           <ul className="flex flex-col gap-1.5">
             {alternatives.map((alternative) => (
@@ -161,7 +161,7 @@ export function WorkoutActions({
 
       {panel === "swap" && preview && (
         // The whole alternative, just like the training itself, before you choose it.
-        <div className="flex flex-col gap-4 rounded-2xl bg-surface-raised p-3">
+        <div className="enter-panel flex flex-col gap-4 rounded-2xl bg-surface-raised p-3">
           <button
             type="button"
             onClick={() => setPreview(null)}
@@ -192,7 +192,7 @@ export function WorkoutActions({
       )}
 
       {panel === "move" && (
-        <div className="flex flex-col gap-2">
+        <div className="enter-panel flex flex-col gap-2">
           <p className="text-sm text-muted">{t("moveTitle")}</p>
           <div className="grid grid-cols-7 gap-1">
             {weekDates.map((day) => {
@@ -220,7 +220,7 @@ export function WorkoutActions({
       )}
 
       {panel === "delete" && (
-        <div className="flex flex-col gap-2">
+        <div className="enter-panel flex flex-col gap-2">
           <p className="text-sm">{t("deleteQuestion")}</p>
           <div className="flex gap-2">
             <Button variant="secondary" className="flex-1" onClick={() => setPanel(null)}>

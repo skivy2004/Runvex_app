@@ -9,7 +9,7 @@ type WeekNavigationProps = {
 };
 
 const arrowClassName =
-  "flex size-11 items-center justify-center rounded-2xl border border-white/[0.08] bg-surface/70 backdrop-blur-xl text-foreground transition hover:bg-surface-raised active:scale-95";
+  "flex size-11 items-center justify-center rounded-2xl border border-white/[0.08] bg-surface/70 backdrop-blur-xl text-foreground transition hover:bg-surface-raised active:scale-[0.97]";
 
 export function WeekNavigation({ weekStart, isCurrentWeek }: WeekNavigationProps) {
   const t = useTranslations("Week");

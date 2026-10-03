@@ -21,6 +21,8 @@ export const viewport: Viewport = {
   themeColor: "#0f1420",
   // Lets the app use the full iPhone screen; the tab bar keeps clear of the home bar.
   viewportFit: "cover",
+  // On Android the keyboard shrinks the page (like on iPhone), so the chat box stays above it.
+  interactiveWidget: "resizes-content",
 };
 
 export default async function RootLayout({ children }: LayoutProps<"/">) {

@@ -66,7 +66,7 @@ export function CoachComposer({ suggestions }: { suggestions: string[] }) {
                 key={suggestion}
                 type="button"
                 onClick={() => send(suggestion)}
-                className="shrink-0 rounded-full border border-accent/30 bg-background/80 px-3.5 py-2 text-xs font-bold text-accent backdrop-blur-xl transition active:scale-95"
+                className="shrink-0 rounded-full border border-accent/30 bg-background/80 px-3.5 py-2 text-xs font-bold text-accent backdrop-blur-xl transition active:scale-[0.97]"
               >
                 {suggestion}
               </button>
@@ -85,6 +85,7 @@ export function CoachComposer({ suggestions }: { suggestions: string[] }) {
               }
             }}
             rows={1}
+            enterKeyHint="send"
             maxLength={1000}
             placeholder={t("placeholder")}
             aria-label={t("placeholder")}
@@ -94,7 +95,7 @@ export function CoachComposer({ suggestions }: { suggestions: string[] }) {
             type="submit"
             disabled={!text.trim() || isPending}
             aria-label={t("send")}
-            className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-accent text-accent-foreground transition active:scale-95 disabled:opacity-40"
+            className="flex size-11 shrink-0 items-center justify-center rounded-xl bg-accent text-accent-foreground transition active:scale-[0.97] disabled:opacity-40"
           >
             <ArrowUp aria-hidden className="size-5" strokeWidth={2.5} />
           </button>

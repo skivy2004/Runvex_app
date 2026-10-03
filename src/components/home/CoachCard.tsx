@@ -59,7 +59,7 @@ export function CoachCard({ note, workoutName }: CoachCardProps) {
         <Link
           href="/week"
           prefetch
-          className="flex items-center gap-1 rounded-full border border-accent/30 bg-accent/10 px-4 py-2 text-xs font-bold text-accent transition active:scale-95"
+          className="flex items-center gap-1 rounded-full border border-accent/30 bg-accent/10 px-4 py-2 text-xs font-bold text-accent transition active:scale-[0.97]"
         >
           {t("seePlan")}
           <ChevronRight aria-hidden className="size-3.5" />

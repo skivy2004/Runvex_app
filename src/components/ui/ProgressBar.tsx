@@ -19,8 +19,9 @@ export function ProgressBar({ value, max, label }: ProgressBarProps) {
       className="h-2.5 w-full overflow-hidden rounded-full bg-surface-raised"
     >
       <div
-        className="h-full rounded-full bg-accent transition-[width] duration-500"
-        style={{ width: `${percentage}%` }}
+        className="h-full rounded-full bg-accent transition-transform duration-500 ease-out"
+        // Slides in from the left; the rounded track clips it, so the end stays round.
+        style={{ transform: `translateX(${percentage - 100}%)` }}
       />
     </div>
   );

@@ -40,7 +40,7 @@ export function BottomNav() {
         {activeIndex >= 0 && (
           <span
             aria-hidden
-            className="pointer-events-none absolute top-2 left-2 flex h-10 w-[calc((100%-1rem)/5)] justify-center transition-transform duration-500 ease-[cubic-bezier(0.2,0.9,0.2,1.1)] motion-reduce:transition-none"
+            className="pointer-events-none absolute top-2 left-2 flex h-10 w-[calc((100%-1rem)/5)] justify-center transition-transform duration-[220ms] ease-out motion-reduce:transition-none"
             style={{ transform: `translateX(${activeIndex * 100}%)` }}
           >
             <span className="size-10 rounded-2xl bg-accent shadow-[0_0_20px_rgb(239_106_69/0.45)]" />

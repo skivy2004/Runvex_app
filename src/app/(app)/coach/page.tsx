@@ -12,6 +12,11 @@ import { getCoachMessages } from "@/services/coachMessages";
 /** How many messages the page shows. */
 const SHOWN = 60;
 
+/** Written in the last minute, i.e. just now: those come up in the chat. */
+function isJustWritten(createdAt: string): boolean {
+  return Date.now() - new Date(createdAt).getTime() < 60_000;
+}
+
 /** The coach team: the conversation with the head coach (and what the others said). */
 export default async function CoachPage() {
   const t = await getTranslations("Coach");
@@ -44,7 +49,7 @@ export default async function CoachPage() {
       <div className="flex flex-1 flex-col gap-4">
         {messages.length === 0 && <CoachBubble agent="head">{t("welcome")}</CoachBubble>}
         {messages.map((message) => (
-          <StoredMessage key={message.id} message={message} />
+          <StoredMessage key={message.id} message={message} isNew={isJustWritten(message.created_at)} />
         ))}
         <CoachComposer suggestions={[t("suggestion.lessTime"), t("suggestion.tired"), t("suggestion.why")]} />
       </div>

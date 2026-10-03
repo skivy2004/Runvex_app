@@ -16,6 +16,8 @@ type ProposalCardProps = {
 export function ProposalCard({ messageId, changes, status }: ProposalCardProps) {
   const t = useTranslations("Coach");
   const [failed, setFailed] = useState(false);
+  /** True right after you decided here, so the outcome animates in (not on page load). */
+  const [justDecided, setJustDecided] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   function decide(apply: boolean) {
@@ -23,7 +25,8 @@ export function ProposalCard({ messageId, changes, status }: ProposalCardProps) 
     startTransition(async () => {
       // On success the action refreshes the page with the new status (and plan).
       const result = await (apply ? applyProposalAction(messageId) : dismissProposalAction(messageId));
-      if (!result.ok) setFailed(true);
+      if (result.ok) setJustDecided(true);
+      else setFailed(true);
     });
   }
 
@@ -44,7 +47,7 @@ export function ProposalCard({ messageId, changes, status }: ProposalCardProps) 
             type="button"
             disabled={isPending}
             onClick={() => decide(true)}
-            className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-accent px-3 py-2.5 text-sm font-bold text-accent-foreground transition active:scale-95"
+            className="flex flex-1 items-center justify-center gap-1.5 rounded-xl bg-accent px-3 py-2.5 text-sm font-bold text-accent-foreground transition active:scale-[0.97]"
           >
             <Check aria-hidden className="size-4" />
             {t("apply")}
@@ -53,14 +56,23 @@ export function ProposalCard({ messageId, changes, status }: ProposalCardProps) 
             type="button"
             disabled={isPending}
             onClick={() => decide(false)}
-            className="flex items-center justify-center gap-1.5 rounded-xl border border-white/10 px-3 py-2.5 text-sm font-bold text-muted transition hover:text-foreground active:scale-95"
+            className="flex items-center justify-center gap-1.5 rounded-xl border border-white/10 px-3 py-2.5 text-sm font-bold text-muted transition hover:text-foreground active:scale-[0.97]"
           >
             <X aria-hidden className="size-4" />
             {t("dismiss")}
           </button>
         </div>
       ) : (
-        <p className="text-sm font-bold text-muted">{t(status === "applied" ? "applied" : "dismissed")}</p>
+        <p
+          className={`flex items-center gap-1.5 text-sm font-bold ${status === "applied" ? "text-accent" : "text-muted"} ${justDecided ? "enter-pop" : ""}`}
+        >
+          {status === "applied" && (
+            <svg aria-hidden viewBox="0 0 24 24" className="size-4" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
+              <path className={justDecided ? "check-draw" : undefined} d="M4 12.5l5 5L20 6.5" />
+            </svg>
+          )}
+          {t(status === "applied" ? "applied" : "dismissed")}
+        </p>
       )}
       {failed && (
         <p role="alert" className="text-sm text-danger">

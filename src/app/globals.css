@@ -29,6 +29,14 @@
   --color-coral: #ef6a45;
   --color-danger: #f2545b;
   --color-warning: #f2b544;
+
+  /*
+   * Motion. One strong ease-out for everything that appears or reacts (starts
+   * fast, so it feels responsive), one ease-in-out for things moving on screen.
+   * They replace Tailwind's weaker built-ins, so the ease-out class uses it too.
+   */
+  --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 /* `inline` because the font variable is set by next/font in layout.tsx. */
@@ -39,6 +47,40 @@
 html {
   /* Tells the browser to render scrollbars and form controls dark too. */
   color-scheme: dark;
+  /* No gray flash over whatever you tap: buttons have their own press feedback (active:). */
+  -webkit-tap-highlight-color: transparent;
+  /* No bigger text when the phone turns sideways. */
+  -webkit-text-size-adjust: 100%;
+}
+
+/* No rubber band or pull-to-refresh on the whole page, like an installed app.
+   Inner scroll areas (the workout pop-up) use "contain" instead. */
+html,
+body {
+  overscroll-behavior-y: none;
+}
+
+/* iPhone zooms in on any field with text under 16px and doesn't zoom back out.
+   Outside a layer, so it wins over text-sm on touch screens. */
+@media (pointer: coarse) {
+  input,
+  textarea,
+  select {
+    font-size: 16px;
+  }
+}
+
+/* Controls react at once (no double-tap-zoom wait), and a long press doesn't
+   select their label or open the link menu. Body text stays selectable. */
+button,
+a,
+[role="button"],
+summary,
+label {
+  touch-action: manipulation;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
 }
 
 /*
@@ -77,9 +119,9 @@ html:has(.workout-dialog[open]) {
 .workout-dialog,
 .workout-dialog::backdrop {
   transition:
-    opacity 200ms ease,
-    scale 200ms ease,
-    backdrop-filter 200ms ease,
+    opacity 200ms var(--ease-out),
+    scale 200ms var(--ease-out),
+    backdrop-filter 200ms var(--ease-out),
     display 200ms allow-discrete,
     overlay 200ms allow-discrete;
 }
@@ -115,7 +157,7 @@ html[data-morphing] .workout-dialog::backdrop {
 /* The morph itself: a little slower and smoother than the browser default. */
 ::view-transition-group(*) {
   animation-duration: 320ms;
-  animation-timing-function: cubic-bezier(0.2, 0.8, 0.2, 1);
+  animation-timing-function: var(--ease-out);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -190,7 +232,7 @@ html[data-morphing] .workout-dialog::backdrop {
 
 /* The headline: words slide up one by one (the delay is set per word). */
 .word-in {
-  animation: word-in 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation: word-in 0.6s var(--ease-out) both;
 }
 @keyframes word-in {
   from {
@@ -297,8 +339,8 @@ html[data-morphing] .workout-dialog::backdrop {
 
 /* Progress rings fill from 0 to their value when they appear. */
 .ring-fill {
-  transition: stroke-dashoffset 0.6s;
-  animation: ring-fill 1.1s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  transition: stroke-dashoffset 0.6s var(--ease-out);
+  animation: ring-fill 0.6s var(--ease-out) both;
 }
 @keyframes ring-fill {
   from {
@@ -309,7 +351,7 @@ html[data-morphing] .workout-dialog::backdrop {
 /* Bars grow from the left when they appear. */
 .bar-grow {
   transform-origin: left;
-  animation: bar-grow 0.9s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation: bar-grow 0.6s var(--ease-out) both;
 }
 @keyframes bar-grow {
   from {
@@ -319,12 +361,12 @@ html[data-morphing] .workout-dialog::backdrop {
 
 /* Page elements come in one after the other (the delay is set per element). */
 .rise-in {
-  animation: rise-in 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation: rise-in 0.3s var(--ease-out) both;
 }
 @keyframes rise-in {
   from {
     opacity: 0;
-    transform: translateY(12px);
+    transform: translateY(8px);
   }
 }
 
@@ -417,7 +459,7 @@ html[data-morphing] .workout-dialog::backdrop {
 /* Season timeline: bars grow up from the bottom. */
 .bar-grow-up {
   transform-origin: bottom;
-  animation: bar-grow-up 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  animation: bar-grow-up 0.8s var(--ease-out) both;
 }
 @keyframes bar-grow-up {
   from {
@@ -427,5 +469,50 @@ html[data-morphing] .workout-dialog::backdrop {
 @media (prefers-reduced-motion: reduce) {
   .bar-grow-up {
     animation: none;
+  }
+}
+
+/*
+ * Things that appear after you did something (components add these classes only
+ * then, not on page load): from slightly smaller or shifted and transparent to normal.
+ *   enter-pop    a result in place, e.g. "Done" after checking off a training
+ *   enter-up     a new chat message, coming up from where you typed
+ *   enter-panel  a panel opening under its button, coming down from it
+ */
+.enter-pop {
+  transition:
+    opacity 250ms var(--ease-out),
+    scale 250ms var(--ease-out);
+}
+.enter-up {
+  transition:
+    opacity 250ms var(--ease-out),
+    translate 250ms var(--ease-out);
+}
+.enter-panel {
+  transition:
+    opacity 180ms var(--ease-out),
+    translate 180ms var(--ease-out);
+}
+@starting-style {
+  .enter-pop {
+    opacity: 0;
+    scale: 0.97;
+  }
+  .enter-up {
+    opacity: 0;
+    translate: 0 8px;
+  }
+  .enter-panel {
+    opacity: 0;
+    translate: 0 -4px;
+  }
+}
+/* Less motion: only the fade stays, nothing moves or grows. */
+@media (prefers-reduced-motion: reduce) {
+  .enter-pop,
+  .enter-up,
+  .enter-panel {
+    transition-property: opacity;
   }
 }

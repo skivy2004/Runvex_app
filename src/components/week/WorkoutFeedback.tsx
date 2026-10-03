@@ -24,6 +24,8 @@ export function WorkoutFeedback({ workoutId, status, rpe, note }: WorkoutFeedbac
   const [chosenRpe, setChosenRpe] = useState<number | null>(rpe);
   const [text, setText] = useState(note ?? "");
   const [failed, setFailed] = useState(false);
+  /** True right after you checked it off here: then the result celebrates a little. */
+  const [justDone, setJustDone] = useState(false);
   const [isPending, startTransition] = useTransition();
 
   function save(next: WorkoutStatus, withRpe: number | null = null, withNote: string | null = null) {
@@ -31,8 +33,10 @@ export function WorkoutFeedback({ workoutId, status, rpe, note }: WorkoutFeedbac
     startTransition(async () => {
       // On success the action refreshes the page with the new status.
       const result = await saveWorkoutFeedbackAction({ id: workoutId, status: next, rpe: withRpe, note: withNote });
-      if (result.ok) setIsRating(false);
-      else setFailed(true);
+      if (result.ok) {
+        setIsRating(false);
+        setJustDone(next === "done");
+      } else setFailed(true);
     });
   }
 
@@ -44,8 +48,16 @@ export function WorkoutFeedback({ workoutId, status, rpe, note }: WorkoutFeedbac
 
   if (status !== "planned" && !isRating) {
     return (
-      <section className={`flex flex-col gap-2 rounded-xl bg-surface-raised p-3 ${isPending ? "opacity-60" : ""}`}>
+      <section
+        className={`flex flex-col gap-2 rounded-xl bg-surface-raised p-3 ${isPending ? "opacity-60" : ""} ${justDone ? "enter-pop" : ""}`}
+      >
         <div className="flex items-center gap-2">
+          {status === "done" && (
+            <svg aria-hidden viewBox="0 0 24 24" className="size-4 shrink-0 text-accent" fill="none" stroke="currentColor" strokeWidth={3} strokeLinecap="round" strokeLinejoin="round">
+              {/* Draws itself only right after checking off, not every time you open the training. */}
+              <path className={justDone ? "check-draw" : undefined} d="M4 12.5l5 5L20 6.5" />
+            </svg>
+          )}
           <span className="flex-1 text-sm font-semibold">
             {status === "done" ? (rpe ? t("doneWithRpe", { rpe }) : t("done")) : t("skipped")}
           </span>

@@ -23,7 +23,7 @@ export function AuthSubmit({ isPending, children }: { isPending: boolean; childr
       type="submit"
       disabled={isPending}
       aria-busy={isPending}
-      className="auth-cta mt-1 flex h-14 w-full items-center justify-between rounded-2xl bg-accent px-6 text-base font-bold text-accent-foreground transition active:scale-[0.96] disabled:cursor-wait focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+      className="auth-cta mt-1 flex h-14 w-full items-center justify-between rounded-2xl bg-accent px-6 text-base font-bold text-accent-foreground transition active:scale-[0.97] disabled:cursor-wait focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
     >
       {children}
       {isPending ? <SportCycle /> : <ArrowRight aria-hidden className="size-5" />}

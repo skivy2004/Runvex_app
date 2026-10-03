@@ -28,7 +28,7 @@ export function TrainingFeedbackForm({ workoutId }: { workoutId: string }) {
   }
 
   const chip = (selected: boolean) =>
-    `flex-1 rounded-xl border px-2 py-2.5 text-sm font-bold transition active:scale-95 ${
+    `flex-1 rounded-xl border px-2 py-2.5 text-sm font-bold transition active:scale-[0.97] ${
       selected ? "border-accent bg-accent/15 text-accent" : "border-white/10 bg-white/[0.04] text-muted hover:text-foreground"
     }`;
 
@@ -76,7 +76,7 @@ export function TrainingFeedbackForm({ workoutId }: { workoutId: string }) {
           onClick={send}
           disabled={!feeling || isPending}
           aria-label={t("send")}
-          className="auth-cta flex size-12 shrink-0 items-center justify-center rounded-2xl bg-accent text-accent-foreground transition active:scale-95 disabled:animate-none disabled:opacity-40"
+          className="auth-cta flex size-12 shrink-0 items-center justify-center rounded-2xl bg-accent text-accent-foreground transition active:scale-[0.97] disabled:animate-none disabled:opacity-40"
         >
           <Send aria-hidden className="size-5" />
         </button>

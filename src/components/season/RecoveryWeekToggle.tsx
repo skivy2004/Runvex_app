@@ -32,7 +32,7 @@ export function RecoveryWeekToggle({ weekStart, isOverride }: RecoveryWeekToggle
         type="button"
         onClick={toggle}
         disabled={isPending}
-        className={`flex w-fit items-center gap-1.5 rounded-xl border border-white/10 px-3 py-2 text-sm font-bold transition active:scale-95 ${
+        className={`flex w-fit items-center gap-1.5 rounded-xl border border-white/10 px-3 py-2 text-sm font-bold transition active:scale-[0.97] ${
           isPending ? "opacity-60" : "hover:bg-white/[0.06]"
         } ${isOverride ? "text-muted" : "text-blue-light"}`}
       >

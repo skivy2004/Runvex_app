@@ -21,7 +21,7 @@ const variantClasses: Record<ButtonVariant, string> = {
  * Use a link when it goes to another page, a button when it does something.
  */
 export function buttonClassName({ variant = "primary", fullWidth = false }: ButtonStyle = {}) {
-  return `inline-flex h-12 items-center justify-center gap-2 rounded-2xl px-6 text-sm font-bold transition active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-not-allowed disabled:opacity-50 ${variantClasses[variant]} ${fullWidth ? "w-full" : ""}`;
+  return `inline-flex h-12 items-center justify-center gap-2 rounded-2xl px-6 text-sm font-bold transition active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent disabled:cursor-not-allowed disabled:opacity-50 ${variantClasses[variant]} ${fullWidth ? "w-full" : ""}`;
 }
 
 export function Button({

@@ -127,7 +127,7 @@ export function TodayCard({ workout, today, weekDone }: TodayCardProps) {
           <WorkoutCard
             workout={workout}
             canCheckOff={workout.scheduled_on <= today}
-            triggerClassName="auth-cta flex h-14 w-full items-center gap-3 rounded-2xl bg-accent px-5 text-left font-bold text-accent-foreground transition active:scale-[0.96] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
+            triggerClassName="auth-cta flex h-14 w-full items-center gap-3 rounded-2xl bg-accent px-5 text-left font-bold text-accent-foreground transition active:scale-[0.97] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent"
             trigger={
               <>
                 <Zap aria-hidden className="size-5" />

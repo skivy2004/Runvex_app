@@ -8,12 +8,12 @@ const storedProposal = z.object({ changes: z.array(z.object({ label: z.string(),
 const statuses = ["pending", "applied", "dismissed"] as const;
 
 /** A saved coach message as a bubble, with its proposal when it has one. */
-export function StoredMessage({ message }: { message: CoachMessage }) {
+export function StoredMessage({ message, isNew = false }: { message: CoachMessage; isNew?: boolean }) {
   const proposal = storedProposal.safeParse(message.proposal);
   const status = statuses.find((item) => item === message.proposal_status);
   const agent = message.role === "user" ? null : isAgentId(message.agent) ? message.agent : "head";
 
-  return (
+  const bubble = (
     <CoachBubble
       agent={agent}
       footer={
@@ -25,4 +25,5 @@ export function StoredMessage({ message }: { message: CoachMessage }) {
       {message.content}
     </CoachBubble>
   );
+  return isNew ? <div className="enter-up">{bubble}</div> : bubble;
 }
