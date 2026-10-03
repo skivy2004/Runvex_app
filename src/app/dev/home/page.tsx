@@ -37,7 +37,7 @@ export default function HomePreviewPage() {
       <HomeHeader name="Jeremy" today={today} partOfDay="morning" streak={4} />
       <TodayCard workout={next} today={today} weekDone={0.35} />
       <RaceCard
-        goal={{ id: "g", description: "Ironman", sports: [], event_name: "Ironman Tallinn", event_date: addDays(today, 330), race_preset: null, segments: [] }}
+        goal={{ id: "g", description: "Ironman", sports: [], event_name: "Ironman Tallinn", event_date: addDays(today, 330), race_preset: null, segments: [], created_at: "2026-10-01T00:00:00Z" }}
         today={today}
         timeZone={timeZone}
       />

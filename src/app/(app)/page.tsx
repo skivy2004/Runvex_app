@@ -15,6 +15,9 @@ import { getRequestClient, getRequestProfile } from "@/lib/currentUser";
 import { getMessagesAboutWorkouts } from "@/services/coachMessages";
 import { getCurrentGoal } from "@/services/goals";
 import { getPlannedWorkouts, getUpcomingWorkouts } from "@/services/workouts";
+import { loadSeason } from "@/services/season";
+import { SeasonBadge } from "@/components/season/SeasonBadge";
+import Link from "next/link";
 
 /** How many trainings "Coming up" shows after the next one. */
 const COMING_UP = 5;
@@ -34,11 +37,12 @@ export default async function HomePage() {
   const weekStart = startOfWeek(today);
 
   // These don't depend on each other, so we fetch them at the same time.
-  const [weekWorkouts, upcoming, recent, goal] = await Promise.all([
+  const [weekWorkouts, upcoming, recent, goal, season] = await Promise.all([
     getPlannedWorkouts(supabase, profile.id, weekStart, addDays(weekStart, 6)),
     getUpcomingWorkouts(supabase, profile.id, today, COMING_UP + 1),
     getPlannedWorkouts(supabase, profile.id, addDays(today, -STREAK_DAYS), today),
     getCurrentGoal(supabase, profile.id, today),
+    loadSeason(supabase, profile.id, today),
   ]);
 
   // "How did your training go?": the latest recent training without a coach reaction,
@@ -69,6 +73,9 @@ export default async function HomePage() {
           partOfDay={partOfDay(hourInTimeZone(profile.timezone))}
           streak={doneStreak(recent, today)}
         />
+        <Link href="/goal" prefetch className="mt-3 flex w-fit">
+          <SeasonBadge week={season.weekFor(weekStart)} />
+        </Link>
       </div>
       <div {...rise(1)}>
         <TodayCard workout={next} today={today} weekDone={planned === 0 ? 0 : done / planned} />

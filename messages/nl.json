@@ -148,8 +148,17 @@
     "failed": "Mislukt, probeer opnieuw"
   },
   "Goal": {
+    "eyebrow": "Je seizoen",
     "title": "Jouw doel",
-    "comingSoon": "Je doeloverzicht komt eraan."
+    "weeksToGo": "nog {weeks, plural, one {# week} other {# weken}}",
+    "edit": "Doel aanpassen",
+    "noGoal": "Nog geen doel",
+    "noGoalText": "Stel een wedstrijd met datum in, dan bouwen we je training in blokken op naar die dag.",
+    "thisWeek": "Deze week",
+    "seasonEyebrow": "Tot de wedstrijd",
+    "seasonTitle": "Je opbouw",
+    "seasonText": "Elk balkje is een week; hoe hoger, hoe meer volume. Je bouwt in blokken op met steeds een herstelweek, elk blok iets zwaarder, tot de piek. Daarna de taper, zodat je fris aan de start staat.",
+    "maintainText": "Zonder wedstrijddatum train je in een vast ritme van opbouwen en herstellen. Met een doel met datum bouwen we het hele seizoen op naar je wedstrijd."
   },
   "Profile": {
     "title": "Profiel",
@@ -516,5 +525,39 @@
       "unavailable": "Je coach is nu niet bereikbaar. Je feedback is wel bewaard; probeer het later nog eens.",
       "saveFailed": "Opslaan is niet gelukt. Probeer het opnieuw."
     }
+  },
+  "Season": {
+    "title": "Trainingsblok",
+    "label": "{phase} · week {week} van {weeks}",
+    "recoveryWeek": "Herstelweek",
+    "raceWeek": "Wedstrijdweek",
+    "volume": "Volume {percent}%",
+    "phase": {
+      "base": "Basis",
+      "build": "Opbouw",
+      "peak": "Piek",
+      "taper": "Taper",
+      "race": "Wedstrijd",
+      "maintain": "Fit blijven"
+    },
+    "type": {
+      "build": "Opbouwweek",
+      "recovery": "Herstelweek",
+      "taper": "Taper",
+      "race": "Wedstrijdweek"
+    },
+    "explain": {
+      "base": "Basisfase: veel rustige duur en techniek, hoogstens één tempotraining. Hier leg je het fundament.",
+      "build": "Opbouwfase: het volume groeit en er komen drempeltrainingen bij. Elk blok net iets zwaarder.",
+      "peak": "Piekfase: je zwaarste weken, met trainingen op wedstrijdtempo. Hierna wordt je fris voor de wedstrijd.",
+      "maintain": "Je traint in blokken van opbouwen en herstel om fit te blijven. Stel een doel in voor een echte opbouw.",
+      "recovery": "Herstelweek: minder volume en geen zware trainingen. Hier wordt je lichaam sterker van het werk van de afgelopen weken.",
+      "taper": "Taper: veel minder volume, met een paar korte scherpe prikkels. Zo kom je fris en scherp aan de start.",
+      "race": "Wedstrijdweek: kort en rustig, een paar korte versnellingen om scherp te blijven. Succes!"
+    },
+    "makeRecovery": "Maak dit een herstelweek",
+    "undoRecovery": "Toch geen herstelweek",
+    "failed": "Dat is niet gelukt. Probeer het opnieuw.",
+    "timelineLabel": "Je seizoen: {weeks} weken tot de wedstrijd, als balkjes per week"
   }
 }

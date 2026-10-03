@@ -89,6 +89,12 @@ export function weekBackground(input: PlannerInput, context: PlanningContext, co
     })),
     lastWeek: input.recentTemplateIds,
     lastWeekFeedback: coach.lastWeekFeedback,
+    trainingBlock: input.season && {
+      phase: input.season.phase,
+      weekType: input.season.type,
+      week: `${input.season.weekInBlock} of ${input.season.blockLength}`,
+      volumePercent: Math.round(input.season.volume * 100),
+    },
   };
 }
 

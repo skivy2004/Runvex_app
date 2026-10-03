@@ -17,6 +17,8 @@ import { getWeeklyAvailability } from "@/services/availability";
 import { isWatchSyncConfigured } from "@/services/watchSync";
 import { getRequestClient, getRequestProfile } from "@/lib/currentUser";
 import { getPlannedWorkouts } from "@/services/workouts";
+import { loadSeason } from "@/services/season";
+import { SeasonWeekCard } from "@/components/season/SeasonWeekCard";
 
 export default async function WeekPage({ searchParams }: PageProps<"/week">) {
   const t = await getTranslations("Week");
@@ -31,10 +33,11 @@ export default async function WeekPage({ searchParams }: PageProps<"/week">) {
   const { week } = await searchParams;
   const weekStart = resolveWeekStart(typeof week === "string" ? week : undefined, today);
 
-  const [availability, workouts, sports] = await Promise.all([
+  const [availability, workouts, sports, season] = await Promise.all([
     getWeeklyAvailability(supabase, profile.id),
     getPlannedWorkouts(supabase, profile.id, weekStart, addDays(weekStart, 6)),
     getAthleteSports(supabase, profile.id),
+    loadSeason(supabase, profile.id, today),
   ]);
   const workoutsPerDay = groupByWeekday(weekStart, workouts);
   // Show "Plan my week" while a training day from today on is still empty.
@@ -73,6 +76,11 @@ export default async function WeekPage({ searchParams }: PageProps<"/week">) {
       <WeekTotals
         plannedMinutes={workouts.reduce((sum, workout) => sum + workout.duration_minutes, 0)}
         availableMinutes={availability.reduce((sum, day) => sum + day.minutes, 0)}
+      />
+      <SeasonWeekCard
+        week={season.weekFor(weekStart)}
+        canChange={weekStart >= startOfWeek(today)}
+        isOverride={season.recoveryWeeks.includes(weekStart)}
       />
       {hasOpenDays && <PlanWeekButton weekStart={weekStart} />}
       {isWatchSyncConfigured() && workouts.length > 0 && <SendWeekToWatchButton weekStart={weekStart} />}

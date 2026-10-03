@@ -297,3 +297,34 @@ describe("estimatedMinutes", () => {
     expect(estimatedMinutes(getWorkout("run_10km_1_easy")!, "advanced")).toBeNull();
   });
 });
+
+describe("planning within a training block", () => {
+  const week = (type: "build" | "recovery", phase: "base" | "peak", volume: number) => ({
+    weekStart: MONDAY,
+    phase,
+    type,
+    block: 2,
+    weekInBlock: type === "recovery" ? 4 : 2,
+    blockLength: 4,
+    volume,
+    hardSessions: type === "recovery" ? 0 : phase === "base" ? 1 : 2,
+    maxHardDifficulty: phase === "base" ? 3 : 5,
+    longFactor: Math.max(0.5, volume),
+  });
+  const minutes = (plan: ReturnType<typeof planWeek>) => plan.reduce((total, session) => total + session.durationMinutes, 0);
+
+  it("plans a recovery week lighter and without hard sessions", () => {
+    const normal = planWeek({ ...triathlete, season: week("build", "peak", 1) });
+    const recovery = planWeek({ ...triathlete, season: week("recovery", "peak", 0.6) });
+    expect(minutes(recovery)).toBeLessThan(minutes(normal));
+    expect(recovery.some((session) => isHard(session.templateId))).toBe(false);
+    expect(checkPlan(planningContext({ ...triathlete, season: week("recovery", "peak", 0.6) }), recovery)).toEqual([]);
+  });
+
+  it("keeps the base phase to one hard session of at most tempo", () => {
+    const base = planWeek({ ...triathlete, season: week("build", "base", 0.7) });
+    const hard = base.filter((session) => isHard(session.templateId));
+    expect(hard.length).toBeLessThanOrEqual(1);
+    expect(hard.every((session) => getWorkout(session.templateId)!.difficulty <= 3)).toBe(true);
+  });
+});

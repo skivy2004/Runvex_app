@@ -67,7 +67,9 @@ Rules for the outline:
 - Balance the sports over the week, a bit more attention for the sports of the goal.
 - Rest is fine when it's wiser, e.g. after a heavy week, before a race, or when "lastWeekFeedback" shows many skipped sessions or a high average effort (8 or more).
 
-Also write a "summary": one or two sentences to the athlete about the idea of this week.`;
+"trainingBlock" tells where this week sits in the training blocks: the phase (base, build, peak, taper, race, maintain), whether it's a build, recovery, taper or race week, which week of the block, and the share of the available time to use (the available minutes are already scaled to it, and "hardSessionsAllowed" follows it). Plan in that spirit: a recovery week is light and easy, base is mostly easy endurance, build adds threshold work, the peak is race-specific, the taper keeps a few short sharp efforts but much less volume.
+
+Also write a "summary": one or two sentences to the athlete about the idea of this week, mentioning where it sits in the block (e.g. "week 3 of 3, the hardest of this block; next week you recover").`;
 
 export function buildOutlineMessage(input: PlannerInput, context: PlanningContext, coach: CoachContext): string {
   const week = {
@@ -199,7 +201,8 @@ export function sessionsFromTeam(
             !used.has(candidate.workout.id),
         )
       : undefined;
-    const pick = chosen ?? pickWorkout(sport, context.levels.get(sport)!, day.minutes, kind, context.swim, used, recent);
+    const pick =
+      chosen ?? pickWorkout(sport, context.levels.get(sport)!, day.minutes, kind, context.swim, used, recent, context.limits);
     if (!pick) continue;
     used.add(pick.workout.id);
     sessions.push({

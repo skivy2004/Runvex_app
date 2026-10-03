@@ -413,3 +413,19 @@ html[data-morphing] .workout-dialog::backdrop {
     content: "...";
   }
 }
+
+/* Season timeline: bars grow up from the bottom. */
+.bar-grow-up {
+  transform-origin: bottom;
+  animation: bar-grow-up 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+@keyframes bar-grow-up {
+  from {
+    transform: scaleY(0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .bar-grow-up {
+    animation: none;
+  }
+}

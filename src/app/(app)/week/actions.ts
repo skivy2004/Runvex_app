@@ -24,6 +24,7 @@ import { poolLengths } from "@/core/workouts/swim";
 import { swimWorkoutInPool } from "@/core/workouts/swimTraining";
 import { createClient } from "@/lib/supabase/server";
 import { addCoachMessages } from "@/services/coachMessages";
+import { loadSeason, setRecoveryWeek } from "@/services/season";
 import { isAiCoachConfigured } from "@/services/coachRuntime";
 import { planWeekAsTeam, type TeamPlan } from "@/services/teamPlanner";
 import { getAthleteSports } from "@/services/athleteSports";
@@ -67,12 +68,13 @@ export async function planWeekAction(weekStart: string): Promise<PlanWeekResult>
   const today = todayInTimeZone(profile.timezone);
   if (addDays(weekStart, 6) < today) return { ok: false, error: "pastWeek" };
 
-  const [availability, sports, goal, existing, lastWeek] = await Promise.all([
+  const [availability, sports, goal, existing, lastWeek, season] = await Promise.all([
     getWeeklyAvailability(supabase, profile.id),
     getAthleteSports(supabase, profile.id),
     getCurrentGoal(supabase, profile.id, today),
     getPlannedWorkouts(supabase, profile.id, weekStart, addDays(weekStart, 6)),
     getPlannedWorkouts(supabase, profile.id, addDays(weekStart, -7), addDays(weekStart, -1)),
+    loadSeason(supabase, profile.id, today),
   ]);
 
   const input: PlannerInput = {
@@ -88,6 +90,7 @@ export async function planWeekAction(weekStart: string): Promise<PlanWeekResult>
     recentTemplateIds: lastWeek.flatMap((workout) => (workout.template_id ? [workout.template_id] : [])),
     goal: goal && { sports: goal.sports, eventDate: goal.event_date },
     swim: swimSettingsOf(profile),
+    season: season.weekFor(weekStart),
   };
   const context = planningContext(input);
   if (context.days.length === 0) return { ok: true, planned: 0, source: "rules" };
@@ -352,6 +355,25 @@ export async function saveWorkoutFeedbackAction(input: WorkoutFeedbackInput): Pr
   const { error } = await setWorkoutFeedback(supabase, profile.id, workout.id, parsed.data);
   if (error) {
     console.error("Saving workout feedback failed:", error.message);
+    return { ok: false };
+  }
+  refreshAppData();
+  return { ok: true };
+}
+
+/** Turns a week into a recovery week (or back): the training blocks shift around it. */
+export async function setRecoveryWeekAction(weekStart: string, on: boolean): Promise<WorkoutActionResult> {
+  if (!isValidIsoDate(weekStart) || startOfWeek(weekStart) !== weekStart) return { ok: false };
+
+  const supabase = await createClient();
+  const profile = await getCurrentProfile(supabase);
+  if (!profile) return { ok: false };
+  // Only this week and later: the past stays as it was.
+  if (weekStart < startOfWeek(todayInTimeZone(profile.timezone))) return { ok: false };
+
+  const { error } = await setRecoveryWeek(supabase, profile.id, weekStart, on);
+  if (error) {
+    console.error("Changing the recovery week failed:", error.message);
     return { ok: false };
   }
   refreshAppData();

@@ -277,6 +277,24 @@ export type Database = {
         }
         Relationships: []
       }
+      recovery_weeks: {
+        Row: {
+          created_at: string
+          user_id: string
+          week_start: string
+        }
+        Insert: {
+          created_at?: string
+          user_id?: string
+          week_start: string
+        }
+        Update: {
+          created_at?: string
+          user_id?: string
+          week_start?: string
+        }
+        Relationships: []
+      }
       weekly_availability: {
         Row: {
           available_minutes: number

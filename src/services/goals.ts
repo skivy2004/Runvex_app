@@ -21,7 +21,7 @@ function toSegments(json: unknown): Segment[] {
 export async function getCurrentGoal(supabase: AppSupabaseClient, userId: string, today: string) {
   const { data, error } = await supabase
     .from("goals")
-    .select("id, description, sports, event_name, event_date, race_preset, segments")
+    .select("id, description, sports, event_name, event_date, race_preset, segments, created_at")
     .eq("user_id", userId)
     .order("created_at", { ascending: false });
   if (error) throw error;

@@ -1,4 +1,5 @@
 import type { DayAvailability } from "./availability";
+import type { SeasonWeek } from "./periodization";
 import { addDays, daysBetween } from "./dates";
 import type { ExperienceLevel, Sport } from "./training";
 import { estimatedMinutes } from "./workouts/estimate";
@@ -61,7 +62,12 @@ export type PlannerInput = {
   goal: { sports: Sport[]; eventDate: string | null } | null;
   /** Your pool and swim equipment. Without it: a 25 m pool and no equipment. */
   swim?: SwimSettings;
+  /** Where this week sits in the training blocks (core/periodization.ts): how much to train and how hard. */
+  season?: SeasonWeek;
 };
+
+/** Limits from the training block: the hardest workout allowed and how long the long sessions get. */
+export type PlanLimits = { maxHardDifficulty?: number; longFactor?: number };
 
 export type SwimSettings = { poolLength: PoolLength; equipment: Equipment[] };
 const DEFAULT_SWIM: SwimSettings = { poolLength: 25, equipment: [] };
@@ -100,6 +106,7 @@ export type PlanningContext = {
   /** How many hard sessions this plan may add. */
   hardAllowed: number;
   swim: SwimSettings;
+  limits: PlanLimits;
 };
 
 export type Candidate = { workout: Workout; minutes: number; kind: Kind };
@@ -134,7 +141,10 @@ export function planningContext(input: PlannerInput): PlanningContext {
     if (options.length === 0) return;
     const long = day.longSessions.find((sport) => options.includes(sport)) ?? null;
     const closeToRace = raceDate !== null && daysBetween(date, raceDate) <= 2;
-    days.push({ date, minutes: day.minutes, options, long, canBeHard: long === null && !closeToRace });
+    // The training block decides how much of the available time to use, e.g. 60% in a recovery week.
+    const minutes = input.season ? Math.floor((day.minutes * input.season.volume) / 5) * 5 : day.minutes;
+    if (minutes === 0) return;
+    days.push({ date, minutes, options, long, canBeHard: long === null && !closeToRace });
   });
 
   const existingHardDates = new Set(
@@ -148,9 +158,11 @@ export function planningContext(input: PlannerInput): PlanningContext {
 
   // About 20% hard: one per 3 sessions, at most 2 a week, minus what's already planned.
   const totalSessions = input.existing.length + days.length;
+  // The training block may allow fewer, e.g. none in a recovery week.
+  const blockHard = input.season?.hardSessions ?? MAX_HARD_PER_WEEK;
   const hardAllowed = Math.max(
     0,
-    Math.min(MAX_HARD_PER_WEEK, Math.floor(totalSessions / 3)) - existingHardDates.size,
+    Math.min(MAX_HARD_PER_WEEK, blockHard, Math.floor(totalSessions / 3)) - existingHardDates.size,
   );
 
   const longDates = new Set(
@@ -169,6 +181,9 @@ export function planningContext(input: PlannerInput): PlanningContext {
     longDates,
     hardAllowed,
     swim: input.swim ?? DEFAULT_SWIM,
+    limits: input.season
+      ? { maxHardDifficulty: input.season.maxHardDifficulty, longFactor: input.season.longFactor }
+      : {},
   };
 }
 
@@ -189,8 +204,10 @@ export function fittingWorkouts(
   availableMinutes: number,
   kind: Kind,
   swim: SwimSettings = DEFAULT_SWIM,
+  limits: PlanLimits = {},
 ): Candidate[] {
-  const maxMinutes = maxSessionMinutes(sport, level, availableMinutes, kind);
+  const maxMinutes = maxSessionMinutes(sport, level, availableMinutes, kind, limits);
+  const hardest = Math.min(maxDifficulty[level], limits.maxHardDifficulty ?? 5);
 
   return plannableWorkouts(sport, level, swim).flatMap((workout) => {
     // Distance runs and rides have no known duration, so they never fit a time slot.
@@ -198,7 +215,7 @@ export function fittingWorkouts(
     if (minutes === null || minutes > maxMinutes) return [];
     const fitsKind =
       kind === "hard"
-        ? isHardWorkout(workout) && workout.difficulty <= maxDifficulty[level]
+        ? isHardWorkout(workout) && workout.difficulty <= hardest
         : !isHardWorkout(workout);
     return fitsKind ? [{ workout, minutes, kind }] : [];
   });
@@ -210,9 +227,12 @@ export function maxSessionMinutes(
   level: ExperienceLevel,
   availableMinutes: number,
   kind: Kind,
+  limits: PlanLimits = {},
 ): number {
   const caps = sessionCaps[sport][level];
-  return Math.min(availableMinutes, kind === "long" ? caps.long : caps.normal);
+  // Long sessions grow over the season: early on they're shorter than their longest.
+  const long = Math.max(caps.normal, Math.round((caps.long * (limits.longFactor ?? 1)) / 5) * 5);
+  return Math.min(availableMinutes, kind === "long" ? long : caps.normal);
 }
 
 /**
@@ -222,14 +242,14 @@ export function maxSessionMinutes(
  */
 export function dayCandidates(context: PlanningContext, day: OpenDay): Candidate[] {
   if (day.long !== null) {
-    const long = fittingWorkouts(day.long, context.levels.get(day.long)!, day.minutes, "long", context.swim);
+    const long = fittingWorkouts(day.long, context.levels.get(day.long)!, day.minutes, "long", context.swim, context.limits);
     if (long.length > 0) return long;
   }
   return day.options.flatMap((sport) => {
     const level = context.levels.get(sport)!;
-    const easy = fittingWorkouts(sport, level, day.minutes, "easy", context.swim);
+    const easy = fittingWorkouts(sport, level, day.minutes, "easy", context.swim, context.limits);
     return day.canBeHard
-      ? [...easy, ...fittingWorkouts(sport, level, day.minutes, "hard", context.swim)]
+      ? [...easy, ...fittingWorkouts(sport, level, day.minutes, "hard", context.swim, context.limits)]
       : easy;
   });
 }
@@ -327,7 +347,7 @@ export function planWeek(input: PlannerInput): PlannedSession[] {
     (day) =>
       day.canBeHard &&
       !nextTo(context.existingHardDates, day.date) &&
-      pickWorkout(mainSport(day), levels.get(mainSport(day))!, day.minutes, "hard", context.swim) !== null,
+      pickWorkout(mainSport(day), levels.get(mainSport(day))!, day.minutes, "hard", context.swim, undefined, undefined, context.limits) !== null,
   );
   const scoreCombination = (combination: OpenDay[]) => [
     -combination.length,
@@ -345,14 +365,14 @@ export function planWeek(input: PlannerInput): PlannedSession[] {
   const picks = new Map<string, PlannedSession>();
   for (const day of hardDays) {
     const sport = mainSport(day);
-    const pick = pickWorkout(sport, levels.get(sport)!, day.minutes, "hard", context.swim, used, recent)!;
+    const pick = pickWorkout(sport, levels.get(sport)!, day.minutes, "hard", context.swim, used, recent, context.limits)!;
     used.add(pick.workout.id);
     picks.set(day.date, toSession(day.date, sport, pick));
   }
   for (const day of days.filter((item) => !hardDays.has(item))) {
     for (const sport of choices.get(day.date)!) {
       const kind: Kind = sport === day.long ? "long" : "easy";
-      const pick = pickWorkout(sport, levels.get(sport)!, day.minutes, kind, context.swim, used, recent);
+      const pick = pickWorkout(sport, levels.get(sport)!, day.minutes, kind, context.swim, used, recent, context.limits);
       if (!pick) continue; // doesn't fit, e.g. a 30-minute day for cycling: try the next sport
       used.add(pick.workout.id);
       picks.set(day.date, toSession(day.date, sport, pick));
@@ -436,6 +456,7 @@ export function pickWorkout(
   swim: SwimSettings = DEFAULT_SWIM,
   used: Set<string> = new Set(),
   recent: Set<string> = new Set(),
+  limits: PlanLimits = {},
 ): Candidate | null {
   // Swims are compared per block, so the week gets different drills and sets.
   const usedParts = new Set([...used].flatMap(varietyParts));
@@ -452,7 +473,7 @@ export function pickWorkout(
     // Hard: the hardest allowed. Easy: the calmest.
     kind === "hard" ? -workout.difficulty : workout.difficulty,
   ];
-  const candidates = fittingWorkouts(sport, level, availableMinutes, kind, swim);
+  const candidates = fittingWorkouts(sport, level, availableMinutes, kind, swim, limits);
   candidates.sort((a, b) => compareScores(score(a), score(b)));
   return candidates[0] ?? null;
 }

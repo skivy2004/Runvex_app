@@ -66,3 +66,20 @@ describe("swapDirection", () => {
     expect(swapDirection("run_45_3_tempo", "run_45_4_threshold")).toBe("harder");
   });
 });
+
+describe("recovery week proposals", () => {
+  it("only allows coming build weeks we offered", () => {
+    const options = ["2026-10-12", "2026-10-19"];
+    const valid = checkChanges(
+      [
+        { type: "recovery_week", workoutId: "x", newWorkoutId: "y", newDate: "2026-10-12", reason: "Nachtdiensten." },
+        { type: "recovery_week", workoutId: "", newWorkoutId: null, newDate: "2026-10-12", reason: "twice" },
+        { type: "recovery_week", workoutId: "", newWorkoutId: null, newDate: "2026-11-30", reason: "not offered" },
+      ],
+      [],
+      "2026-10-05",
+      options,
+    );
+    expect(valid).toEqual([{ type: "recovery_week", workoutId: "", newWorkoutId: null, newDate: "2026-10-12", reason: "Nachtdiensten." }]);
+  });
+});

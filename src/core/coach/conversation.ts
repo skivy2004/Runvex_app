@@ -19,12 +19,17 @@ export type Situation = {
   upcoming: (ChangeableTraining & { name: string; minutes: number; difficulty: number | null; coachNote: string | null })[];
   /** The dates a training may move to. */
   moveDates: string[];
+  /** Where the athlete is in the training blocks: this week and the coming weeks. */
+  trainingBlocks: { weekStart: string; phase: string; weekType: string; week: string; volumePercent: number }[];
+  /** Coming weeks that may become a recovery week (Mondays). */
+  recoveryWeekOptions: string[];
 };
 
 const PROPOSALS = `You may propose changes to upcoming trainings, at most 3. Each change refers to a training in "upcoming" by its "id":
 - "swap": replace it by one of its "options" (easier, similar or harder; give the id without ":minutes" as "newWorkoutId").
 - "move": move it to one of "moveDates" ("newDate").
 - "remove": take it out, e.g. when rest is wiser.
+- "recovery_week": turn a whole coming week into a recovery week, e.g. a week of night shifts; give its Monday from "recoveryWeekOptions" as "newDate" and leave "workoutId" empty. The training blocks ("trainingBlocks") shift around it.
 Only propose a change when it really helps; otherwise return no changes. The athlete decides whether to apply it, so explain in your text what you propose and why.`;
 
 // ---------------------------------------------------------------------------

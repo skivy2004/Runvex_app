@@ -25,6 +25,7 @@ import { createClient } from "@/lib/supabase/server";
 import { addCoachMessages, getCoachMessage, getCoachMessages, setProposalStatus } from "@/services/coachMessages";
 import { askCoachStructured, askCoachText } from "@/services/coachRuntime";
 import { changeLabel, loadCoachSetting, trainingName, type CoachSetting } from "@/services/coachSituation";
+import { setRecoveryWeek } from "@/services/season";
 import { removeFromWatch, sendToWatch } from "@/services/watchSync";
 import {
   changePlannedTemplate,
@@ -117,7 +118,7 @@ export async function submitTrainingFeedbackAction(input: z.input<typeof feedbac
   );
   if (answer.status !== "ok") return { ok: false, error: answer.status };
 
-  const changes = checkChanges(answer.output.changes, setting.situation.upcoming, setting.today);
+  const changes = checkChanges(answer.output.changes, setting.situation.upcoming, setting.today, setting.situation.recoveryWeekOptions);
   await addCoachMessages(supabase, profile.id, [
     { role: "coach", agent, content: answer.output.reaction.trim(), workoutId: workout.id, proposal: proposalOf(changes, setting) },
   ]);
@@ -184,7 +185,7 @@ export async function sendCoachMessageAction(text: string): Promise<CoachActionR
   }
   if (!reply.trim()) return { ok: false, error: "unavailable" };
 
-  const checked = checkChanges(changes, setting.situation.upcoming, setting.today);
+  const checked = checkChanges(changes, setting.situation.upcoming, setting.today, setting.situation.recoveryWeekOptions);
   await addCoachMessages(supabase, profile.id, [
     ...specialistMessages,
     { role: "coach", agent: "head", content: reply.trim(), proposal: proposalOf(checked, setting) },
@@ -213,6 +214,10 @@ export async function applyProposalAction(messageId: string): Promise<CoachActio
   const changed: string[] = [];
   const removed: string[] = [];
   for (const change of proposal.data.changes) {
+    if (change.type === "recovery_week") {
+      if (change.newDate) await setRecoveryWeek(supabase, profile.id, change.newDate, true);
+      continue;
+    }
     const workout = await getPlannedWorkout(supabase, profile.id, change.workoutId);
     if (!workout || workout.status !== "planned") continue;
     if (change.type === "remove") {

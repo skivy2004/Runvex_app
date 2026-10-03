@@ -23,6 +23,7 @@ const goal = (overrides: Partial<CurrentGoal>): CurrentGoal => ({
   event_name: null,
   event_date: null,
   race_preset: null,
+  created_at: "2026-10-01T00:00:00Z",
   segments: [],
   ...overrides,
 });

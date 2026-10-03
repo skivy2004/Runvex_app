@@ -148,8 +148,17 @@
     "failed": "Didn't work, try again"
   },
   "Goal": {
+    "eyebrow": "Your season",
     "title": "Your goal",
-    "comingSoon": "Your goal overview is coming soon."
+    "weeksToGo": "{weeks, plural, one {# week} other {# weeks}} to go",
+    "edit": "Change goal",
+    "noGoal": "No goal yet",
+    "noGoalText": "Set a race with a date and we'll build your training up to that day in blocks.",
+    "thisWeek": "This week",
+    "seasonEyebrow": "Up to the race",
+    "seasonTitle": "Your build-up",
+    "seasonText": "Every bar is a week; the higher, the more volume. You build up in blocks, each with a recovery week and each a little harder, up to the peak. Then the taper, so you're fresh at the start.",
+    "maintainText": "Without a race date you train in a steady rhythm of building and recovery. With a goal with a date we build the whole season up to your race."
   },
   "Profile": {
     "title": "Profile",
@@ -516,5 +525,39 @@
       "unavailable": "Your coach can't be reached right now. Your feedback is saved; please try again later.",
       "saveFailed": "Saving didn't work. Please try again."
     }
+  },
+  "Season": {
+    "title": "Training block",
+    "label": "{phase} · week {week} of {weeks}",
+    "recoveryWeek": "Recovery week",
+    "raceWeek": "Race week",
+    "volume": "Volume {percent}%",
+    "phase": {
+      "base": "Base",
+      "build": "Build",
+      "peak": "Peak",
+      "taper": "Taper",
+      "race": "Race",
+      "maintain": "Stay fit"
+    },
+    "type": {
+      "build": "Build week",
+      "recovery": "Recovery week",
+      "taper": "Taper",
+      "race": "Race week"
+    },
+    "explain": {
+      "base": "Base phase: lots of easy endurance and technique, at most one tempo session. This is your foundation.",
+      "build": "Build phase: the volume grows and threshold sessions come in. Every block a little harder.",
+      "peak": "Peak phase: your hardest weeks, with sessions at race pace. After this you freshen up for the race.",
+      "maintain": "You train in blocks of building and recovery to stay fit. Set a goal for a real build-up.",
+      "recovery": "Recovery week: less volume and no hard sessions. This is when your body gets stronger from the last weeks' work.",
+      "taper": "Taper: much less volume, with a few short sharp efforts, so you arrive fresh and sharp at the start.",
+      "race": "Race week: short and easy, a few short accelerations to stay sharp. Good luck!"
+    },
+    "makeRecovery": "Make this a recovery week",
+    "undoRecovery": "Not a recovery week after all",
+    "failed": "That didn't work. Please try again.",
+    "timelineLabel": "Your season: {weeks} weeks to the race, as a bar per week"
   }
 }

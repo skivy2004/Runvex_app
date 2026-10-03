@@ -15,12 +15,12 @@ import type { Workout } from "@/core/workouts/types";
 export const MAX_CHANGES = 3;
 
 export const proposalChangeSchema = z.object({
-  type: z.enum(["swap", "move", "remove"]),
-  /** The planned training (its id in "upcoming"). */
+  type: z.enum(["swap", "move", "remove", "recovery_week"]),
+  /** The planned training (its id in "upcoming"); empty for "recovery_week". */
   workoutId: z.string(),
   /** swap: the new workout, from that training's options. */
   newWorkoutId: z.string().nullable(),
-  /** move: the new date, from "moveDates". */
+  /** move: the new date, from "moveDates". recovery_week: the Monday, from "recoveryWeekOptions". */
   newDate: z.string().nullable(),
   /** One sentence for the athlete. */
   reason: z.string(),
@@ -93,11 +93,24 @@ const idOf = (option: string) => option.slice(0, option.lastIndexOf(":"));
  * workouts and dates we offered, at most one change per training and MAX_CHANGES
  * in total. Everything else is dropped.
  */
-export function checkChanges(changes: ProposalChange[], trainings: ChangeableTraining[], today: string): ProposalChange[] {
+export function checkChanges(
+  changes: ProposalChange[],
+  trainings: ChangeableTraining[],
+  today: string,
+  recoveryWeekOptions: string[] = [],
+): ProposalChange[] {
   const dates = new Set(moveDates(today));
   const touched = new Set<string>();
   const valid: ProposalChange[] = [];
   for (const change of changes) {
+    if (change.type === "recovery_week") {
+      const week = change.newDate;
+      if (!week || !recoveryWeekOptions.includes(week) || touched.has(`week:${week}`)) continue;
+      touched.add(`week:${week}`);
+      valid.push({ ...change, workoutId: "", newWorkoutId: null, reason: change.reason.trim().slice(0, 300) });
+      if (valid.length === MAX_CHANGES) break;
+      continue;
+    }
     const training = trainings.find((item) => item.id === change.workoutId);
     if (!training || touched.has(training.id)) continue;
     const ok =
