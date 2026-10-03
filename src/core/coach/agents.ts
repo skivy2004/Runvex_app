@@ -9,7 +9,8 @@ export const agentIds = ["head", "running", "cycling", "swimming"] as const;
 export type AgentId = (typeof agentIds)[number];
 
 export const agentNames: Record<AgentId, LocalizedText> = {
-  head: { nl: "Hoofdcoach", en: "Head coach" },
+  // The athlete just sees "Coach"; inside the team it's still the head coach.
+  head: { nl: "Coach", en: "Coach" },
   running: { nl: "Hardloopcoach", en: "Run coach" },
   cycling: { nl: "Fietscoach", en: "Bike coach" },
   swimming: { nl: "Zwemcoach", en: "Swim coach" },

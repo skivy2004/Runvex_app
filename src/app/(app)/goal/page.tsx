@@ -90,9 +90,13 @@ export default async function GoalPage() {
             <SeasonTimeline weeks={season.plan} currentWeek={thisWeek} />
           </Card>
           <p className="px-1 text-sm leading-relaxed text-muted">{t("seasonText")}</p>
+          <p className="px-1 text-sm leading-relaxed text-muted">{t("maxWeek", { hours: season.maxWeeklyMinutes / 60 })}</p>
         </section>
       ) : (
-        <p className="px-1 text-sm leading-relaxed text-muted">{t("maintainText")}</p>
+        <div className="flex flex-col gap-3">
+          <p className="px-1 text-sm leading-relaxed text-muted">{t("maintainText")}</p>
+          <p className="px-1 text-sm leading-relaxed text-muted">{t("maxWeek", { hours: season.maxWeeklyMinutes / 60 })}</p>
+        </div>
       )}
     </div>
   );

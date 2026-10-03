@@ -81,6 +81,9 @@ export function TodayCard({ workout, today, weekDone }: TodayCardProps) {
         </div>
       ) : (
         <div className="mt-4 flex flex-col gap-5">
+          {workout.scheduled_on > today && (
+            <p className="-mb-2 text-sm text-muted">{t("restDayToday")}</p>
+          )}
           <div className="flex items-start justify-between gap-3">
             <div className="flex min-w-0 flex-col gap-3">
               <span

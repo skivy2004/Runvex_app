@@ -43,7 +43,8 @@
     "coachEyebrow": "Runvex AI",
     "coachTitle": "Your coach",
     "coachAbout": "About: {name}",
-    "comingUp": "Coming up"
+    "comingUp": "Coming up",
+    "restDayToday": "Today is a rest day. This is your next training."
   },
   "Nav": {
     "label": "Main navigation",
@@ -69,7 +70,9 @@
     "noTraining": "No training planned",
     "trainingOnRestDay": "Training planned on a rest day",
     "overAvailable": "{over} more than your available time",
-    "addTraining": "Add training"
+    "addTraining": "Add training",
+    "restDayNothing": "Rest day",
+    "restDayText": "No training today: recovery is part of the build-up."
   },
   "Workout": {
     "estimated": "≈ {duration}",
@@ -158,7 +161,8 @@
     "seasonEyebrow": "Up to the race",
     "seasonTitle": "Your build-up",
     "seasonText": "Every bar is a week; the higher, the more volume. You build up in blocks, each with a recovery week and each a little harder, up to the peak. Then the taper, so you're fresh at the start.",
-    "maintainText": "Without a race date you train in a steady rhythm of building and recovery. With a goal with a date we build the whole season up to your race."
+    "maintainText": "Without a race date you train in a steady rhythm of building and recovery. With a goal with a date we build the whole season up to your race.",
+    "maxWeek": "Your heaviest week: at most {hours} hours, matched to your goal and level. With less time, we plan less."
   },
   "Profile": {
     "title": "Profile",
@@ -490,10 +494,10 @@
   "Coach": {
     "eyebrow": "Runvex AI",
     "title": "Your coaches",
-    "subtitle": "Talk to your head coach, who checks with your run, bike and swim coaches when needed.",
+    "subtitle": "Talk to your coach, who checks with your run, bike and swim coaches when needed.",
     "budget": "Coach time this week",
     "budgetLeft": "{percent}% left",
-    "welcome": "Hi! I'm your head coach. Tell me what's going on: less time, a busy work week, tired, a niggle or a question about a training. I'll think along and propose changes when useful; you decide.",
+    "welcome": "Hi! I'm your coach. Tell me what's going on: less time, a busy work week, tired, a niggle or a question about a training. I'll think along and propose changes when useful; you decide.",
     "placeholder": "Message your coach…",
     "send": "Send",
     "thinking": "Your coaches are talking",

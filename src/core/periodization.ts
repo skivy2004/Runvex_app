@@ -1,5 +1,6 @@
 import { addDays, daysBetween, startOfWeek } from "./dates";
 import type { RacePresetKey } from "./racePresets";
+import { experienceLevels, type ExperienceLevel } from "./training";
 
 // Periodisation: training in blocks, building up over the whole season.
 //
@@ -254,4 +255,53 @@ export function seasonWeekFor(
   recoveryOverrides: string[] = [],
 ): SeasonWeek {
   return plan?.find((week) => week.weekStart === weekStart) ?? maintainWeek(weekStart, beginner, recoveryOverrides);
+}
+
+// ---------------------------------------------------------------------------
+// Weekly maximum
+// ---------------------------------------------------------------------------
+
+/** How long a race is, for the weekly maximum. */
+type RaceSize = "short" | "middle" | "long" | "ultra";
+
+const RACE_SIZE: Record<RacePresetKey, RaceSize> = {
+  sprint_triathlon: "short",
+  run_5k: "short",
+  ride_50k: "short",
+  swim_1k: "short",
+  olympic_triathlon: "middle",
+  run_10k: "middle",
+  half_marathon: "middle",
+  ride_100k: "middle",
+  swim_2_5k: "middle",
+  marathon: "long",
+  ironman_70_3: "long",
+  ride_160k: "long",
+  swim_5k: "long",
+  ironman: "ultra",
+};
+
+/**
+ * Hours in your heaviest week (100% volume), per race size and level. Someone with
+ * 40 free hours a week still doesn't need 40 hours of training for a 10 km.
+ * Without a goal ("none") you train to stay fit.
+ */
+const MAX_WEEKLY_HOURS: Record<RaceSize | "none", Record<ExperienceLevel, number>> = {
+  none: { beginner: 4, intermediate: 6, advanced: 8 },
+  short: { beginner: 4, intermediate: 6, advanced: 8 },
+  middle: { beginner: 5, intermediate: 8, advanced: 10 },
+  long: { beginner: 7, intermediate: 10, advanced: 13 },
+  ultra: { beginner: 9, intermediate: 13, advanced: 16 },
+};
+
+/**
+ * The most minutes a week may hold at 100% volume. The level is the average of
+ * your sports in the goal (or all your sports without one), rounded down, so a
+ * beginner swimmer doing a triathlon doesn't get an advanced runner's hours.
+ */
+export function maxWeeklyMinutes(levels: ExperienceLevel[], racePreset: string | null): number {
+  const ranks = levels.map((level) => experienceLevels.indexOf(level));
+  const average = ranks.length > 0 ? Math.floor(ranks.reduce((sum, rank) => sum + rank, 0) / ranks.length) : 0;
+  const size = racePreset !== null && racePreset in RACE_SIZE ? RACE_SIZE[racePreset as RacePresetKey] : "none";
+  return MAX_WEEKLY_HOURS[size][experienceLevels[average]] * 60;
 }

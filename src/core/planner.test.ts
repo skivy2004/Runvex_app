@@ -327,4 +327,14 @@ describe("planning within a training block", () => {
     expect(hard.length).toBeLessThanOrEqual(1);
     expect(hard.every((session) => getWorkout(session.templateId)!.difficulty <= 3)).toBe(true);
   });
+
+  it("caps the week at its maximum, however much time you have", () => {
+    const free = planningContext(triathlete);
+    const total = (context: typeof free) => context.days.reduce((sum, day) => sum + day.minutes, 0);
+    const capped = planningContext({ ...triathlete, maxWeeklyMinutes: 120 });
+    expect(total(capped)).toBeLessThanOrEqual(120);
+    expect(total(capped)).toBeLessThan(total(free));
+    // A cap above the available time changes nothing.
+    expect(total(planningContext({ ...triathlete, maxWeeklyMinutes: 100 * 60 }))).toBe(total(free));
+  });
 });

@@ -31,7 +31,7 @@ export default function DevCoachPage() {
   ];
   return (
     <main className="flex flex-col gap-5 py-6">
-      <PageHeading eyebrow="Runvex AI" title="Je coaches" subtitle="Praat met je hoofdcoach." />
+      <PageHeading eyebrow="Runvex AI" title="Je coaches" subtitle="Praat met je coach." />
       <TrainingFeedbackForm workoutId="00000000-0000-4000-8000-000000000009" />
       {messages.map((item) => (
         <StoredMessage key={item.id} message={item} />

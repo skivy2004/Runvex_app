@@ -86,6 +86,7 @@ export default function WeekPreviewPage() {
             workouts={groupByWeekday(weekStart, workouts)[index]}
             isToday={date === today}
             isPast={date < today}
+            weekIsPlanned={workouts.length > 0}
             editing={editing}
           />
         );

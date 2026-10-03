@@ -91,6 +91,7 @@ export async function planWeekAction(weekStart: string): Promise<PlanWeekResult>
     goal: goal && { sports: goal.sports, eventDate: goal.event_date },
     swim: swimSettingsOf(profile),
     season: season.weekFor(weekStart),
+    maxWeeklyMinutes: season.maxWeeklyMinutes,
   };
   const context = planningContext(input);
   if (context.days.length === 0) return { ok: true, planned: 0, source: "rules" };

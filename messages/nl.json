@@ -43,7 +43,8 @@
     "coachEyebrow": "Runvex AI",
     "coachTitle": "Je coach",
     "coachAbout": "Over: {name}",
-    "comingUp": "Hierna"
+    "comingUp": "Hierna",
+    "restDayToday": "Vandaag is een rustdag. Dit is je volgende training."
   },
   "Nav": {
     "label": "Hoofdmenu",
@@ -69,7 +70,9 @@
     "noTraining": "Geen training gepland",
     "trainingOnRestDay": "Training gepland op een rustdag",
     "overAvailable": "{over} meer dan je beschikbare tijd",
-    "addTraining": "Training toevoegen"
+    "addTraining": "Training toevoegen",
+    "restDayNothing": "Rustdag",
+    "restDayText": "Geen training vandaag: herstel hoort bij de opbouw."
   },
   "Workout": {
     "estimated": "≈ {duration}",
@@ -158,7 +161,8 @@
     "seasonEyebrow": "Tot de wedstrijd",
     "seasonTitle": "Je opbouw",
     "seasonText": "Elk balkje is een week; hoe hoger, hoe meer volume. Je bouwt in blokken op met steeds een herstelweek, elk blok iets zwaarder, tot de piek. Daarna de taper, zodat je fris aan de start staat.",
-    "maintainText": "Zonder wedstrijddatum train je in een vast ritme van opbouwen en herstellen. Met een doel met datum bouwen we het hele seizoen op naar je wedstrijd."
+    "maintainText": "Zonder wedstrijddatum train je in een vast ritme van opbouwen en herstellen. Met een doel met datum bouwen we het hele seizoen op naar je wedstrijd.",
+    "maxWeek": "Je zwaarste week: hoogstens {hours} uur, afgestemd op je doel en niveau. Heb je minder tijd, dan plannen we minder."
   },
   "Profile": {
     "title": "Profiel",
@@ -490,10 +494,10 @@
   "Coach": {
     "eyebrow": "Runvex AI",
     "title": "Je coaches",
-    "subtitle": "Praat met je hoofdcoach. Die overlegt waar nodig met je loop-, fiets- en zwemcoach.",
+    "subtitle": "Praat met je coach. Die overlegt waar nodig met je loop-, fiets- en zwemcoach.",
     "budget": "Coachtijd deze week",
     "budgetLeft": "{percent}% over",
-    "welcome": "Hoi! Ik ben je hoofdcoach. Vertel me wat er speelt: minder tijd, een drukke werkweek, moe, een pijntje of een vraag over een training. Ik denk mee en stel waar nodig aanpassingen voor; jij beslist.",
+    "welcome": "Hoi! Ik ben je coach. Vertel me wat er speelt: minder tijd, een drukke werkweek, moe, een pijntje of een vraag over een training. Ik denk mee en stel waar nodig aanpassingen voor; jij beslist.",
     "placeholder": "Schrijf je coach…",
     "send": "Versturen",
     "thinking": "Je coaches overleggen",

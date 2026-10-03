@@ -1,4 +1,4 @@
-import { seasonPlan, seasonWeekFor, type SeasonWeek } from "@/core/periodization";
+import { maxWeeklyMinutes, seasonPlan, seasonWeekFor, type SeasonWeek } from "@/core/periodization";
 import type { Sport } from "@/core/training";
 import { getAthleteSports } from "./athleteSports";
 import { getCurrentGoal } from "./goals";
@@ -9,6 +9,8 @@ export type Season = {
   plan: SeasonWeek[] | null;
   beginner: boolean;
   recoveryWeeks: string[];
+  /** The most minutes in your heaviest week, by goal and level. */
+  maxWeeklyMinutes: number;
   /** The block week for any Monday. */
   weekFor: (weekStart: string) => SeasonWeek;
 };
@@ -38,7 +40,8 @@ export async function loadSeason(supabase: AppSupabaseClient, userId: string, to
     getRecoveryWeeks(supabase, userId),
   ]);
   const goalSports: Sport[] = goal && goal.sports.length > 0 ? goal.sports : sports.map((item) => item.sport);
-  const beginner = sports.some((item) => goalSports.includes(item.sport) && item.level === "beginner");
+  const goalLevels = sports.filter((item) => goalSports.includes(item.sport)).map((item) => item.level);
+  const beginner = goalLevels.includes("beginner");
   const plan =
     goal?.event_date && goal.event_date >= today
       ? seasonPlan({
@@ -49,5 +52,11 @@ export async function loadSeason(supabase: AppSupabaseClient, userId: string, to
           recoveryOverrides: recoveryWeeks,
         })
       : null;
-  return { plan, beginner, recoveryWeeks, weekFor: (weekStart) => seasonWeekFor(weekStart, plan, beginner, recoveryWeeks) };
+  return {
+    plan,
+    beginner,
+    recoveryWeeks,
+    maxWeeklyMinutes: maxWeeklyMinutes(goalLevels, goal?.race_preset ?? null),
+    weekFor: (weekStart) => seasonWeekFor(weekStart, plan, beginner, recoveryWeeks),
+  };
 }

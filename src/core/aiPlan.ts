@@ -94,6 +94,7 @@ export function weekBackground(input: PlannerInput, context: PlanningContext, co
       weekType: input.season.type,
       week: `${input.season.weekInBlock} of ${input.season.blockLength}`,
       volumePercent: Math.round(input.season.volume * 100),
+      maxWeeklyMinutesAtFullVolume: input.maxWeeklyMinutes,
     },
   };
 }

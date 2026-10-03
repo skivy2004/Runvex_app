@@ -99,6 +99,7 @@ export default async function WeekPage({ searchParams }: PageProps<"/week">) {
                 isToday={date === today}
                 // ISO dates compare correctly as plain text: "2026-09-30" < "2026-10-01".
                 isPast={date < today}
+                weekIsPlanned={workouts.length > 0}
                 editing={editing}
               />
             );

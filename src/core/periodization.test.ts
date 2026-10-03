@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { maintainWeek, seasonPlan, seasonWeekFor } from "./periodization";
+import { maintainWeek, maxWeeklyMinutes, seasonPlan, seasonWeekFor } from "./periodization";
 
 const ironman = seasonPlan({ goalCreatedOn: "2026-10-03", eventDate: "2027-08-29", racePreset: "ironman", beginner: false });
 
@@ -70,5 +70,20 @@ describe("without a goal", () => {
     expect(types).toEqual(["build", "build", "build", "recovery", "build"]);
     expect(maintainWeek("2027-01-11", false, ["2027-01-11"]).type).toBe("recovery");
     expect(seasonWeekFor("2027-01-04", null, false).phase).toBe("maintain");
+  });
+});
+
+describe("maxWeeklyMinutes", () => {
+  it("gives longer races and higher levels more hours", () => {
+    expect(maxWeeklyMinutes(["intermediate"], "run_10k")).toBe(8 * 60);
+    expect(maxWeeklyMinutes(["intermediate"], "marathon")).toBe(10 * 60);
+    expect(maxWeeklyMinutes(["advanced", "advanced", "advanced"], "ironman")).toBe(16 * 60);
+  });
+
+  it("averages the levels, rounded down, and has a default without a goal", () => {
+    expect(maxWeeklyMinutes(["beginner", "intermediate", "advanced"], "ironman")).toBe(13 * 60);
+    expect(maxWeeklyMinutes(["beginner", "intermediate"], "ironman")).toBe(9 * 60);
+    expect(maxWeeklyMinutes(["advanced"], null)).toBe(8 * 60);
+    expect(maxWeeklyMinutes([], null)).toBe(4 * 60);
   });
 });

@@ -64,6 +64,8 @@ export type PlannerInput = {
   swim?: SwimSettings;
   /** Where this week sits in the training blocks (core/periodization.ts): how much to train and how hard. */
   season?: SeasonWeek;
+  /** The most minutes a week may hold at 100% volume (core/periodization.ts maxWeeklyMinutes). */
+  maxWeeklyMinutes?: number;
 };
 
 /** Limits from the training block: the hardest workout allowed and how long the long sessions get. */
@@ -129,6 +131,13 @@ export function planningContext(input: PlannerInput): PlanningContext {
   const raceDate = raceOffset >= 0 && raceOffset <= 6 ? eventDate : null;
 
   const takenDates = new Set(input.existing.map((workout) => workout.scheduledOn));
+  // The training block decides how much of the available time to use, e.g. 60% in a
+  // recovery week. Lots of free time doesn't mean lots of training: the week is
+  // first capped at its maximum, so every day gets the same share less.
+  const weekMinutes = input.availability.reduce((sum, day) => sum + day.minutes, 0);
+  const capShare =
+    input.maxWeeklyMinutes !== undefined && weekMinutes > input.maxWeeklyMinutes ? input.maxWeeklyMinutes / weekMinutes : 1;
+  const share = (input.season?.volume ?? 1) * capShare;
   const days: OpenDay[] = [];
   input.availability.forEach((day, index) => {
     const date = addDays(input.weekStart, index);
@@ -141,8 +150,7 @@ export function planningContext(input: PlannerInput): PlanningContext {
     if (options.length === 0) return;
     const long = day.longSessions.find((sport) => options.includes(sport)) ?? null;
     const closeToRace = raceDate !== null && daysBetween(date, raceDate) <= 2;
-    // The training block decides how much of the available time to use, e.g. 60% in a recovery week.
-    const minutes = input.season ? Math.floor((day.minutes * input.season.volume) / 5) * 5 : day.minutes;
+    const minutes = share < 1 ? Math.floor((day.minutes * share) / 5) * 5 : day.minutes;
     if (minutes === 0) return;
     days.push({ date, minutes, options, long, canBeHard: long === null && !closeToRace });
   });

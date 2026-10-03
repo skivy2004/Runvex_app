@@ -1,4 +1,4 @@
-import { Plus, TriangleAlert } from "lucide-react";
+import { Moon, Plus, TriangleAlert } from "lucide-react";
 import Link from "next/link";
 import { useFormatter, useLocale, useTranslations } from "next-intl";
 import { SportIcon } from "@/components/SportIcon";
@@ -30,6 +30,8 @@ type DayCardProps = {
   workouts: PlannedWorkout[];
   isToday: boolean;
   isPast: boolean;
+  /** True once the week has trainings: an empty day is then a rest day, not "not planned yet". */
+  weekIsPlanned: boolean;
   editing?: DayEditing;
 };
 
@@ -41,6 +43,7 @@ export function DayCard({
   workouts,
   isToday,
   isPast,
+  weekIsPlanned,
   editing,
 }: DayCardProps) {
   const t = useTranslations("Week");
@@ -174,7 +177,18 @@ export function DayCard({
           })}
         </ul>
       ) : (
-        !isRestDay && <p className="text-sm text-muted">{t("noTraining")}</p>
+        isRestDay || (weekIsPlanned && openLongSessions.length === 0) ? (
+          <p className="flex items-center gap-2 text-sm text-muted">
+            <Moon aria-hidden className="size-4 shrink-0 text-blue-light" />
+            <span>
+              <span className="font-semibold text-foreground">{t("restDayNothing")}</span>
+              {" · "}
+              {t("restDayText")}
+            </span>
+          </p>
+        ) : (
+          <p className="text-sm text-muted">{t("noTraining")}</p>
+        )
       )}
 
       {warning && (
