@@ -384,3 +384,32 @@ html[data-morphing] .workout-dialog::backdrop {
     animation: none;
   }
 }
+
+/* "Your coaches are talking…": three dots appearing one after the other. */
+.typing-dots::after {
+  content: "";
+  display: inline-block;
+  width: 1.2em;
+  text-align: left;
+  animation: typing-dots 1.2s steps(4) infinite;
+}
+@keyframes typing-dots {
+  0% {
+    content: "";
+  }
+  25% {
+    content: ".";
+  }
+  50% {
+    content: "..";
+  }
+  75% {
+    content: "...";
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .typing-dots::after {
+    animation: none;
+    content: "...";
+  }
+}

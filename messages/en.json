@@ -52,7 +52,8 @@
     "add": "Add training",
     "goal": "Goal",
     "profile": "Profile",
-    "plan": "Plan"
+    "plan": "Plan",
+    "coach": "Coach"
   },
   "Week": {
     "title": "Your week",
@@ -476,5 +477,44 @@
     "task": "Set",
     "rest": "Rest",
     "total": "Total"
+  },
+  "Coach": {
+    "eyebrow": "Runvex AI",
+    "title": "Your coaches",
+    "subtitle": "Talk to your head coach, who checks with your run, bike and swim coaches when needed.",
+    "budget": "Coach time this week",
+    "budgetLeft": "{percent}% left",
+    "welcome": "Hi! I'm your head coach. Tell me what's going on: less time, a busy work week, tired, a niggle or a question about a training. I'll think along and propose changes when useful; you decide.",
+    "placeholder": "Message your coach…",
+    "send": "Send",
+    "thinking": "Your coaches are talking",
+    "coachReading": "Your coach is reading",
+    "proposal": "Proposal",
+    "apply": "Apply",
+    "dismiss": "No thanks",
+    "applied": "Applied to your plan",
+    "dismissed": "Not applied",
+    "failed": "That didn't work. Please try again.",
+    "howDidItGo": "How did {name} go?",
+    "feelingLabel": "How did the training feel?",
+    "feeling": {
+      "easy": "Too easy",
+      "right": "Just right",
+      "hard": "Too hard"
+    },
+    "effort": "Effort 1-10 (optional)",
+    "noteLabel": "Note",
+    "notePlaceholder": "How did you feel? (optional)",
+    "suggestion": {
+      "lessTime": "I have less time this week",
+      "tired": "I'm tired after my shifts",
+      "why": "Why am I training like this this week?"
+    },
+    "errors": {
+      "invalid": "That couldn't be sent.",
+      "budget": "Your coaches have used up their time for this week. Your feedback is saved; they're back on Monday.",
+      "unavailable": "Your coach can't be reached right now. Your feedback is saved; please try again later.",
+      "saveFailed": "Saving didn't work. Please try again."
+    }
   }
 }

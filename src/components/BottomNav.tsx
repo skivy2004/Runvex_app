@@ -1,19 +1,20 @@
 "use client";
 
-import { CalendarDays, House, Target, User, type LucideIcon } from "lucide-react";
+import { CalendarDays, House, MessageCircle, Target, User, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 type Tab = {
   href: string;
-  labelKey: "home" | "plan" | "goal" | "profile";
+  labelKey: "home" | "plan" | "coach" | "goal" | "profile";
   icon: LucideIcon;
 };
 
 const tabs: Tab[] = [
   { href: "/", labelKey: "home", icon: House },
   { href: "/week", labelKey: "plan", icon: CalendarDays },
+  { href: "/coach", labelKey: "coach", icon: MessageCircle },
   { href: "/goal", labelKey: "goal", icon: Target },
   { href: "/profile", labelKey: "profile", icon: User },
 ];
@@ -34,12 +35,12 @@ export function BottomNav() {
       aria-label={t("label")}
       className="fixed inset-x-0 bottom-0 z-10 px-4 pb-[max(0.75rem,calc(env(safe-area-inset-bottom)-0.5rem))]"
     >
-      <div className="relative mx-auto grid max-w-md grid-cols-4 rounded-[1.75rem] border border-white/10 bg-surface/75 p-2 shadow-2xl shadow-black/50 backdrop-blur-xl">
-        {/* The sliding indicator: one quarter wide, moved to the active tab. */}
+      <div className="relative mx-auto grid max-w-md grid-cols-5 rounded-[1.75rem] border border-white/10 bg-surface/75 p-2 shadow-2xl shadow-black/50 backdrop-blur-xl">
+        {/* The sliding indicator: one fifth wide, moved to the active tab. */}
         {activeIndex >= 0 && (
           <span
             aria-hidden
-            className="pointer-events-none absolute top-2 left-2 flex h-10 w-[calc((100%-1rem)/4)] justify-center transition-transform duration-500 ease-[cubic-bezier(0.2,0.9,0.2,1.1)] motion-reduce:transition-none"
+            className="pointer-events-none absolute top-2 left-2 flex h-10 w-[calc((100%-1rem)/5)] justify-center transition-transform duration-500 ease-[cubic-bezier(0.2,0.9,0.2,1.1)] motion-reduce:transition-none"
             style={{ transform: `translateX(${activeIndex * 100}%)` }}
           >
             <span className="size-10 rounded-2xl bg-accent shadow-[0_0_20px_rgb(239_106_69/0.45)]" />

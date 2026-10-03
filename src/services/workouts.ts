@@ -169,12 +169,15 @@ export async function deletePlannedWorkout(supabase: AppSupabaseClient, userId: 
   return supabase.from("planned_workouts").delete().eq("user_id", userId).eq("id", id);
 }
 
-/** Changes which workout a training is, keeping its notes (e.g. the same swim in another pool). */
+/**
+ * Changes which workout a training is. Keeps its notes (e.g. the same swim in another
+ * pool), unless new notes are given (e.g. the coach's reason for the change).
+ */
 export async function changePlannedTemplate(
   supabase: AppSupabaseClient,
   userId: string,
   id: string,
-  replacement: { templateId: string; title: string; durationMinutes: number },
+  replacement: { templateId: string; title: string; durationMinutes: number; notes?: string },
 ) {
   return supabase
     .from("planned_workouts")
@@ -182,6 +185,7 @@ export async function changePlannedTemplate(
       template_id: replacement.templateId,
       title: replacement.title,
       duration_minutes: replacement.durationMinutes,
+      ...(replacement.notes !== undefined ? { notes: replacement.notes } : {}),
     })
     .eq("user_id", userId)
     .eq("id", id);

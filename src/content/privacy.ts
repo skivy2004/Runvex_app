@@ -11,7 +11,7 @@ export const PRIVACY_CONTACT = {
   email: "Jeremycordes31@gmail.com",
 };
 
-export const LAST_UPDATED = "2026-10-03";
+export const LAST_UPDATED = "2026-10-04";
 
 export type PrivacySection = {
   heading: string;
@@ -44,7 +44,7 @@ export const privacyContent: Record<Locale, PrivacyContent> = {
           "Account: je e-mailadres en je wachtwoord. Je wachtwoord wordt alleen versleuteld (gehasht) opgeslagen; niemand kan het lezen, ook wij niet.",
           "Profiel: je voornaam (als je die invult), je geboortedatum, je taal, je tijdzone en het soort werkrooster dat je hebt.",
           "Training: je sporten en niveau per sport, je doel (beschrijving, wedstrijd, datum en afstanden), hoeveel tijd je per dag hebt, je geplande trainingen en de uitleg van de coach daarbij, of je een training hebt gedaan of overgeslagen, hoe zwaar die voelde (1-10) met je eventuele notitie, en je zwembad en zwemmateriaal.",
-          "AI-coach: het tijdstip waarop je een weekplanning laat maken, zodat we een daglimiet kunnen bewaken.",
+          "AI-coaches: je berichten aan de coaches en hun antwoorden en voorstellen, en per AI-aanvraag het aantal tokens en de kosten, zodat we een weeklimiet kunnen bewaken.",
           "Technische gegevens: je IP-adres en browsergegevens komen in de logbestanden van onze hosting en database, voor beveiliging en het oplossen van storingen.",
         ],
         paragraphs: [
@@ -145,7 +145,7 @@ export const privacyContent: Record<Locale, PrivacyContent> = {
           "Account: your email address and password. Your password is only stored encrypted (hashed); nobody can read it, not even us.",
           "Profile: your first name (if you fill it in), date of birth, language, time zone and the kind of work schedule you have.",
           "Training: your sports and level per sport, your goal (description, race, date and distances), how much time you have per day, your planned trainings and the coach's explanation for them, whether you did or skipped a training, how hard it felt (1-10) with any note you add, and your pool and swim equipment.",
-          "AI coach: the time you ask for a week plan, so we can keep a daily limit.",
+          "AI coaches: your messages to the coaches and their replies and proposals, and per AI request the number of tokens and the cost, so we can keep a weekly limit.",
           "Technical data: your IP address and browser details end up in the log files of our hosting and database, for security and fixing problems.",
         ],
         paragraphs: [

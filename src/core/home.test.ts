@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import {
   countdownParts,
   doneStreak,
+  feedbackTarget,
   hourInTimeZone,
   partOfDay,
   startOfDayInTimeZone,
@@ -66,5 +67,22 @@ describe("countdown", () => {
     const now = Date.parse("2026-10-03T10:00:00Z");
     expect(countdownParts(now + (2 * 24 * 60 + 3 * 60 + 5) * 60_000, now)).toEqual({ days: 2, hours: 3, minutes: 5 });
     expect(countdownParts(now - 1000, now)).toEqual({ days: 0, hours: 0, minutes: 0 });
+  });
+});
+
+describe("feedbackTarget", () => {
+  const today = "2026-10-05";
+  const workouts = [
+    { id: "old", scheduled_on: "2026-10-01", status: "done" },
+    { id: "sat", scheduled_on: "2026-10-03", status: "done" },
+    { id: "sun", scheduled_on: "2026-10-04", status: "skipped" },
+    { id: "mon", scheduled_on: "2026-10-05", status: "planned" },
+    { id: "tue", scheduled_on: "2026-10-06", status: "planned" },
+  ];
+
+  it("asks about the latest training up to today without a reaction, skipping skipped ones", () => {
+    expect(feedbackTarget(workouts, new Set(), today, "2026-10-03")?.id).toBe("mon");
+    expect(feedbackTarget(workouts, new Set(["mon"]), today, "2026-10-03")?.id).toBe("sat");
+    expect(feedbackTarget(workouts, new Set(["mon", "sat"]), today, "2026-10-03")).toBeNull();
   });
 });

@@ -40,9 +40,8 @@ export type CoachContext = {
   goal: { description: string; racePreset: string | null; eventDate: string | null } | null;
 };
 
-export const PLAN_SYSTEM_PROMPT = `You are the training coach in Runvex, an app for amateur endurance athletes (running, cycling, swimming, triathlon) with busy or changing work schedules.
-
-You plan one week by choosing a workout for the open days. Each open day lists the only workouts you may choose, as "id:minutes". The id describes the workout: sport, length (minutes or km), difficulty 1-5 and type, e.g. "run_45_3_tempo". Difficulty 3 and higher is a hard session.
+/** The task for the head coach; the team rules are in its system prompt (core/coach/agents.ts). */
+export const PLAN_INSTRUCTIONS = `You plan one week by choosing a workout for the open days. Each open day lists the only workouts you may choose, as "id:minutes". The id describes the workout: sport, length (minutes or km), difficulty 1-5 and type, e.g. "run_45_3_tempo". Difficulty 3 and higher is a hard session.
 
 Swim trainings are built from blocks instead. A day where swimming is possible has a "swimming" object with the blocks per section, as "id:meters:minutes" (minutes include rest), followed by ":equipment" when the block uses equipment, e.g. "t2:300m:7min:fins". Build one training by picking exactly one warm-up, one technique, one endurance ("main") and one cool-down block, plus optionally one speed block, which makes it a hard session (speed blocks are only listed when the day may be hard). Fill the blocks into "idTemplate" to get the workoutId, with "s0" for no speed block, e.g. "swim_25_i_w2_t4_m1_s0_c1". The sum of the block minutes, rounded up to a multiple of 5, must not be more than "maxMinutes"; keep a few minutes margin. Use different technique blocks on different days and compared to last week. The athlete owns the equipment in "ownedEquipment" (every listed block fits it): use it, like a coach would, so most swims have at least one block with equipment, and spread the different items over the week.
 
@@ -58,13 +57,13 @@ How to plan:
 Answer with the sessions you plan. For each session give a short reason (one sentence, max 200 characters) in the athlete's language, addressing the athlete as "you" (Dutch: "je").`;
 
 /** The week as compact JSON for the user message. */
-export function buildPlanMessage(input: PlannerInput, context: PlanningContext, coach: CoachContext): string {
+/** The athlete, goal and week so far, shared by every coach message about planning. */
+export function weekBackground(input: PlannerInput, context: PlanningContext, coach: CoachContext) {
   const describe = (id: string) => {
     const workout = getWorkout(id);
     return workout ? { id, hard: isHardWorkout(workout) } : { id, hard: false };
   };
-
-  const week = {
+  return {
     language: coach.locale === "nl" ? "Dutch" : "English",
     today: input.today,
     weekStart: input.weekStart,
@@ -90,6 +89,12 @@ export function buildPlanMessage(input: PlannerInput, context: PlanningContext, 
     })),
     lastWeek: input.recentTemplateIds,
     lastWeekFeedback: coach.lastWeekFeedback,
+  };
+}
+
+export function buildPlanMessage(input: PlannerInput, context: PlanningContext, coach: CoachContext): string {
+  const week = {
+    ...weekBackground(input, context, coach),
     openDays: context.days.map((day) => ({
       date: day.date,
       weekday: weekdays[isoWeekday(day.date) - 1],
@@ -103,7 +108,7 @@ export function buildPlanMessage(input: PlannerInput, context: PlanningContext, 
       swimming: swimOptions(context, day),
     })),
   };
-  return `Plan this week:\n${JSON.stringify(week)}`;
+  return `${PLAN_INSTRUCTIONS}\n\nThe week:\n${JSON.stringify(week)}`;
 }
 
 /**
@@ -130,8 +135,11 @@ export function sessionsFromAnswer(
   });
 }
 
-/** The swim blocks for one open day, or undefined when no swim fits that day. */
-function swimOptions(context: PlanningContext, day: PlanningContext["days"][number]) {
+/**
+ * The swim blocks for one open day, or undefined when no swim fits that day. Speed
+ * blocks (which make a swim hard) only when `withSpeed`; by default when the day may be hard.
+ */
+export function swimOptions(context: PlanningContext, day: PlanningContext["days"][number], withSpeed = day.canBeHard) {
   const level = context.levels.get("swimming");
   const canSwim = dayCandidates(context, day).some((item) => item.workout.sport === "swimming");
   if (!level || !canSwim) return undefined;
@@ -149,7 +157,7 @@ function swimOptions(context: PlanningContext, day: PlanningContext["days"][numb
     warmup: list(blocks.warmup),
     technique: list(blocks.technique),
     main: list(blocks.main),
-    speed: day.canBeHard ? list(blocks.speed) : [],
+    speed: withSpeed ? list(blocks.speed) : [],
     cooldown: list(blocks.cooldown),
   };
 }

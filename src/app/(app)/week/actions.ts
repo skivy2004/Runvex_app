@@ -2,10 +2,11 @@
 
 import { redirect } from "next/navigation";
 import { after } from "next/server";
-import { buildPlanMessage, lastWeekFeedback, sessionsFromAnswer } from "@/core/aiPlan";
+import { lastWeekFeedback } from "@/core/aiPlan";
+import { budgetWeekStart } from "@/core/coach/budget";
 import { addDays, startOfWeek, todayInTimeZone } from "@/core/dates";
 import { isLocale } from "@/core/locale";
-import { checkPlan, planningContext, planWeek, type PlannerInput } from "@/core/planner";
+import { planningContext, planWeek, type PlannerInput } from "@/core/planner";
 import type { Sport } from "@/core/training";
 import {
   addWorkoutSchema,
@@ -22,8 +23,9 @@ import { getWorkout } from "@/core/workouts/library";
 import { poolLengths } from "@/core/workouts/swim";
 import { swimWorkoutInPool } from "@/core/workouts/swimTraining";
 import { createClient } from "@/lib/supabase/server";
-import { requestAiPlan, isAiCoachConfigured } from "@/services/aiCoach";
-import { countAiRequestsSince, logAiRequest } from "@/services/aiRequests";
+import { addCoachMessages } from "@/services/coachMessages";
+import { isAiCoachConfigured } from "@/services/coachRuntime";
+import { planWeekAsTeam, type TeamPlan } from "@/services/teamPlanner";
 import { getAthleteSports } from "@/services/athleteSports";
 import { getWeeklyAvailability } from "@/services/availability";
 import { removeFromWatch, sendToWatch } from "@/services/watchSync";
@@ -46,9 +48,6 @@ import {
 function localeOf(value: string) {
   return isLocale(value) ? value : "en";
 }
-
-/** At most this many AI week plans per user per 24 hours; after that the rules plan. */
-const AI_PLANS_PER_DAY = 10;
 
 export type PlanWeekResult =
   | { ok: true; planned: number; source: "ai" | "rules" }
@@ -97,40 +96,32 @@ export async function planWeekAction(weekStart: string): Promise<PlanWeekResult>
   let sessions: (ReturnType<typeof planWeek>[number] & { reason?: string })[] | null = null;
   let source: "ai" | "rules" = "rules";
 
-  // 1. Ask the AI coach, unless it isn't set up or the daily limit is reached.
+  // 1. The coach team plans: the head coach makes the outline, the run, bike and
+  //    swim coaches choose the workouts. When the AI isn't set up, fails or this
+  //    week's budget is used up, the rules plan the week (step 3).
+  let team: TeamPlan | null = null;
   if (isAiCoachConfigured()) {
-    try {
-      const since = new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString();
-      const used = await countAiRequestsSince(supabase, profile.id, "plan_week", since);
-      if (used < AI_PLANS_PER_DAY) {
-        // Logged before the call, so failed or slow requests count too.
-        await logAiRequest(supabase, profile.id, "plan_week");
-        const message = buildPlanMessage(input, context, {
-          locale,
-          lastWeekFeedback: lastWeekFeedback(lastWeek),
-          workPattern: profile.work_pattern,
-          goal: goal && {
-            description: goal.description,
-            racePreset: goal.race_preset,
-            eventDate: goal.event_date,
-          },
-        });
-        const answer = await requestAiPlan(message);
-        if (answer) {
-          const aiSessions = sessionsFromAnswer(context, answer);
-          // 2. The coach's plan must follow the same rules as the rule-based planner.
-          const problems = checkPlan(context, aiSessions);
-          if (problems.length === 0) {
-            sessions = aiSessions;
-            source = "ai";
-          } else {
-            console.warn("AI week plan rejected:", problems);
-          }
-        }
-      }
-    } catch (error) {
-      // E.g. the usage log can't be read: no AI this time, the rules still plan the week.
-      console.error("AI week plan skipped:", error);
+    team = await planWeekAsTeam({
+      supabase,
+      userId: profile.id,
+      budgetSince: budgetWeekStart(today, profile.timezone),
+      input,
+      context,
+      coach: {
+        locale,
+        lastWeekFeedback: lastWeekFeedback(lastWeek),
+        workPattern: profile.work_pattern,
+        goal: goal && {
+          description: goal.description,
+          racePreset: goal.race_preset,
+          eventDate: goal.event_date,
+        },
+      },
+    });
+    // 2. The team's plan is already checked against the same rules as the rule-based planner.
+    if (team) {
+      sessions = team.sessions;
+      source = "ai";
     }
   }
 
@@ -150,6 +141,18 @@ export async function planWeekAction(weekStart: string): Promise<PlanWeekResult>
   if (error) {
     console.error("Saving the week plan failed:", error.message);
     return { ok: false, error: "saveFailed" };
+  }
+  if (team && team.messages.length > 0) {
+    try {
+      await addCoachMessages(
+        supabase,
+        profile.id,
+        team.messages.map((message) => ({ role: "coach", agent: message.agent, content: message.content })),
+      );
+    } catch (messagesError) {
+      // The plan itself is saved; only the explanation is missing.
+      console.error("Saving the coaches' messages failed:", messagesError);
+    }
   }
   // After the response, so the user doesn't wait for the watch.
   after(() => sendToWatch(inserted, locale));

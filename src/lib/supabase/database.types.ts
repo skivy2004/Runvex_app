@@ -14,6 +14,48 @@ export type Database = {
   }
   public: {
     Tables: {
+      ai_usage: {
+        Row: {
+          agent: string
+          cache_read_tokens: number
+          cache_write_tokens: number
+          cost_usd: number
+          created_at: string
+          id: string
+          input_tokens: number
+          model: string
+          output_tokens: number
+          purpose: string
+          user_id: string
+        }
+        Insert: {
+          agent: string
+          cache_read_tokens?: number
+          cache_write_tokens?: number
+          cost_usd: number
+          created_at?: string
+          id?: string
+          input_tokens?: number
+          model: string
+          output_tokens?: number
+          purpose: string
+          user_id?: string
+        }
+        Update: {
+          agent?: string
+          cache_read_tokens?: number
+          cache_write_tokens?: number
+          cost_usd?: number
+          created_at?: string
+          id?: string
+          input_tokens?: number
+          model?: string
+          output_tokens?: number
+          purpose?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       athlete_sports: {
         Row: {
           created_at: string
@@ -37,6 +79,50 @@ export type Database = {
           user_id?: string
         }
         Relationships: []
+      }
+      coach_messages: {
+        Row: {
+          agent: string | null
+          content: string
+          created_at: string
+          id: string
+          proposal: Json | null
+          proposal_status: string | null
+          role: string
+          user_id: string
+          workout_id: string | null
+        }
+        Insert: {
+          agent?: string | null
+          content: string
+          created_at?: string
+          id?: string
+          proposal?: Json | null
+          proposal_status?: string | null
+          role: string
+          user_id?: string
+          workout_id?: string | null
+        }
+        Update: {
+          agent?: string | null
+          content?: string
+          created_at?: string
+          id?: string
+          proposal?: Json | null
+          proposal_status?: string | null
+          role?: string
+          user_id?: string
+          workout_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "coach_messages_workout_id_fkey"
+            columns: ["workout_id"]
+            isOneToOne: false
+            referencedRelation: "planned_workouts"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       goals: {
         Row: {

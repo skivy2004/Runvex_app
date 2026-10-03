@@ -1,6 +1,7 @@
 import { getLocale, getTranslations } from "next-intl/server";
 import { CoachCard } from "@/components/home/CoachCard";
 import { ComingUp } from "@/components/home/ComingUp";
+import { FeedbackCard } from "@/components/home/FeedbackCard";
 import { HomeHeader } from "@/components/home/HomeHeader";
 import { RaceCard } from "@/components/home/RaceCard";
 import { TodayCard } from "@/components/home/TodayCard";
@@ -8,9 +9,10 @@ import { WeekOverviewCard } from "@/components/home/WeekOverviewCard";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { addDays, startOfWeek, todayInTimeZone } from "@/core/dates";
 import { isLocale } from "@/core/locale";
-import { doneStreak, hourInTimeZone, partOfDay, weekSportProgress } from "@/core/home";
+import { doneStreak, FEEDBACK_DAYS, feedbackTarget, hourInTimeZone, partOfDay, weekSportProgress } from "@/core/home";
 import { getWorkout } from "@/core/workouts/library";
 import { getRequestClient, getRequestProfile } from "@/lib/currentUser";
+import { getMessagesAboutWorkouts } from "@/services/coachMessages";
 import { getCurrentGoal } from "@/services/goals";
 import { getPlannedWorkouts, getUpcomingWorkouts } from "@/services/workouts";
 
@@ -39,6 +41,16 @@ export default async function HomePage() {
     getCurrentGoal(supabase, profile.id, today),
   ]);
 
+  // "How did your training go?": the latest recent training without a coach reaction,
+  // and the coach's latest reaction (shown since yesterday, or while its proposal waits).
+  const earliest = addDays(today, -FEEDBACK_DAYS);
+  const recentIds = recent.filter((workout) => workout.scheduled_on >= earliest).map((workout) => workout.id);
+  const reactions = await getMessagesAboutWorkouts(supabase, profile.id, recentIds);
+  const target = feedbackTarget(recent, new Set(reactions.flatMap((message) => message.workout_id ?? [])), today, earliest);
+  const since = addDays(today, -1);
+  const reaction =
+    reactions.find((message) => message.proposal_status === "pending" || message.created_at.slice(0, 10) >= since) ?? null;
+
   const [next = null, ...later] = upcoming;
   const progress = weekSportProgress(weekWorkouts);
   const planned = progress.reduce((total, item) => total + item.plannedMinutes, 0);
@@ -60,6 +72,9 @@ export default async function HomePage() {
       </div>
       <div {...rise(1)}>
         <TodayCard workout={next} today={today} weekDone={planned === 0 ? 0 : done / planned} />
+      </div>
+      <div {...rise(2)}>
+        <FeedbackCard target={target} reaction={reaction} today={today} />
       </div>
       <div {...rise(2)}>
         <RaceCard goal={goal} today={today} timeZone={profile.timezone} />

@@ -78,3 +78,24 @@ export function countdownParts(target: number, now: number): { days: number; hou
     minutes: totalMinutes % 60,
   };
 }
+
+/** How many days back "How did your training go?" looks. */
+export const FEEDBACK_DAYS = 2;
+
+/**
+ * The training to ask "How did it go?" about: the latest one from the last days up
+ * to today that wasn't skipped and has no coach reaction yet. Null when there's none.
+ */
+export function feedbackTarget<T extends { id: string; scheduled_on: string; status: string }>(
+  workouts: T[],
+  reactedIds: Set<string>,
+  today: string,
+  earliest: string,
+): T | null {
+  return (
+    workouts
+      .filter((workout) => workout.scheduled_on >= earliest && workout.scheduled_on <= today)
+      .filter((workout) => workout.status !== "skipped" && !reactedIds.has(workout.id))
+      .sort((a, b) => b.scheduled_on.localeCompare(a.scheduled_on))[0] ?? null
+  );
+}

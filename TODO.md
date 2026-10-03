@@ -8,7 +8,8 @@ Things we decided to do later. Move an item to "Done" (with the date) when it's 
 - [ ] **Strength workouts:** add a strength training library (for now strength trainings are filled in freely: title and duration).
 - [ ] **Emails in two languages:** let the Supabase email templates pick Dutch or English based on `{{ .Data.locale }}`.
 - [ ] **Validate sports per day on the server:** check that the sports chosen per day are among the user's own sports.
-- [ ] **Delete AI request log rows after 30 days:** ai_requests only needs the last 24 hours (data minimisation).
+- [ ] **Remove the old ai_requests table:** replaced by ai_usage (cost per call, weekly budget). Drop it with a migration once the new coach is live.
+- [ ] **Delete old AI usage rows:** ai_usage only needs the current week for the budget; keep e.g. 3 months for cost insight, then delete (data minimisation).
 
 ## Before launch
 - [ ] **Leaked password protection:** turn on in Supabase (Authentication → Attack Protection), may need a paid plan.
