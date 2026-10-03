@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { drillIds, equipmentTypes, strokes } from "./swim";
 import { workoutCategories } from "./types";
 
 // Describes the JSON files in ./data exactly as they are written, so a typo or
@@ -18,6 +19,9 @@ type RawStep =
       label_en?: string;
       activity?: "walk";
       rest_sec?: number;
+      stroke?: (typeof strokes)[number];
+      drill?: (typeof drillIds)[number];
+      equipment?: (typeof equipmentTypes)[number][];
     }
   | { type: "repeat"; repeat: number; steps: RawStep[] };
 
@@ -34,6 +38,9 @@ const rawStep: z.ZodType<RawStep> = z.lazy(() =>
         label_en: z.string().optional(),
         activity: z.literal("walk").optional(),
         rest_sec: z.number().int().positive().optional(),
+        stroke: z.enum(strokes).optional(),
+        drill: z.enum(drillIds).optional(),
+        equipment: z.array(z.enum(equipmentTypes)).min(1).optional(),
       })
       // Every step has exactly one length: minutes, kilometers or meters.
       .refine(

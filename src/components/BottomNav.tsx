@@ -31,7 +31,7 @@ function TabLink({ tab, isActive }: { tab: Tab; isActive: boolean }) {
       prefetch
       // Tells screen readers which tab is the current page.
       aria-current={isActive ? "page" : undefined}
-      className={`flex flex-1 flex-col items-center gap-1 py-2 text-[11px] font-medium transition ${
+      className={`flex flex-1 flex-col items-center gap-1 py-1.5 text-[11px] font-medium transition ${
         isActive ? "text-accent" : "text-muted hover:text-foreground"
       }`}
     >
@@ -48,10 +48,11 @@ export function BottomNav() {
 
   return (
     // Fixed to the bottom of the screen; the inner div keeps it as wide as the app column.
-    // The bar's own background runs down behind the iPhone home bar (the safe area),
-    // while the tabs stay above it.
+    // The bar's own background runs down behind the iPhone home bar (the safe area);
+    // the tabs sit just above that bar, tucked slightly into it to keep the bar low,
+    // like the tab bars in iPhone apps.
     <nav aria-label={t("label")} className="fixed inset-x-0 bottom-0 z-10">
-      <div className="mx-auto flex max-w-md items-end rounded-t-3xl border-t border-line bg-surface px-2 pt-2 pb-[calc(0.75rem+env(safe-area-inset-bottom))]">
+      <div className="mx-auto flex max-w-md items-end rounded-t-3xl border-t border-line bg-surface px-2 pt-2 pb-[max(0.5rem,calc(env(safe-area-inset-bottom)-0.5rem))]">
         {leftTabs.map((tab) => (
           <TabLink key={tab.href} tab={tab} isActive={isActive(tab.href)} />
         ))}

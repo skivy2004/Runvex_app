@@ -4,12 +4,14 @@ import type { Locale } from "./locale";
 import {
   dayCandidates,
   isHardWorkout,
+  maxSessionMinutes,
   type PlannedSession,
   type PlannerInput,
   type PlanningContext,
 } from "./planner";
 import { weekdays, type WorkPattern } from "./training";
 import { getWorkout } from "./workouts/library";
+import { swimBlockOptions, swimIdTemplate, type SwimBlockOption } from "./workouts/swimTraining";
 
 // The AI coach plans the week by choosing from the workouts the rules allow on
 // each day. This file builds what we send to Claude and turns the answer into
@@ -38,7 +40,9 @@ export type CoachContext = {
 
 export const PLAN_SYSTEM_PROMPT = `You are the training coach in Runvex, an app for amateur endurance athletes (running, cycling, swimming, triathlon) with busy or changing work schedules.
 
-You plan one week by choosing a workout for the open days. Each open day lists the only workouts you may choose, as "id:minutes". The id describes the workout: sport, length (minutes, km or meters), difficulty 1-5 and type, e.g. "run_45_3_tempo" or "swim_1500m_2_endurance". Difficulty 3 and higher is a hard session.
+You plan one week by choosing a workout for the open days. Each open day lists the only workouts you may choose, as "id:minutes". The id describes the workout: sport, length (minutes or km), difficulty 1-5 and type, e.g. "run_45_3_tempo". Difficulty 3 and higher is a hard session.
+
+Swim trainings are built from blocks instead. A day where swimming is possible has a "swimming" object with the blocks per section, as "id:meters:minutes" (minutes include rest), followed by ":equipment" when the block uses equipment, e.g. "t2:300m:7min:fins". Build one training by picking exactly one warm-up, one technique, one endurance ("main") and one cool-down block, plus optionally one speed block, which makes it a hard session (speed blocks are only listed when the day may be hard). Fill the blocks into "idTemplate" to get the workoutId, with "s0" for no speed block, e.g. "swim_25_i_w2_t4_m1_s0_c1". The sum of the block minutes, rounded up to a multiple of 5, must not be more than "maxMinutes"; keep a few minutes margin. Use different technique blocks on different days and compared to last week. The athlete owns the equipment in "ownedEquipment" (every listed block fits it): use it, like a coach would, so most swims have at least one block with equipment, and spread the different items over the week.
 
 How to plan:
 - Train mostly easy: about 80% easy, 20% hard. Never plan more hard sessions than "hardSessionsAllowed", and never two hard days in a row (also counting "alreadyPlanned").
@@ -88,7 +92,11 @@ export function buildPlanMessage(input: PlannerInput, context: PlanningContext, 
       availableMinutes: day.minutes,
       longSession: day.long,
       mayBeHard: day.canBeHard,
-      options: dayCandidates(context, day).map((item) => `${item.workout.id}:${item.minutes}`),
+      // Swims are built from blocks (see "swimming" below), so they aren't listed one by one.
+      options: dayCandidates(context, day)
+        .filter((item) => item.workout.sport !== "swimming")
+        .map((item) => `${item.workout.id}:${item.minutes}`),
+      swimming: swimOptions(context, day),
     })),
   };
   return `Plan this week:\n${JSON.stringify(week)}`;
@@ -116,4 +124,28 @@ export function sessionsFromAnswer(
       reason: item.reason.trim().slice(0, MAX_REASON_LENGTH),
     };
   });
+}
+
+/** The swim blocks for one open day, or undefined when no swim fits that day. */
+function swimOptions(context: PlanningContext, day: PlanningContext["days"][number]) {
+  const level = context.levels.get("swimming");
+  const canSwim = dayCandidates(context, day).some((item) => item.workout.sport === "swimming");
+  if (!level || !canSwim) return undefined;
+  const { poolLength, equipment } = context.swim;
+  const blocks = swimBlockOptions(level, poolLength, equipment);
+  const list = (items: SwimBlockOption[]) =>
+    items.map(
+      (item) =>
+        `${item.id}:${item.meters}m:${item.minutes}min${item.equipment.length > 0 ? `:${item.equipment.join("+")}` : ""}`,
+    );
+  return {
+    maxMinutes: maxSessionMinutes("swimming", level, day.minutes, "easy"),
+    ownedEquipment: equipment,
+    idTemplate: swimIdTemplate(level, poolLength),
+    warmup: list(blocks.warmup),
+    technique: list(blocks.technique),
+    main: list(blocks.main),
+    speed: day.canBeHard ? list(blocks.speed) : [],
+    cooldown: list(blocks.cooldown),
+  };
 }

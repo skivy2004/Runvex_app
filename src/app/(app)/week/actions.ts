@@ -14,9 +14,12 @@ import {
   swapWorkoutSchema,
   type AddWorkoutInput,
 } from "@/core/validation/workouts";
+import { swimSettingsOf } from "@/core/validation/swim";
 import { isValidIsoDate } from "@/core/week";
 import { estimatedMinutes } from "@/core/workouts/estimate";
 import { getWorkout } from "@/core/workouts/library";
+import { poolLengths } from "@/core/workouts/swim";
+import { swimWorkoutInPool } from "@/core/workouts/swimTraining";
 import { createClient } from "@/lib/supabase/server";
 import { requestAiPlan, isAiCoachConfigured } from "@/services/aiCoach";
 import { countAiRequestsSince, logAiRequest } from "@/services/aiRequests";
@@ -28,6 +31,7 @@ import { getCurrentProfile } from "@/services/profile";
 import { refreshAppData } from "@/lib/refreshAppData";
 import {
   addPlannedWorkout,
+  changePlannedTemplate,
   deletePlannedWorkout,
   getPlannedWorkout,
   getPlannedWorkouts,
@@ -82,6 +86,7 @@ export async function planWeekAction(weekStart: string): Promise<PlanWeekResult>
     })),
     recentTemplateIds: lastWeek.flatMap((workout) => (workout.template_id ? [workout.template_id] : [])),
     goal: goal && { sports: goal.sports, eventDate: goal.event_date },
+    swim: swimSettingsOf(profile),
   };
   const context = planningContext(input);
   if (context.days.length === 0) return { ok: true, planned: 0, source: "rules" };
@@ -285,4 +290,36 @@ export async function sendWeekToWatchAction(weekStart: string): Promise<WorkoutA
   const workouts = await getPlannedWorkouts(supabase, profile.id, weekStart, addDays(weekStart, 6));
   // Here we wait for the answer, so the button can say whether it worked.
   return { ok: await sendToWatch(workouts, localeOf(profile.locale)) };
+}
+
+/** The same swim training in a 25 m or 50 m pool: drills then cover whole lengths of that pool. */
+export async function changeSwimPoolAction(id: string, poolLength: number): Promise<WorkoutActionResult> {
+  const parsed = deleteWorkoutSchema.safeParse({ id });
+  const pool = poolLengths.find((length) => length === poolLength);
+  if (!parsed.success || pool === undefined) return { ok: false };
+
+  const supabase = await createClient();
+  const profile = await getCurrentProfile(supabase);
+  if (!profile) return { ok: false };
+
+  const workout = await getPlannedWorkout(supabase, profile.id, parsed.data.id);
+  const templateId = workout?.template_id ? swimWorkoutInPool(workout.template_id, pool) : null;
+  const template = templateId ? getWorkout(templateId) : undefined;
+  if (!workout || !template) return { ok: false };
+
+  const minutes = estimatedMinutes(template, await levelFor(supabase, profile.id, "swimming"));
+  if (minutes === null) return { ok: false };
+
+  const { error } = await changePlannedTemplate(supabase, profile.id, workout.id, {
+    templateId: template.id,
+    title: template.name[localeOf(profile.locale)],
+    durationMinutes: minutes,
+  });
+  if (error) {
+    console.error("Changing the pool failed:", error.message);
+    return { ok: false };
+  }
+  // Swims don't go to the watch, so nothing to sync.
+  refreshAppData();
+  return { ok: true };
 }

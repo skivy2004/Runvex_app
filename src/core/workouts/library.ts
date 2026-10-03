@@ -4,6 +4,7 @@ import cyclingFile from "./data/cycling.json";
 import runningFile from "./data/running.json";
 import swimmingFile from "./data/swimming.json";
 import { rawWorkoutFileSchema, type RawStep, type RawWorkout } from "./schema";
+import { getSwimWorkout } from "./swimTraining";
 import type { LocalizedText, Workout, WorkoutStep, Zone } from "./types";
 
 // The workout library, built from the JSON files in ./data.
@@ -29,6 +30,9 @@ function toStep(raw: RawStep): WorkoutStep {
     label: raw.label ? { nl: raw.label, en: raw.label_en ?? raw.label } : null,
     isWalking: raw.activity === "walk",
     restSeconds: raw.rest_sec ?? null,
+    stroke: raw.stroke ?? null,
+    drill: raw.drill ?? null,
+    equipment: raw.equipment ?? [],
   };
 }
 
@@ -63,8 +67,9 @@ export const workoutLibrary: Workout[] = Object.values(files).flatMap((file) =>
 
 const byId = new Map(workoutLibrary.map((workout) => [workout.id, workout]));
 
+/** A workout from the files, or a swim training built from blocks (see swimTraining.ts). */
 export function getWorkout(id: string): Workout | undefined {
-  return byId.get(id);
+  return byId.get(id) ?? getSwimWorkout(id) ?? undefined;
 }
 
 export function workoutsForSport(sport: Sport): Workout[] {
@@ -102,3 +107,4 @@ export function zoneLegend(workout: Workout, locale: Locale): { zone: Zone; text
   const sport = workout.sport;
   return usedZones(workout.steps).map((zone) => ({ zone, text: zoneDescription(sport, zone, locale) }));
 }
+

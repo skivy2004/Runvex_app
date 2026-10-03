@@ -55,7 +55,16 @@
     "rest": "{seconds} s rust",
     "repeat": "{times}× herhalen",
     "zone": "Z{zone}",
-    "close": "Sluiten"
+    "close": "Sluiten",
+    "bring": "Neem mee",
+    "drillsTitle": "Oefeningen",
+    "swimSection": {
+      "warmup": "Inzwemmen",
+      "technique": "Kern 1 techniek",
+      "main": "Kern 2 duur",
+      "speed": "Kern 3 snelheid",
+      "cooldown": "Uitzwemmen"
+    }
   },
   "WorkoutActions": {
     "swap": "Wisselen",
@@ -75,7 +84,9 @@
     "dropped": "{name} verplaatst naar {day}.",
     "cancelled": "Verplaatsen van {name} geannuleerd.",
     "backToAlternatives": "Alle alternatieven",
-    "swapToThis": "Wissel naar deze training"
+    "swapToThis": "Wissel naar deze training",
+    "pool": "Zwembad",
+    "poolLength": "{length} m"
   },
   "AddWorkout": {
     "title": "Training toevoegen",
@@ -127,7 +138,9 @@
     "saveFailed": "Opslaan is niet gelukt. Probeer het opnieuw.",
     "invalidDetails": "Controleer je naam en geboortedatum.",
     "logout": "Uitloggen",
-    "privacy": "Privacyverklaring"
+    "privacy": "Privacyverklaring",
+    "swimming": "Zwemmen",
+    "poolSummary": "{length}m-bad"
   },
   "Auth": {
     "loginTitle": "Welkom terug",
@@ -359,5 +372,14 @@
   },
   "LanguageSwitcher": {
     "label": "Taal"
+  },
+  "SwimSettings": {
+    "title": "Zwemmen",
+    "subtitle": "Je zwembad en je materiaal. Je zwemtrainingen passen zich hierop aan.",
+    "pool": "Zwembad",
+    "poolLength": "{length} meter",
+    "poolHint": "Oefeningen gaan altijd per hele baan, dus je wisselt aan de kant.",
+    "equipment": "Mijn materiaal",
+    "equipmentHint": "Je krijgt alleen oefeningen waarvoor je het materiaal hebt."
   }
 }

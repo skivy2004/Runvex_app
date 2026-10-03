@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { getWorkout } from "@/core/workouts/library";
-import { toIntervalsEvent, workoutText } from "./intervals";
+import { belongsOnWatch, toIntervalsEvent, workoutText } from "./intervals";
 
 describe("workoutText", () => {
   it("writes warm-up, repeats and cool-down with heart rate targets", () => {
@@ -59,5 +59,14 @@ describe("toIntervalsEvent", () => {
   it("sends your own training with its title and no steps", () => {
     const own = { ...training, sport: "strength" as const, title: "Core", template_id: null };
     expect(toIntervalsEvent(own, "nl")).toMatchObject({ type: "WeightTraining", name: "Core", description: "" });
+  });
+});
+
+describe("belongsOnWatch", () => {
+  it("keeps swims off the watch and sends the rest", () => {
+    expect(belongsOnWatch({ sport: "swimming" })).toBe(false);
+    expect(belongsOnWatch({ sport: "running" })).toBe(true);
+    expect(belongsOnWatch({ sport: "cycling" })).toBe(true);
+    expect(belongsOnWatch({ sport: "strength" })).toBe(true);
   });
 });

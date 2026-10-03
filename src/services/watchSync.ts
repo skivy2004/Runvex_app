@@ -1,6 +1,6 @@
 import "server-only";
 import type { Locale } from "@/core/locale";
-import { toIntervalsEvent, type TrainingForWatch } from "@/core/watch/intervals";
+import { belongsOnWatch, toIntervalsEvent, type TrainingForWatch } from "@/core/watch/intervals";
 
 // Sends trainings to the watch, via intervals.icu (which syncs to Garmin Connect).
 // The rest of the app only uses these functions, so later another route (intervals.icu
@@ -38,10 +38,11 @@ async function intervalsRequest(path: string, method: "POST" | "PUT", body: unkn
   }
 }
 
-/** Creates or updates these trainings on the watch (matched by their Runvex id). */
+/** Creates or updates these trainings on the watch (matched by their Runvex id). Swims are skipped. */
 export async function sendToWatch(trainings: TrainingForWatch[], locale: Locale): Promise<boolean> {
-  if (!isWatchSyncConfigured() || trainings.length === 0) return true;
-  const events = trainings.map((training) => toIntervalsEvent(training, locale));
+  const forWatch = trainings.filter(belongsOnWatch);
+  if (!isWatchSyncConfigured() || forWatch.length === 0) return true;
+  const events = forWatch.map((training) => toIntervalsEvent(training, locale));
   return intervalsRequest("/events/bulk?upsert=true", "POST", events);
 }
 

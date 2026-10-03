@@ -3,11 +3,12 @@
 import { redirect } from "next/navigation";
 import { missingLongSessions, type DayAvailability } from "@/core/availability";
 import { availabilitySchema, profileDetailsSchema } from "@/core/validation/onboarding";
+import { swimSettingsSchema, type SwimSettingsData } from "@/core/validation/swim";
 import { createClient } from "@/lib/supabase/server";
 import { getAthleteSports } from "@/services/athleteSports";
 import { saveWeeklyAvailability } from "@/services/availability";
 import { refreshAppData } from "@/lib/refreshAppData";
-import { updateProfileDetails } from "@/services/profile";
+import { updateProfileDetails, updateSwimSettings } from "@/services/profile";
 
 export type DetailsFormState = { error: "tooYoung" | "invalid" | "saveFailed" | null };
 
@@ -62,6 +63,24 @@ export async function saveAvailability(week: DayAvailability[]): Promise<{ ok: b
   const { error } = await saveWeeklyAvailability(supabase, userId, parsed.data);
   if (error) {
     console.error("Saving availability failed:", error.message);
+    return { ok: false };
+  }
+
+  refreshAppData();
+  redirect("/profile");
+}
+
+/** Saves your pool length and the swim equipment you own. */
+export async function saveSwimSettings(settings: SwimSettingsData): Promise<{ ok: boolean }> {
+  const parsed = swimSettingsSchema.safeParse(settings);
+  if (!parsed.success) return { ok: false };
+
+  const { supabase, userId } = await getUserId();
+  if (!userId) return { ok: false };
+
+  const { error } = await updateSwimSettings(supabase, userId, parsed.data);
+  if (error) {
+    console.error("Saving swim settings failed:", error.message);
     return { ok: false };
   }
 

@@ -3,6 +3,8 @@ import { addDays, daysBetween } from "./dates";
 import type { ExperienceLevel, Sport } from "./training";
 import { estimatedMinutes } from "./workouts/estimate";
 import { getWorkout, workoutsForSport } from "./workouts/library";
+import { usedEquipment, type Equipment, type PoolLength } from "./workouts/swim";
+import { parseSwimWorkoutId, swimWorkouts } from "./workouts/swimTraining";
 import type { Workout } from "./workouts/types";
 
 // Week planning rules. The rule-based planner (planWeek) fills the open training
@@ -36,10 +38,11 @@ const sessionCaps: Record<PlannableSport, Record<ExperienceLevel, { normal: numb
     intermediate: { normal: 90, long: 180 },
     advanced: { normal: 120, long: 300 },
   },
+  // A pool session including warm-up, technique and cool-down.
   swimming: {
-    beginner: { normal: 30, long: 30 },
-    intermediate: { normal: 45, long: 45 },
-    advanced: { normal: 60, long: 60 },
+    beginner: { normal: 45, long: 45 },
+    intermediate: { normal: 60, long: 60 },
+    advanced: { normal: 75, long: 75 },
   },
 };
 
@@ -56,7 +59,12 @@ export type PlannerInput = {
   /** Library workouts of last week, so this week can be different. */
   recentTemplateIds: string[];
   goal: { sports: Sport[]; eventDate: string | null } | null;
+  /** Your pool and swim equipment. Without it: a 25 m pool and no equipment. */
+  swim?: SwimSettings;
 };
+
+export type SwimSettings = { poolLength: PoolLength; equipment: Equipment[] };
+const DEFAULT_SWIM: SwimSettings = { poolLength: 25, equipment: [] };
 
 export type PlannedSession = {
   scheduledOn: string;
@@ -91,6 +99,7 @@ export type PlanningContext = {
   longDates: Set<string>;
   /** How many hard sessions this plan may add. */
   hardAllowed: number;
+  swim: SwimSettings;
 };
 
 export type Candidate = { workout: Workout; minutes: number; kind: Kind };
@@ -159,20 +168,31 @@ export function planningContext(input: PlannerInput): PlanningContext {
     existingHardDates,
     longDates,
     hardAllowed,
+    swim: input.swim ?? DEFAULT_SWIM,
   };
 }
 
-/** All library workouts of this kind that fit in the time and suit the level. */
+/**
+ * The workouts the planner chooses from. Swims are built from blocks for your pool
+ * and equipment; the other sports come from the library files.
+ */
+function plannableWorkouts(sport: PlannableSport, level: ExperienceLevel, swim: SwimSettings): Workout[] {
+  return sport === "swimming"
+    ? swimWorkouts(level, swim.poolLength, swim.equipment)
+    : workoutsForSport(sport);
+}
+
+/** All workouts of this kind that fit in the time and suit the level. */
 export function fittingWorkouts(
   sport: PlannableSport,
   level: ExperienceLevel,
   availableMinutes: number,
   kind: Kind,
+  swim: SwimSettings = DEFAULT_SWIM,
 ): Candidate[] {
-  const caps = sessionCaps[sport][level];
-  const maxMinutes = Math.min(availableMinutes, kind === "long" ? caps.long : caps.normal);
+  const maxMinutes = maxSessionMinutes(sport, level, availableMinutes, kind);
 
-  return workoutsForSport(sport).flatMap((workout) => {
+  return plannableWorkouts(sport, level, swim).flatMap((workout) => {
     // Distance runs and rides have no known duration, so they never fit a time slot.
     const minutes = estimatedMinutes(workout, level);
     if (minutes === null || minutes > maxMinutes) return [];
@@ -184,6 +204,17 @@ export function fittingWorkouts(
   });
 }
 
+/** The longest session allowed: the time of the day, capped per sport and level. */
+export function maxSessionMinutes(
+  sport: PlannableSport,
+  level: ExperienceLevel,
+  availableMinutes: number,
+  kind: Kind,
+): number {
+  const caps = sessionCaps[sport][level];
+  return Math.min(availableMinutes, kind === "long" ? caps.long : caps.normal);
+}
+
 /**
  * The workouts allowed on one day. On a long session day: only the long session
  * (unless it doesn't fit, then a normal easy session). Other days: easy sessions of
@@ -191,14 +222,14 @@ export function fittingWorkouts(
  */
 export function dayCandidates(context: PlanningContext, day: OpenDay): Candidate[] {
   if (day.long !== null) {
-    const long = fittingWorkouts(day.long, context.levels.get(day.long)!, day.minutes, "long");
+    const long = fittingWorkouts(day.long, context.levels.get(day.long)!, day.minutes, "long", context.swim);
     if (long.length > 0) return long;
   }
   return day.options.flatMap((sport) => {
     const level = context.levels.get(sport)!;
-    const easy = fittingWorkouts(sport, level, day.minutes, "easy");
+    const easy = fittingWorkouts(sport, level, day.minutes, "easy", context.swim);
     return day.canBeHard
-      ?[...easy, ...fittingWorkouts(sport, level, day.minutes, "hard")]
+      ? [...easy, ...fittingWorkouts(sport, level, day.minutes, "hard", context.swim)]
       : easy;
   });
 }
@@ -296,7 +327,7 @@ export function planWeek(input: PlannerInput): PlannedSession[] {
     (day) =>
       day.canBeHard &&
       !nextTo(context.existingHardDates, day.date) &&
-      pickWorkout(mainSport(day), levels.get(mainSport(day))!, day.minutes, "hard") !== null,
+      pickWorkout(mainSport(day), levels.get(mainSport(day))!, day.minutes, "hard", context.swim) !== null,
   );
   const scoreCombination = (combination: OpenDay[]) => [
     -combination.length,
@@ -314,14 +345,14 @@ export function planWeek(input: PlannerInput): PlannedSession[] {
   const picks = new Map<string, PlannedSession>();
   for (const day of hardDays) {
     const sport = mainSport(day);
-    const pick = pickWorkout(sport, levels.get(sport)!, day.minutes, "hard", used, recent)!;
+    const pick = pickWorkout(sport, levels.get(sport)!, day.minutes, "hard", context.swim, used, recent)!;
     used.add(pick.workout.id);
     picks.set(day.date, toSession(day.date, sport, pick));
   }
   for (const day of days.filter((item) => !hardDays.has(item))) {
     for (const sport of choices.get(day.date)!) {
       const kind: Kind = sport === day.long ? "long" : "easy";
-      const pick = pickWorkout(sport, levels.get(sport)!, day.minutes, kind, used, recent);
+      const pick = pickWorkout(sport, levels.get(sport)!, day.minutes, kind, context.swim, used, recent);
       if (!pick) continue; // doesn't fit, e.g. a 30-minute day for cycling: try the next sport
       used.add(pick.workout.id);
       picks.set(day.date, toSession(day.date, sport, pick));
@@ -369,14 +400,20 @@ export function workoutAlternatives(
   level: ExperienceLevel,
   availableMinutes: number,
   isLongSession: boolean,
+  swim: SwimSettings = DEFAULT_SWIM,
 ): Candidate[] {
   if (!isPlannable(current.sport)) return [];
   const currentMinutes = estimatedMinutes(current, level) ?? 0;
   const kind: Kind = isLongSession ? "long" : isHardWorkout(current) ? "hard" : "easy";
   // At least as much time as the current workout, also on a day with less time set.
   const minutes = Math.max(availableMinutes, currentMinutes);
-  return fittingWorkouts(current.sport, level, minutes, kind)
+  // A block swim: offer the same training with one block changed (another technique,
+  // endurance or speed block), in the pool it was planned for.
+  const composition = parseSwimWorkoutId(current.id);
+  const settings = composition ? { ...swim, poolLength: composition.poolLength } : swim;
+  return fittingWorkouts(current.sport, level, minutes, kind, settings)
     .filter((candidate) => candidate.workout.id !== current.id)
+    .filter((candidate) => composition === null || differsInOneBlock(composition, candidate.workout.id))
     .sort(
       (a, b) =>
         Math.abs(a.minutes - currentMinutes) - Math.abs(b.minutes - currentMinutes) ||
@@ -396,17 +433,43 @@ export function pickWorkout(
   level: ExperienceLevel,
   availableMinutes: number,
   kind: Kind,
+  swim: SwimSettings = DEFAULT_SWIM,
   used: Set<string> = new Set(),
   recent: Set<string> = new Set(),
 ): Candidate | null {
+  // Swims are compared per block, so the week gets different drills and sets.
+  const usedParts = new Set([...used].flatMap(varietyParts));
+  const recentParts = new Set([...recent].flatMap(varietyParts));
+  const overlap = (id: string, parts: Set<string>) => varietyParts(id).filter((part) => parts.has(part)).length;
+  // If you own swim equipment, use it: a swim without any comes after one with.
+  const skipsGear = (workout: Workout) =>
+    workout.sport === "swimming" && swim.equipment.length > 0 && usedEquipment(workout.steps).length === 0 ? 1 : 0;
   const score = ({ workout, minutes }: Candidate) => [
-    used.has(workout.id) ? 1 : 0,
+    overlap(workout.id, usedParts),
+    skipsGear(workout),
     -minutes,
-    recent.has(workout.id) ? 1 : 0,
+    overlap(workout.id, recentParts),
     // Hard: the hardest allowed. Easy: the calmest.
     kind === "hard" ? -workout.difficulty : workout.difficulty,
   ];
-  const candidates = fittingWorkouts(sport, level, availableMinutes, kind);
+  const candidates = fittingWorkouts(sport, level, availableMinutes, kind, swim);
   candidates.sort((a, b) => compareScores(score(a), score(b)));
   return candidates[0] ?? null;
+}
+
+/** What makes a workout feel the same: a library workout itself, or a swim's technique, endurance and speed blocks. */
+function varietyParts(id: string): string[] {
+  const swim = parseSwimWorkoutId(id);
+  return swim ? [swim.technique, swim.main, swim.speed ?? "s0"] : [id];
+}
+
+function differsInOneBlock(current: { technique: string; main: string; speed: string | null }, id: string): boolean {
+  const other = parseSwimWorkoutId(id);
+  if (!other) return false;
+  const changes = [
+    other.technique !== current.technique,
+    other.main !== current.main,
+    other.speed !== current.speed,
+  ].filter(Boolean).length;
+  return changes === 1;
 }

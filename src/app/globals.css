@@ -13,7 +13,8 @@
   --color-line: #34353b;
   --color-foreground: #ffffff;
   --color-muted: #8a8b90;
-  --color-accent: #38bdf8;
+  /* The blue of the Runvex logo (public/logo.svg). */
+  --color-accent: #4abaeb;
   --color-accent-foreground: #0e0f11;
   --color-danger: #ff6b5e;
   --color-warning: #fbbf24;

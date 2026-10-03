@@ -1,5 +1,7 @@
 import type { Locale } from "@/core/locale";
-import type { Sport } from "@/core/training";
+import type { ExperienceLevel, Sport } from "@/core/training";
+import type { DrillId, Equipment, PoolLength, Stroke } from "./swim";
+import type { SwimSection } from "./swimBlocks";
 
 /** A text in every app language. */
 export type LocalizedText = Record<Locale, string>;
@@ -33,6 +35,12 @@ export type WorkoutStep =
       isWalking: boolean;
       /** Rest after this step (swimming). */
       restSeconds: number | null;
+      /** Swimming: the stroke; null = freestyle. */
+      stroke: Stroke | null;
+      /** Swimming: a technique drill instead of normal swimming. */
+      drill: DrillId | null;
+      /** Swimming: what to use during this step, e.g. fins. */
+      equipment: Equipment[];
     }
   | {
       type: "repeat";
@@ -54,4 +62,12 @@ export type Workout = {
   durationMinutes: number | null;
   distanceMeters: number | null;
   steps: WorkoutStep[];
+  /** Swim trainings built from blocks: the pool, the level and the blocks in order. */
+  swim?: SwimInfo;
+};
+
+export type SwimInfo = {
+  poolLength: PoolLength;
+  level: ExperienceLevel;
+  sections: { section: SwimSection; blockId: string; name: LocalizedText; steps: WorkoutStep[] }[];
 };

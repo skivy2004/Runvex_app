@@ -2,6 +2,7 @@ import { describe, expect, it } from "vitest";
 import cyclingFile from "./data/cycling.json";
 import { getWorkout, workoutLibrary, workoutsForSport, zoneDescription } from "./library";
 import { rawWorkoutFileSchema } from "./schema";
+import { drillIds, equipmentNames, strokeNames, swimDrills, usedEquipment, type Equipment } from "./swim";
 import type { WorkoutStep } from "./types";
 
 describe("workout file schema", () => {
@@ -20,6 +21,9 @@ describe("workout file schema", () => {
       { ...firstWorkout, steps: [{ type: "interval", zone: 2 }] }, // step without length
       { ...firstWorkout, steps: [{ type: "interval", zone: 2, duration_min: 5, distance_km: 2 }] }, // two lengths
       { ...firstWorkout, steps: [{ type: "interval", zone: 6, duration_min: 5 }] }, // zone 6
+      { ...firstWorkout, steps: [{ type: "interval", zone: 1, distance_m: 25, drill: "flying" }] }, // unknown drill
+      { ...firstWorkout, steps: [{ type: "interval", zone: 1, distance_m: 25, equipment: ["flippers"] }] }, // unknown equipment
+      { ...firstWorkout, steps: [{ type: "interval", zone: 1, distance_m: 25, equipment: [] }] }, // empty equipment list
     ];
     for (const workout of mistakes) {
       expect(rawWorkoutFileSchema.safeParse(withWorkout(workout)).success).toBe(false);
@@ -79,5 +83,51 @@ describe("workout library", () => {
     expect(getWorkout("does_not_exist")).toBeUndefined();
     expect(zoneDescription("cycling", 4, "nl")).toContain("Drempel");
     expect(zoneDescription("cycling", 4, "en")).toContain("Threshold");
+  });
+});
+
+describe("swim drills and equipment", () => {
+  it("accepts a drill step with a stroke and equipment", () => {
+    const drillStep = {
+      type: "interval",
+      zone: 1,
+      distance_m: 25,
+      stroke: "freestyle",
+      drill: "fist",
+      equipment: ["fins", "snorkel"],
+    };
+    const file = { ...cyclingFile, workouts: [{ ...cyclingFile.workouts[0], steps: [drillStep] }] };
+    expect(rawWorkoutFileSchema.safeParse(file).success).toBe(true);
+  });
+
+  it("has a Dutch and English name and how-to for every drill", () => {
+    for (const id of drillIds) {
+      const drill = swimDrills[id];
+      expect(drill.name.nl && drill.name.en && drill.howTo.nl && drill.howTo.en, id).toBeTruthy();
+    }
+    for (const names of [...Object.values(equipmentNames), ...Object.values(strokeNames).map((s) => s.name)]) {
+      expect(names.nl && names.en).toBeTruthy();
+    }
+  });
+
+  it("lists the equipment of all steps once, in a fixed order", () => {
+    const step = (equipment: Equipment[]): WorkoutStep => ({
+      type: "interval",
+      zone: 1,
+      durationMinutes: null,
+      distanceMeters: 50,
+      label: null,
+      isWalking: false,
+      restSeconds: null,
+      stroke: null,
+      drill: null,
+      equipment,
+    });
+    const steps: WorkoutStep[] = [
+      step(["snorkel"]),
+      { type: "repeat", times: 4, steps: [step(["fins", "snorkel"]), step([])] },
+    ];
+    expect(usedEquipment(steps)).toEqual(["fins", "snorkel"]);
+    expect(usedEquipment([step([])])).toEqual([]);
   });
 });

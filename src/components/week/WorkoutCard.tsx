@@ -71,6 +71,7 @@ export function WorkoutCard({ workout, isLongSession = false, trailing, actions 
             sport={template.sport}
             steps={template.steps}
             zones={zoneLegend(template, locale)}
+            swim={template.swim}
             locale={locale}
           />
         </>

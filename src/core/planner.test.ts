@@ -234,7 +234,9 @@ describe("checkPlan", () => {
 
   it("rejects two hard days in a row and too many hard days", () => {
     const monday = { scheduledOn: MONDAY, sport: "running" as const, templateId: "run_60_4_threshold", durationMinutes: 60 };
-    const tuesday = { scheduledOn: addDays(MONDAY, 1), sport: "swimming" as const, templateId: "swim_1000m_4_threshold", durationMinutes: 25 };
+    // Tuesday is a swim day: a training with a speed block is hard.
+    const hardSwim = pickWorkout("swimming", "intermediate", 90, "hard")!;
+    const tuesday = { scheduledOn: addDays(MONDAY, 1), sport: "swimming" as const, templateId: hardSwim.workout.id, durationMinutes: hardSwim.minutes };
     const wednesday = { scheduledOn: addDays(MONDAY, 2), sport: "cycling" as const, templateId: "bike_60min_4_threshold", durationMinutes: 60 };
     const friday = { scheduledOn: addDays(MONDAY, 4), sport: "running" as const, templateId: "run_45_3_tempo", durationMinutes: 45 };
     expect(checkPlan(context, [monday, tuesday]).some((p) => p.includes("next to"))).toBe(true);

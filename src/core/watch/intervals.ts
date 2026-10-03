@@ -39,6 +39,14 @@ export type TrainingForWatch = {
   template_id: string | null;
 };
 
+/**
+ * Swims stay off the watch: a swim schedule is easier to read from a card on your
+ * water bottle than from a watch in the pool.
+ */
+export function belongsOnWatch(training: Pick<TrainingForWatch, "sport">): boolean {
+  return training.sport !== "swimming";
+}
+
 /** A planned workout in the shape the intervals.icu API expects. */
 export type IntervalsEvent = {
   /** Our own id, so updates and deletes find the same workout again. */

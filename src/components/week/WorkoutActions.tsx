@@ -4,6 +4,7 @@ import { ArrowLeftRight, CalendarArrowUp, ChevronLeft, ChevronRight, Trash2 } fr
 import { useFormatter, useLocale, useTranslations } from "next-intl";
 import { useState, useTransition } from "react";
 import {
+  changeSwimPoolAction,
   deleteWorkoutAction,
   moveWorkoutAction,
   swapWorkoutAction,
@@ -12,6 +13,7 @@ import {
 import { Button } from "@/components/ui/Button";
 import { useFormatDuration } from "@/components/useFormatDuration";
 import { toFormattableDate } from "@/core/dates";
+import { poolLengths, type PoolLength } from "@/core/workouts/swim";
 import { WorkoutDetails, type WorkoutDetailsData } from "./WorkoutDetails";
 import { useWorkoutDialog } from "./WorkoutDialog";
 
@@ -30,12 +32,14 @@ type WorkoutActionsProps = {
   weekDates: string[];
   /** Library workouts that can replace this one; empty for your own trainings. */
   alternatives: Alternative[];
+  /** For a block swim: the pool it's planned for, so you can switch to the other one. */
+  poolLength?: PoolLength | null;
 };
 
 type Panel = "swap" | "move" | "delete" | null;
 
 /** Swap, move and delete, at the bottom of the workout window. */
-export function WorkoutActions({ workoutId, date, weekDates, alternatives }: WorkoutActionsProps) {
+export function WorkoutActions({ workoutId, date, weekDates, alternatives, poolLength = null }: WorkoutActionsProps) {
   const t = useTranslations("WorkoutActions");
   const format = useFormatter();
   const locale = useLocale();
@@ -83,6 +87,25 @@ export function WorkoutActions({ workoutId, date, weekDates, alternatives }: Wor
 
   return (
     <div className={`flex flex-col gap-3 border-t border-line pt-4 ${isPending ? "pointer-events-none opacity-60" : ""}`}>
+      {poolLength !== null && (
+        <div role="radiogroup" aria-label={t("pool")} className="flex items-center gap-2">
+          <span className="flex-1 text-sm font-semibold">{t("pool")}</span>
+          {poolLengths.map((length) => (
+            <button
+              key={length}
+              type="button"
+              role="radio"
+              aria-checked={poolLength === length}
+              onClick={() => poolLength !== length && run(() => changeSwimPoolAction(workoutId, length), false)}
+              className={`rounded-full px-3 py-1.5 text-sm font-semibold transition ${
+                poolLength === length ? "bg-accent text-accent-foreground" : "bg-surface-raised text-foreground hover:bg-line"
+              }`}
+            >
+              {t("poolLength", { length })}
+            </button>
+          ))}
+        </div>
+      )}
       <div className="flex gap-2">
         {alternatives.length > 0 && (
           <button type="button" className={tabClass("swap")} aria-expanded={panel === "swap"} onClick={() => toggle("swap")}>

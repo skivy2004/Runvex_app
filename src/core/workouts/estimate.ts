@@ -9,7 +9,7 @@ export const swimPaceSecondsPer100: Record<ExperienceLevel, number> = {
 };
 
 /** All rest in a workout, in seconds, counting repeats as many times as they repeat. */
-function restSeconds(steps: WorkoutStep[]): number {
+export function restSeconds(steps: WorkoutStep[]): number {
   return steps.reduce(
     (total, step) =>
       total + (step.type === "repeat" ? step.times * restSeconds(step.steps) : (step.restSeconds ?? 0)),

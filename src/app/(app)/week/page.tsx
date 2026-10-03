@@ -9,6 +9,7 @@ import { WeekTotals } from "@/components/week/WeekTotals";
 import { addDays, daysBetween, startOfWeek, todayInTimeZone } from "@/core/dates";
 import { isHardWorkout, workoutAlternatives } from "@/core/planner";
 import { weekdays } from "@/core/training";
+import { swimSettingsOf } from "@/core/validation/swim";
 import { groupByWeekday, resolveWeekStart } from "@/core/week";
 import { getWorkout, zoneLegend } from "@/core/workouts/library";
 import { getAthleteSports } from "@/services/athleteSports";
@@ -50,7 +51,8 @@ export default async function WeekPage({ searchParams }: PageProps<"/week">) {
       const level = sports.find((item) => item.sport === workout.sport)?.level;
       if (!current || !level) return [];
       const dayMinutes = availability[daysBetween(weekStart, workout.scheduled_on)]?.minutes ?? 0;
-      return workoutAlternatives(current, level, dayMinutes, isLongSession).map((candidate) => ({
+      const swim = swimSettingsOf(profile);
+      return workoutAlternatives(current, level, dayMinutes, isLongSession, swim).map((candidate) => ({
         id: candidate.workout.id,
         name: candidate.workout.name[locale],
         minutes: candidate.minutes,
@@ -59,6 +61,7 @@ export default async function WeekPage({ searchParams }: PageProps<"/week">) {
         sport: candidate.workout.sport,
         steps: candidate.workout.steps,
         zones: zoneLegend(candidate.workout, locale),
+        swim: candidate.workout.swim,
       }));
     },
   };

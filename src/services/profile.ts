@@ -1,4 +1,5 @@
 import type { ProfileDetailsData } from "@/core/validation/onboarding";
+import type { SwimSettingsData } from "@/core/validation/swim";
 import type { AppSupabaseClient } from "./types";
 
 /** The logged-in user's profile, or null when nobody is logged in. */
@@ -9,7 +10,9 @@ export async function getCurrentProfile(supabase: AppSupabaseClient) {
 
   const { data, error } = await supabase
     .from("profiles")
-    .select("id, display_name, date_of_birth, work_pattern, locale, timezone, onboarding_completed_at")
+    .select(
+      "id, display_name, date_of_birth, work_pattern, locale, timezone, onboarding_completed_at, pool_length, swim_equipment",
+    )
     .eq("id", userId)
     .single();
   if (error) throw error;
@@ -29,5 +32,16 @@ export async function updateProfileDetails(
       display_name: details.displayName || null,
       date_of_birth: details.dateOfBirth,
     })
+    .eq("id", userId);
+}
+
+export async function updateSwimSettings(
+  supabase: AppSupabaseClient,
+  userId: string,
+  settings: SwimSettingsData,
+) {
+  return supabase
+    .from("profiles")
+    .update({ pool_length: settings.poolLength, swim_equipment: settings.equipment })
     .eq("id", userId);
 }

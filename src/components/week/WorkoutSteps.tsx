@@ -3,6 +3,7 @@ import { useFormatDistance } from "@/components/useFormatDistance";
 import { useFormatDuration } from "@/components/useFormatDuration";
 import type { Locale } from "@/core/locale";
 import type { Sport } from "@/core/training";
+import { equipmentNames, strokeNames, swimDrills } from "@/core/workouts/swim";
 import type { WorkoutStep, Zone } from "@/core/workouts/types";
 
 /** Easy zones in the accent color, tempo in yellow, hard in red. */
@@ -56,12 +57,17 @@ export function WorkoutSteps({ steps, sport, locale }: WorkoutStepsProps) {
           step.durationMinutes !== null
             ? formatDuration(step.durationMinutes)
             : formatDistance(step.distanceMeters ?? 0, sport);
-        const name =
-          step.type === "warmup"
-            ? t("warmup")
-            : step.type === "cooldown"
-              ? t("cooldown")
-              : (step.label?.[locale] ?? null);
+        // Swims: the drill, or the stroke (BC, RC, SS); other sports: warm-up, cool-down or a label.
+        const name = step.drill
+          ? swimDrills[step.drill].name[locale]
+          : step.stroke
+            ? strokeNames[step.stroke].short[locale]
+            : step.type === "warmup"
+              ? t("warmup")
+              : step.type === "cooldown"
+                ? t("cooldown")
+                : (step.label?.[locale] ?? null);
+        const equipment = step.equipment.map((item) => equipmentNames[item][locale]).join(", ");
 
         return (
           <li key={index} className="flex items-center gap-2 text-sm">
@@ -69,6 +75,7 @@ export function WorkoutSteps({ steps, sport, locale }: WorkoutStepsProps) {
             <span className="font-semibold">{length}</span>
             {name && <span className="text-muted first-letter:uppercase">{name}</span>}
             {step.isWalking && <span className="text-muted">· {t("walk")}</span>}
+            {equipment && <span className="text-accent">· {equipment}</span>}
             {step.restSeconds !== null && (
               <span className="text-muted">· {t("rest", { seconds: step.restSeconds })}</span>
             )}

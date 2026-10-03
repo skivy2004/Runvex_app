@@ -55,7 +55,16 @@
     "rest": "{seconds} s rest",
     "repeat": "Repeat {times}×",
     "zone": "Z{zone}",
-    "close": "Close"
+    "close": "Close",
+    "bring": "Bring",
+    "drillsTitle": "Drills",
+    "swimSection": {
+      "warmup": "Warm-up",
+      "technique": "Main 1 technique",
+      "main": "Main 2 endurance",
+      "speed": "Main 3 speed",
+      "cooldown": "Cool-down"
+    }
   },
   "WorkoutActions": {
     "swap": "Swap",
@@ -75,7 +84,9 @@
     "dropped": "{name} moved to {day}.",
     "cancelled": "Moving {name} was cancelled.",
     "backToAlternatives": "All alternatives",
-    "swapToThis": "Swap to this training"
+    "swapToThis": "Swap to this training",
+    "pool": "Pool",
+    "poolLength": "{length} m"
   },
   "AddWorkout": {
     "title": "Add training",
@@ -127,7 +138,9 @@
     "saveFailed": "Saving didn't work. Please try again.",
     "invalidDetails": "Please check your name and date of birth.",
     "logout": "Log out",
-    "privacy": "Privacy statement"
+    "privacy": "Privacy statement",
+    "swimming": "Swimming",
+    "poolSummary": "{length} m pool"
   },
   "Auth": {
     "loginTitle": "Welcome back",
@@ -359,5 +372,14 @@
   },
   "LanguageSwitcher": {
     "label": "Language"
+  },
+  "SwimSettings": {
+    "title": "Swimming",
+    "subtitle": "Your pool and your gear. Your swim trainings adapt to them.",
+    "pool": "Pool",
+    "poolLength": "{length} meters",
+    "poolHint": "Drills always cover whole lengths, so you switch at the wall.",
+    "equipment": "My equipment",
+    "equipmentHint": "You only get drills you have the equipment for."
   }
 }

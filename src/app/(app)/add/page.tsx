@@ -4,9 +4,12 @@ import { BackLink } from "@/components/profile/BackLink";
 import { AddWorkoutForm, type LibraryOption } from "@/components/week/AddWorkoutForm";
 import { startOfWeek, todayInTimeZone } from "@/core/dates";
 import { isHardWorkout, maxDifficulty, plannableSports } from "@/core/planner";
+import type { ExperienceLevel, Sport } from "@/core/training";
 import { isValidIsoDate } from "@/core/week";
 import { estimatedMinutes } from "@/core/workouts/estimate";
 import { workoutsForSport } from "@/core/workouts/library";
+import { swimSuggestions } from "@/core/workouts/swimTraining";
+import { swimSettingsOf } from "@/core/validation/swim";
 import { getRequestClient, getRequestProfile } from "@/lib/currentUser";
 import { getAthleteSports } from "@/services/athleteSports";
 
@@ -27,9 +30,13 @@ export default async function AddWorkoutPage({ searchParams }: PageProps<"/add">
 
   // The library workouts you can choose, per sport, suited to your level. Distance
   // runs and rides are left out: without a known duration they can't be planned.
+  // Swims are built from blocks for your pool and equipment.
+  const swim = swimSettingsOf(profile);
+  const choices = (sport: Sport, level: ExperienceLevel) =>
+    sport === "swimming" ? swimSuggestions(level, swim.poolLength, swim.equipment) : workoutsForSport(sport);
   const library: LibraryOption[] = sports.flatMap(({ sport, level }) =>
     (plannableSports as readonly string[]).includes(sport)
-      ? workoutsForSport(sport).flatMap((workout) => {
+      ? choices(sport, level).flatMap((workout) => {
           const minutes = estimatedMinutes(workout, level);
           if (minutes === null || workout.difficulty > maxDifficulty[level]) return [];
           return [{ id: workout.id, sport, name: workout.name[locale], minutes, isHard: isHardWorkout(workout) }];

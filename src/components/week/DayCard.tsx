@@ -9,6 +9,7 @@ import type { Sport } from "@/core/training";
 import { getWorkout } from "@/core/workouts/library";
 import type { PlannedWorkout } from "@/services/workouts";
 import { DraggableWorkout, DroppableDay } from "./WeekDragAndDrop";
+import { parseSwimWorkoutId } from "@/core/workouts/swimTraining";
 import { WorkoutActions, type Alternative } from "./WorkoutActions";
 import { WorkoutCard } from "./WorkoutCard";
 
@@ -138,6 +139,7 @@ export function DayCard({
                       date={date}
                       weekDates={editing.weekDates}
                       alternatives={editing.alternativesFor(workout, isLongSession)}
+                      poolLength={workout.template_id ? (parseSwimWorkoutId(workout.template_id)?.poolLength ?? null) : null}
                     />
                   )
                 }

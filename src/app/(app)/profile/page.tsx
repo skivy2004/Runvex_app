@@ -8,6 +8,8 @@ import { ProfileSettings } from "@/components/profile/ProfileSettings";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { getRequestClient, getRequestProfile } from "@/lib/currentUser";
+import { swimSettingsOf } from "@/core/validation/swim";
+import { getAthleteSports } from "@/services/athleteSports";
 import { getWeeklyAvailability } from "@/services/availability";
 
 export default async function ProfilePage() {
@@ -19,7 +21,11 @@ export default async function ProfilePage() {
   ]);
   if (!profile) return null;
 
-  const availability = await getWeeklyAvailability(supabase, profile.id);
+  const [availability, sports] = await Promise.all([
+    getWeeklyAvailability(supabase, profile.id),
+    getAthleteSports(supabase, profile.id),
+  ]);
+  const swims = sports.some((item) => item.sport === "swimming");
 
   return (
     <div className="flex flex-col gap-6">
@@ -29,6 +35,7 @@ export default async function ProfilePage() {
         displayName={profile.display_name}
         dateOfBirth={profile.date_of_birth}
         availability={availability.map((day) => day.minutes)}
+        swim={swims ? swimSettingsOf(profile) : null}
       />
 
       <Card className="flex items-center justify-between gap-4">

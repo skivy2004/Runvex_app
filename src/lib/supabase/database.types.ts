@@ -148,6 +148,8 @@ export type Database = {
           id: string
           locale: Database["public"]["Enums"]["app_locale"]
           onboarding_completed_at: string | null
+          pool_length: number
+          swim_equipment: string[]
           timezone: string
           updated_at: string
           work_pattern: Database["public"]["Enums"]["work_pattern"] | null
@@ -159,6 +161,8 @@ export type Database = {
           id: string
           locale?: Database["public"]["Enums"]["app_locale"]
           onboarding_completed_at?: string | null
+          pool_length?: number
+          swim_equipment?: string[]
           timezone?: string
           updated_at?: string
           work_pattern?: Database["public"]["Enums"]["work_pattern"] | null
@@ -170,6 +174,8 @@ export type Database = {
           id?: string
           locale?: Database["public"]["Enums"]["app_locale"]
           onboarding_completed_at?: string | null
+          pool_length?: number
+          swim_equipment?: string[]
           timezone?: string
           updated_at?: string
           work_pattern?: Database["public"]["Enums"]["work_pattern"] | null

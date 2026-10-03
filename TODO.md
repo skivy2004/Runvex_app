@@ -4,6 +4,8 @@ Things we decided to do later. Move an item to "Done" (with the date) when it's 
 
 ## Features
 - [ ] **Watch sync for every user:** now one intervals.icu account via .env (development). Next: request an intervals.icu OAuth app (email david@intervals.icu: app name, description, website, logo, privacy policy URL, redirect URIs), then "Connect intervals.icu" in Profile with tokens stored per user. Garmin closed our direct Training API request (2026-10-02); Terra (from ~$399/month) is an option once there are paying users.
+- [ ] **Swim blocks, next steps:** test with friends, then tune block distances. Per-block swap ("other technique block") is now part of Swap; a dedicated per-section picker could come later. The old swim library (data/swimming.json) is only kept so already planned swims still open; remove it once those are in the past.
+- [ ] **Print a swim workout:** a small printable card of the training to stick on your water bottle (instead of the watch).
 - [ ] **Strength workouts:** add a strength training library (for now strength trainings are filled in freely: title and duration).
 - [ ] **Emails in two languages:** let the Supabase email templates pick Dutch or English based on `{{ .Data.locale }}`.
 - [ ] **Validate sports per day on the server:** check that the sports chosen per day are among the user's own sports.

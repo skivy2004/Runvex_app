@@ -34,7 +34,7 @@ export default function WeekPreviewPage() {
     notes,
   });
   const workouts: PlannedWorkout[] = [
-    workout(0, "swimming", "1500m Duur", 35, "swim_1500m_2_endurance", "Rustige duur in het water na het weekend."),
+    workout(0, "swimming", "Watergevoel · Rustige duur", 45, "swim_25_i_w2_t1_m1_s0_c1", "Rustige duur in het water na het weekend."),
     workout(1, "running", "Easy run", 45), // on a rest day -> warning, own training without details
     workout(2, "cycling", "Intervals", 75, "bike_75min_4_threshold", "Je zware rit van de week, met een rustdag ervoor."),
     workout(2, "running", "Brick run", 60), // too much for the day -> warning

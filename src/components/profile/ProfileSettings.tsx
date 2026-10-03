@@ -1,7 +1,8 @@
-import { CalendarDays, ListRestart, UserPen } from "lucide-react";
-import { useFormatter, useTranslations } from "next-intl";
+import { CalendarDays, ListRestart, UserPen, Waves } from "lucide-react";
+import { useFormatter, useLocale, useTranslations } from "next-intl";
 import { useFormatDuration } from "@/components/useFormatDuration";
 import { toFormattableDate } from "@/core/dates";
+import { equipmentNames, type Equipment, type PoolLength } from "@/core/workouts/swim";
 import { SettingsLink } from "./SettingsLink";
 
 type ProfileSettingsProps = {
@@ -9,11 +10,14 @@ type ProfileSettingsProps = {
   dateOfBirth: string | null;
   /** Available minutes per weekday, index 0 = Monday. */
   availability: number[];
+  /** Only for swimmers: their pool and equipment. */
+  swim: { poolLength: PoolLength; equipment: Equipment[] } | null;
 };
 
 /** The list of things you can change, each showing its current value. */
-export function ProfileSettings({ displayName, dateOfBirth, availability }: ProfileSettingsProps) {
+export function ProfileSettings({ displayName, dateOfBirth, availability, swim }: ProfileSettingsProps) {
   const t = useTranslations("Profile");
+  const locale = useLocale();
   const format = useFormatter();
   const formatDuration = useFormatDuration();
 
@@ -37,6 +41,17 @@ export function ProfileSettings({ displayName, dateOfBirth, availability }: Prof
         title={t("trainingDays")}
         description={t("trainingDaysSummary", { days: trainingDays, total: formatDuration(totalMinutes) })}
       />
+      {swim && (
+        <SettingsLink
+          href="/profile/swimming"
+          icon={Waves}
+          title={t("swimming")}
+          description={[
+            t("poolSummary", { length: swim.poolLength }),
+            ...swim.equipment.map((item) => equipmentNames[item][locale]),
+          ].join(" · ")}
+        />
+      )}
       <SettingsLink
         href="/intake"
         icon={ListRestart}

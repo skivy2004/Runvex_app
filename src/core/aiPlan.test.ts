@@ -87,3 +87,39 @@ describe("sessionsFromAnswer", () => {
     expect(session.reason).toHaveLength(300);
   });
 });
+
+describe("swim days for the AI coach", () => {
+  const swimmer: PlannerInput = {
+    ...input,
+    availability: input.availability.map((day, index) =>
+      index === 1 ? { minutes: 60, sports: ["swimming"], longSessions: [] } : day,
+    ),
+    sports: [...input.sports, { sport: "swimming", level: "intermediate" }],
+    swim: { poolLength: 25, equipment: ["fins"] },
+  };
+  const swimContext = planningContext(swimmer);
+  const message = buildPlanMessage(swimmer, swimContext, coach);
+  const tuesday = JSON.parse(message.slice(message.indexOf("{"))).openDays.find(
+    (day: { date: string }) => day.date === "2026-10-06",
+  );
+
+  it("offers blocks instead of whole swims, only with the athlete's equipment", () => {
+    expect(tuesday.options).toEqual([]);
+    expect(tuesday.swimming.idTemplate).toBe("swim_25_i_{warmup}_{technique}_{main}_{speed or s0}_{cooldown}");
+    expect(tuesday.swimming.ownedEquipment).toEqual(["fins"]);
+    expect(tuesday.swimming.technique.some((item: string) => item.startsWith("t2:") && item.endsWith(":fins"))).toBe(true);
+    expect(tuesday.swimming.technique.some((item: string) => item.startsWith("t3:"))).toBe(false); // snorkel
+    expect(tuesday.swimming.speed.length).toBeGreaterThan(0);
+  });
+
+  it("accepts a swim the coach built from those blocks", () => {
+    const answer = { sessions: [{ date: "2026-10-06", workoutId: "swim_25_i_w1_t2_m1_s1_c1", reason: "Techniek en tempo." }] };
+    const sessions = sessionsFromAnswer(swimContext, answer);
+    expect(sessions[0].sport).toBe("swimming");
+    expect(sessions[0].durationMinutes).toBeGreaterThan(0);
+    expect(checkPlan(swimContext, sessions)).toEqual([]);
+    // Sculling needs a snorkel, which this athlete doesn't have.
+    const noSnorkel = { sessions: [{ ...answer.sessions[0], workoutId: "swim_25_i_w1_t3_m1_s1_c1" }] };
+    expect(checkPlan(swimContext, sessionsFromAnswer(swimContext, noSnorkel))).toHaveLength(1);
+  });
+});
