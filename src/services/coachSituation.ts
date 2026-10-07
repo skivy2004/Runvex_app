@@ -14,6 +14,7 @@ import { getCurrentGoal } from "./goals";
 import type { AppSupabaseClient } from "./types";
 import { loadSeason } from "./season";
 import { getPlannedWorkouts, type PlannedWorkout } from "./workouts";
+import { getActivities } from "./activities";
 
 type Profile = NonNullable<Awaited<ReturnType<typeof getRequestProfile>>>;
 
@@ -36,13 +37,26 @@ export function trainingName(workout: PlannedWorkout, locale: Locale): string {
 export async function loadCoachSetting(supabase: AppSupabaseClient, profile: Profile): Promise<CoachSetting> {
   const locale: Locale = isLocale(profile.locale) ? profile.locale : "en";
   const today = todayInTimeZone(profile.timezone);
-  const [sports, goal, availability, workouts, season] = await Promise.all([
+  const [sports, goal, availability, workouts, season, activities] = await Promise.all([
     getAthleteSports(supabase, profile.id),
     getCurrentGoal(supabase, profile.id, today),
     getWeeklyAvailability(supabase, profile.id),
     getPlannedWorkouts(supabase, profile.id, addDays(today, -7), addDays(today, 13)),
     loadSeason(supabase, profile.id, today),
+    getActivities(supabase, profile.id, addDays(today, -7), today),
   ]);
+  // What the watch recorded for a training, when the athlete uploaded it. Heart rate
+  // stays out on purpose: it's health data and the AI runs outside the EU.
+  const actualFor = (workoutId: string) => {
+    const activity = activities.find((item) => item.planned_workout_id === workoutId);
+    return (
+      activity && {
+        minutes: Math.round(activity.duration_seconds / 60),
+        distanceKm: activity.distance_meters === null ? null : Math.round(activity.distance_meters / 100) / 10,
+        avgPower: activity.avg_power,
+      }
+    );
+  };
   // This week and the next 7, as the coaches see the training blocks.
   const comingWeeks = Array.from({ length: 8 }, (_, index) => season.weekFor(addDays(startOfWeek(today), index * 7)));
   const levels = new Map(sports.map((item) => [item.sport, item.level]));
@@ -57,6 +71,7 @@ export async function loadCoachSetting(supabase: AppSupabaseClient, profile: Pro
       status: workout.status,
       effort: workout.rpe,
       note: workout.feedback_note,
+      actual: actualFor(workout.id),
     }));
 
   const upcoming = workouts

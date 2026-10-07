@@ -72,7 +72,7 @@ export function TodayCard({ workout, today, weekDone }: TodayCardProps) {
         <div className="mt-4 flex flex-col gap-4">
           <div className="flex items-center justify-between gap-4">
             <div className="flex flex-col gap-1">
-              <p className="text-3xl font-bold leading-tight tracking-tight">{t("nothingPlanned")}</p>
+              <p className="text-3xl font-bold">{t("nothingPlanned")}</p>
               <p className="text-sm text-muted">{t("nothingPlannedText")}</p>
             </div>
             {ring}
@@ -92,7 +92,7 @@ export function TodayCard({ workout, today, weekDone }: TodayCardProps) {
                 <SportIcon sport={workout.sport} small className="!size-4 !bg-transparent" />
                 {tSports(workout.sport)}
               </span>
-              <h2 className="text-[2.1rem] font-bold leading-[1.02] tracking-tight">
+              <h2 className="text-[2.1rem] font-bold leading-[1.02] tracking-[-0.025em]">
                 {template?.name[locale] ?? workout.title}
               </h2>
               <p className="text-sm font-bold">

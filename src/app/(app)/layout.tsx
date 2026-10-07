@@ -16,6 +16,12 @@ export default async function AppLayout({ children }: LayoutProps<"/">) {
       <main className="flex flex-1 flex-col pt-[max(1.5rem,env(safe-area-inset-top))] pb-[calc(7.5rem+env(safe-area-inset-bottom))]">
         {children}
       </main>
+      {/*
+        Scroll edges: instead of content being cut off hard, it fades out under the
+        status bar (in the installed app) and behind the floating tab bar.
+      */}
+      <div aria-hidden className="scroll-edge-top" />
+      <div aria-hidden className="scroll-edge-bottom" />
       <BottomNav />
     </>
   );

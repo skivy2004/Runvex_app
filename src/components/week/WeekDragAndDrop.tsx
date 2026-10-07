@@ -10,6 +10,7 @@ import {
   useSensor,
   useSensors,
   type DragEndEvent,
+  type Translate,
   type KeyboardCoordinateGetter,
 } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
@@ -17,6 +18,7 @@ import { GripVertical } from "lucide-react";
 import { useFormatter, useTranslations } from "next-intl";
 import { createContext, useContext, useId, useState, useTransition, type ReactNode } from "react";
 import { moveWorkoutAction } from "@/app/(app)/week/actions";
+import { haptic } from "@/components/spring";
 import { toFormattableDate } from "@/core/dates";
 
 // Dragging trainings to another day in the week view. Days are drop zones (their id
@@ -44,15 +46,19 @@ const jumpToDay: KeyboardCoordinateGetter = (event, { context }) => {
   return target ? { x: collisionRect.left, y: target.top + 16 } : undefined;
 };
 
-/** Which training is being saved after a drop, to dim it meanwhile. */
-const MovingContext = createContext<string | null>(null);
+/**
+ * The training being saved after a drop, and where it was dropped: it stays there
+ * (dimmed) until the new week arrives, instead of flying back to its old day first.
+ */
+type Moving = { id: string; delta: Translate };
+const MovingContext = createContext<Moving | null>(null);
 
 export function WeekDragAndDrop({ children }: { children: ReactNode }) {
   const t = useTranslations("WorkoutActions");
   const format = useFormatter();
   // A fixed id, so the server and the browser give the drag handles the same aria ids.
   const dndId = useId();
-  const [movingId, setMovingId] = useState<string | null>(null);
+  const [moving, setMoving] = useState<Moving | null>(null);
   const [failed, setFailed] = useState(false);
   const [, startTransition] = useTransition();
 
@@ -74,11 +80,12 @@ export function WeekDragAndDrop({ children }: { children: ReactNode }) {
     const to = event.over ? String(event.over.id) : null;
     if (!to || to === from) return;
 
+    haptic(12);
     setFailed(false);
-    setMovingId(id);
+    setMoving({ id, delta: event.delta });
     startTransition(async () => {
       const result = await moveWorkoutAction(id, to);
-      setMovingId(null);
+      setMoving(null);
       if (!result.ok) setFailed(true);
     });
   }
@@ -87,6 +94,8 @@ export function WeekDragAndDrop({ children }: { children: ReactNode }) {
     <DndContext
       id={dndId}
       sensors={sensors}
+      // A short tick when you pick a training up (on phones that support it).
+      onDragStart={() => haptic(8)}
       onDragEnd={handleDragEnd}
       accessibility={{
         screenReaderInstructions: { draggable: t("dragInstructions") },
@@ -103,7 +112,7 @@ export function WeekDragAndDrop({ children }: { children: ReactNode }) {
         },
       }}
     >
-      <MovingContext value={movingId}>{children}</MovingContext>
+      <MovingContext value={moving}>{children}</MovingContext>
       {failed && (
         <p role="alert" className="text-center text-sm text-danger">
           {t("failed")}
@@ -135,7 +144,8 @@ type DraggableWorkoutProps = {
 
 export function DraggableWorkout({ id, date, name, children }: DraggableWorkoutProps) {
   const t = useTranslations("WorkoutActions");
-  const movingId = useContext(MovingContext);
+  const moving = useContext(MovingContext);
+  const isSaving = moving?.id === id;
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id,
     data: { date, name },
@@ -144,10 +154,16 @@ export function DraggableWorkout({ id, date, name, children }: DraggableWorkoutP
   return (
     <div
       ref={setNodeRef}
-      style={{ transform: CSS.Translate.toString(transform) }}
-      className={`relative flex items-stretch gap-1 ${isDragging ? "z-20 opacity-90 shadow-xl" : ""} ${
-        movingId === id ? "opacity-50" : ""
-      }`}
+      style={{
+        transform: CSS.Translate.toString(transform ?? (isSaving ? { ...moving.delta, scaleX: 1, scaleY: 1 } : null)),
+        // While dragging it sticks to your finger (no transition). Let go outside a day
+        // and it glides back to its place from wherever it is.
+        transition: isDragging || isSaving ? "scale 200ms var(--ease-out)" : "transform 300ms var(--ease-out), scale 200ms var(--ease-out)",
+      }}
+      className={`relative flex items-stretch gap-1 ${
+        // Lifted: a little bigger with a deep shadow, like picking up a card.
+        isDragging ? "z-20 scale-[1.03] rounded-2xl shadow-2xl shadow-black/60" : ""
+      } ${isSaving ? "z-20 opacity-50" : ""}`}
     >
       <button
         type="button"

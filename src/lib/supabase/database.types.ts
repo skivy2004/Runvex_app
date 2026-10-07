@@ -14,6 +14,57 @@ export type Database = {
   }
   public: {
     Tables: {
+      activities: {
+        Row: {
+          id: string
+          user_id: string
+          planned_workout_id: string | null
+          source: string
+          sport: Database["public"]["Enums"]["sport"]
+          started_at: string
+          performed_on: string
+          duration_seconds: number
+          distance_meters: number | null
+          avg_heart_rate: number | null
+          max_heart_rate: number | null
+          avg_power: number | null
+          ascent_meters: number | null
+          created_at: string
+        }
+        Insert: {
+          id?: string
+          user_id?: string
+          planned_workout_id?: string | null
+          source?: string
+          sport: Database["public"]["Enums"]["sport"]
+          started_at: string
+          performed_on: string
+          duration_seconds: number
+          distance_meters?: number | null
+          avg_heart_rate?: number | null
+          max_heart_rate?: number | null
+          avg_power?: number | null
+          ascent_meters?: number | null
+          created_at?: string
+        }
+        Update: {
+          id?: string
+          user_id?: string
+          planned_workout_id?: string | null
+          source?: string
+          sport?: Database["public"]["Enums"]["sport"]
+          started_at?: string
+          performed_on?: string
+          duration_seconds?: number
+          distance_meters?: number | null
+          avg_heart_rate?: number | null
+          max_heart_rate?: number | null
+          avg_power?: number | null
+          ascent_meters?: number | null
+          created_at?: string
+        }
+        Relationships: []
+      }
       ai_usage: {
         Row: {
           agent: string
@@ -240,6 +291,7 @@ export type Database = {
           created_at: string
           date_of_birth: string | null
           display_name: string | null
+          health_consent_at: string | null
           id: string
           locale: Database["public"]["Enums"]["app_locale"]
           onboarding_completed_at: string | null
@@ -253,6 +305,7 @@ export type Database = {
           created_at?: string
           date_of_birth?: string | null
           display_name?: string | null
+          health_consent_at?: string | null
           id: string
           locale?: Database["public"]["Enums"]["app_locale"]
           onboarding_completed_at?: string | null
@@ -266,6 +319,7 @@ export type Database = {
           created_at?: string
           date_of_birth?: string | null
           display_name?: string | null
+          health_consent_at?: string | null
           id?: string
           locale?: Database["public"]["Enums"]["app_locale"]
           onboarding_completed_at?: string | null

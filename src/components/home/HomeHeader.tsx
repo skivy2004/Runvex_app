@@ -31,7 +31,7 @@ export function HomeHeader({ name, today, partOfDay, streak }: HomeHeaderProps) 
           {/* timeZone "UTC" because `today` is already the user's local date. */}
           {format.dateTime(toFormattableDate(today), { weekday: "long", day: "numeric", month: "short", timeZone: "UTC" })}
         </p>
-        <h1 className="truncate text-xl font-bold tracking-tight">
+        <h1 className="truncate text-xl font-bold">
           {name ? t(`greeting.${partOfDay}`, { name }) : t(`greetingNoName.${partOfDay}`)}
         </h1>
       </div>

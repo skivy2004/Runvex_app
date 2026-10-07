@@ -11,7 +11,7 @@ export async function getCurrentProfile(supabase: AppSupabaseClient) {
   const { data, error } = await supabase
     .from("profiles")
     .select(
-      "id, display_name, date_of_birth, work_pattern, locale, timezone, onboarding_completed_at, pool_length, swim_equipment",
+      "id, display_name, date_of_birth, work_pattern, locale, timezone, onboarding_completed_at, pool_length, swim_equipment, health_consent_at",
     )
     .eq("id", userId)
     .single();

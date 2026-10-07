@@ -18,7 +18,7 @@ export function AuthHero() {
         <span aria-hidden className="h-0.5 w-6 bg-accent" />
         {t("eyebrow")}
       </p>
-      <h1 className="text-[2.75rem] font-bold leading-[1.02] tracking-tight">
+      <h1 className="text-[2.75rem] font-bold leading-[1.02] tracking-[-0.03em]">
         {words.map(({ word, accent, lineBreak }, index) => (
           <span key={index}>
             {lineBreak && <br />}

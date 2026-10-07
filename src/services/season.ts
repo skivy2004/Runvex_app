@@ -24,7 +24,8 @@ export async function getRecoveryWeeks(supabase: AppSupabaseClient, userId: stri
 
 export async function setRecoveryWeek(supabase: AppSupabaseClient, userId: string, weekStart: string, on: boolean) {
   return on
-    ? supabase.from("recovery_weeks").upsert({ user_id: userId, week_start: weekStart })
+    ? // Already a recovery week: nothing to do (insert only; the table has no update rights).
+      supabase.from("recovery_weeks").upsert({ user_id: userId, week_start: weekStart }, { ignoreDuplicates: true })
     : supabase.from("recovery_weeks").delete().eq("user_id", userId).eq("week_start", weekStart);
 }
 

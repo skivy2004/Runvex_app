@@ -11,7 +11,7 @@ export const PRIVACY_CONTACT = {
   email: "Jeremycordes31@gmail.com",
 };
 
-export const LAST_UPDATED = "2026-10-04";
+export const LAST_UPDATED = "2026-10-05";
 
 export type PrivacySection = {
   heading: string;
@@ -44,11 +44,12 @@ export const privacyContent: Record<Locale, PrivacyContent> = {
           "Account: je e-mailadres en je wachtwoord. Je wachtwoord wordt alleen versleuteld (gehasht) opgeslagen; niemand kan het lezen, ook wij niet.",
           "Profiel: je voornaam (als je die invult), je geboortedatum, je taal, je tijdzone en het soort werkrooster dat je hebt.",
           "Training: je sporten en niveau per sport, je doel (beschrijving, wedstrijd, datum en afstanden), hoeveel tijd je per dag hebt, je geplande trainingen en de uitleg van de coach daarbij, of je een training hebt gedaan of overgeslagen, hoe zwaar die voelde (1-10) met je eventuele notitie, en je zwembad en zwemmateriaal.",
+          "Geüploade trainingen (.FIT-bestanden van je horloge): per activiteit de sport, starttijd, duur, afstand, gemiddeld vermogen en hoogtemeters, en alleen met je toestemming je gemiddelde en maximale hartslag. Het bestand zelf en je GPS-route bewaren we niet; die worden gelezen en meteen weggegooid.",
           "AI-coaches: je berichten aan de coaches en hun antwoorden en voorstellen, en per AI-aanvraag het aantal tokens en de kosten, zodat we een weeklimiet kunnen bewaken.",
           "Technische gegevens: je IP-adres en browsergegevens komen in de logbestanden van onze hosting en database, voor beveiliging en het oplossen van storingen.",
         ],
         paragraphs: [
-          "We verzamelen geen locatie, hartslag, slaap of andere gezondheidsmetingen. Als we dat later toevoegen, vragen we daar eerst uitdrukkelijk je toestemming voor.",
+          "Hartslag is een gezondheidsgegeven. We bewaren die alleen als je daar uitdrukkelijk toestemming voor geeft (bij het uploaden van een training). Zet je die toestemming uit, dan wissen we de bewaarde hartslag meteen. Locatie, slaap of andere gezondheidsmetingen verzamelen we niet.",
         ],
       },
       {
@@ -57,6 +58,7 @@ export const privacyContent: Record<Locale, PrivacyContent> = {
           "Om de app te laten werken (account, intake, weekplanning, trainingen): dit is nodig voor de overeenkomst met jou (art. 6 lid 1 sub b AVG).",
           "Je geboortedatum: om te controleren dat je minimaal 16 jaar bent en om je training op je leeftijd af te stemmen (overeenkomst).",
           "E-mails zoals de bevestiging van je account (overeenkomst).",
+          "Hartslag uit je geüploade trainingen: alleen met je uitdrukkelijke toestemming, die je altijd kunt intrekken (art. 9 lid 2 sub a AVG). Je ziet die terug bij je training; we sturen hartslag nooit naar de AI-coach.",
           "Je trainingen naar je horloge sturen: alleen als je dat zelf koppelt, op basis van je toestemming. Je kunt die altijd weer intrekken (art. 6 lid 1 sub a AVG).",
           "Beveiliging, misbruik voorkomen en de daglimiet van de AI-coach: ons gerechtvaardigd belang bij een veilige en betaalbare app (art. 6 lid 1 sub f AVG).",
         ],
@@ -64,7 +66,7 @@ export const privacyContent: Record<Locale, PrivacyContent> = {
       {
         heading: "De AI-coach",
         paragraphs: [
-          "Als je op ‘Plan mijn week’ tikt, sturen we een samenvatting naar Claude, het AI-model van Anthropic: je sporten en niveaus, je werkrooster, je beschikbare tijd per dag, je doel, je trainingen van deze en vorige week en hoeveel je daarvan gedaan of overgeslagen hebt met de gemiddelde zwaarte (zonder je notities). Je naam, e-mailadres en geboortedatum sturen we niet mee. Anthropic gebruikt deze gegevens niet om zijn modellen te trainen.",
+          "Als je op ‘Plan mijn week’ tikt, sturen we een samenvatting naar Claude, het AI-model van Anthropic: je sporten en niveaus, je werkrooster, je beschikbare tijd per dag, je doel, je trainingen van deze en vorige week en hoeveel je daarvan gedaan of overgeslagen hebt met de gemiddelde zwaarte (zonder je notities), en bij geüploade trainingen de gemeten duur, afstand en vermogen (nooit je hartslag). Je naam, e-mailadres en geboortedatum sturen we niet mee. Anthropic gebruikt deze gegevens niet om zijn modellen te trainen.",
           "Elke planning van de coach wordt eerst gecontroleerd met vaste trainingsregels. Lukt dat niet, dan maakt Runvex de planning zelf, zonder AI.",
         ],
       },
@@ -145,11 +147,12 @@ export const privacyContent: Record<Locale, PrivacyContent> = {
           "Account: your email address and password. Your password is only stored encrypted (hashed); nobody can read it, not even us.",
           "Profile: your first name (if you fill it in), date of birth, language, time zone and the kind of work schedule you have.",
           "Training: your sports and level per sport, your goal (description, race, date and distances), how much time you have per day, your planned trainings and the coach's explanation for them, whether you did or skipped a training, how hard it felt (1-10) with any note you add, and your pool and swim equipment.",
+          "Uploaded trainings (.FIT files from your watch): per activity the sport, start time, duration, distance, average power and climbing, and only with your consent your average and maximum heart rate. We don't keep the file itself or your GPS route; they are read and thrown away right away.",
           "AI coaches: your messages to the coaches and their replies and proposals, and per AI request the number of tokens and the cost, so we can keep a weekly limit.",
           "Technical data: your IP address and browser details end up in the log files of our hosting and database, for security and fixing problems.",
         ],
         paragraphs: [
-          "We don't collect location, heart rate, sleep or other health measurements. If we add that later, we'll ask for your explicit consent first.",
+          "Heart rate is health data. We only keep it when you give your explicit consent (when uploading a training). When you turn that consent off, we delete the stored heart rate right away. We don't collect location, sleep or other health measurements.",
         ],
       },
       {
@@ -158,6 +161,7 @@ export const privacyContent: Record<Locale, PrivacyContent> = {
           "To make the app work (account, intake, week planning, trainings): necessary for our agreement with you (Art. 6(1)(b) GDPR).",
           "Your date of birth: to check that you are at least 16 and to match your training to your age (agreement).",
           "Emails such as the confirmation of your account (agreement).",
+          "Heart rate from your uploaded trainings: only with your explicit consent, which you can withdraw at any time (Art. 9(2)(a) GDPR). You see it with your training; we never send heart rate to the AI coach.",
           "Sending your trainings to your watch: only when you connect it yourself, based on your consent, which you can withdraw at any time (Art. 6(1)(a) GDPR).",
           "Security, preventing abuse and the AI coach's daily limit: our legitimate interest in a safe and affordable app (Art. 6(1)(f) GDPR).",
         ],
@@ -165,7 +169,7 @@ export const privacyContent: Record<Locale, PrivacyContent> = {
       {
         heading: "The AI coach",
         paragraphs: [
-          "When you tap ‘Plan my week’, we send a summary to Claude, Anthropic's AI model: your sports and levels, your work schedule, your available time per day, your goal, your trainings of this week and last week and how many of them you did or skipped with the average effort (without your notes). We don't send your name, email address or date of birth. Anthropic doesn't use this data to train its models.",
+          "When you tap ‘Plan my week’, we send a summary to Claude, Anthropic's AI model: your sports and levels, your work schedule, your available time per day, your goal, your trainings of this week and last week and how many of them you did or skipped with the average effort (without your notes), and for uploaded trainings the recorded duration, distance and power (never your heart rate). We don't send your name, email address or date of birth. Anthropic doesn't use this data to train its models.",
           "Every plan from the coach is first checked against fixed training rules. If that fails, Runvex makes the plan itself, without AI.",
         ],
       },

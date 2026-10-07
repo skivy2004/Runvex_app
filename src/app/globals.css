@@ -37,6 +37,22 @@
    */
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
   --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
+
+  /*
+   * Type: letter spacing and line height change with size, like Apple's system
+   * fonts. Large text tighter (letters look too far apart as they grow), small
+   * text slightly looser for legibility, body text in between.
+   */
+  --text-xs--letter-spacing: 0.01em;
+  --text-xl--letter-spacing: -0.01em;
+  --text-2xl--letter-spacing: -0.015em;
+  --text-2xl--line-height: 1.2;
+  --text-3xl--letter-spacing: -0.02em;
+  --text-3xl--line-height: 1.1;
+  --text-4xl--letter-spacing: -0.025em;
+  --text-4xl--line-height: 1.05;
+  --text-5xl--letter-spacing: -0.03em;
+  --text-5xl--line-height: 1;
 }
 
 /* `inline` because the font variable is set by next/font in layout.tsx. */
@@ -515,4 +531,56 @@ html[data-morphing] .workout-dialog::backdrop {
   .enter-panel {
     transition-property: opacity;
   }
+}
+
+/*
+ * Scroll edges (app layout): content fades out where floating chrome overlaps it,
+ * instead of a hard cut. Top: only as tall as the status bar in the installed app.
+ */
+.scroll-edge-top,
+.scroll-edge-bottom {
+  position: fixed;
+  inset-inline: 0;
+  z-index: 5;
+  pointer-events: none;
+}
+.scroll-edge-top {
+  top: 0;
+  height: env(safe-area-inset-top, 0px);
+  background: linear-gradient(to bottom, var(--color-background), transparent);
+}
+.scroll-edge-bottom {
+  bottom: 0;
+  height: calc(6rem + env(safe-area-inset-bottom, 0px));
+  background: linear-gradient(to top, var(--color-background) 35%, transparent);
+}
+
+/* Swiping the workout window down clears the background step by step (WorkoutDialog). */
+.workout-dialog[open]::backdrop {
+  opacity: calc(1 - var(--sheet-pull, 0) * 0.8);
+}
+
+/*
+ * People who asked their phone for less transparency get solid surfaces instead
+ * of glass; people who asked for more contrast get clearly visible edges.
+ */
+@media (prefers-reduced-transparency: reduce) {
+  [class*="backdrop-blur"],
+  .workout-dialog {
+    backdrop-filter: none !important;
+    background-color: var(--color-surface) !important;
+  }
+  .workout-dialog::backdrop {
+    backdrop-filter: none;
+    background: rgb(15 20 32 / 0.85);
+  }
+}
+@media (prefers-contrast: more) {
+  [class*="backdrop-blur"],
+  .workout-dialog {
+    border-color: rgb(255 255 255 / 0.4) !important;
+  }
+}
+.workout-dialog[data-dragging]::backdrop {
+  transition: none;
 }

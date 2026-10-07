@@ -7,13 +7,17 @@ import { useFormatDistance } from "@/components/useFormatDistance";
 import { useFormatDuration } from "@/components/useFormatDuration";
 import { statusOf } from "@/core/validation/feedback";
 import { getWorkout, zoneLegend } from "@/core/workouts/library";
+import type { Activity } from "@/services/activities";
 import type { PlannedWorkout } from "@/services/workouts";
+import { ActivityStats } from "./ActivityStats";
 import { WorkoutDetails } from "./WorkoutDetails";
 import { WorkoutDialog } from "./WorkoutDialog";
 import { WorkoutFeedback } from "./WorkoutFeedback";
 
 type WorkoutCardProps = {
   workout: PlannedWorkout;
+  /** What your watch recorded for it, when you uploaded the activity. */
+  activity?: Activity;
   /** True when this is the long run / long ride of the week. */
   isLongSession?: boolean;
   /** Optional content on the right, e.g. "Tomorrow". */
@@ -33,6 +37,7 @@ type WorkoutCardProps = {
  */
 export function WorkoutCard({
   workout,
+  activity,
   isLongSession = false,
   trailing,
   actions,
@@ -83,7 +88,7 @@ export function WorkoutCard({
   );
 
   // A training you added yourself, without notes or actions, has nothing to open.
-  if (!template && !workout.notes && !actions && !canCheckOff) {
+  if (!template && !workout.notes && !actions && !canCheckOff && !activity) {
     return trigger ? (
       <div className={triggerClassName}>{trigger}</div>
     ) : (
@@ -123,6 +128,8 @@ export function WorkoutCard({
           {t("printCard")}
         </Link>
       )}
+
+      {activity && <ActivityStats activity={activity} />}
 
       {canCheckOff && (
         <WorkoutFeedback workoutId={workout.id} status={status} rpe={workout.rpe} note={workout.feedback_note} />

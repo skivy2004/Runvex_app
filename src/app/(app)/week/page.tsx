@@ -17,6 +17,8 @@ import { getWeeklyAvailability } from "@/services/availability";
 import { isWatchSyncConfigured } from "@/services/watchSync";
 import { getRequestClient, getRequestProfile } from "@/lib/currentUser";
 import { getPlannedWorkouts } from "@/services/workouts";
+import { getActivities } from "@/services/activities";
+import { FitUpload } from "@/components/week/FitUpload";
 import { loadSeason } from "@/services/season";
 import { SeasonWeekCard } from "@/components/season/SeasonWeekCard";
 
@@ -33,11 +35,12 @@ export default async function WeekPage({ searchParams }: PageProps<"/week">) {
   const { week } = await searchParams;
   const weekStart = resolveWeekStart(typeof week === "string" ? week : undefined, today);
 
-  const [availability, workouts, sports, season] = await Promise.all([
+  const [availability, workouts, sports, season, activities] = await Promise.all([
     getWeeklyAvailability(supabase, profile.id),
     getPlannedWorkouts(supabase, profile.id, weekStart, addDays(weekStart, 6)),
     getAthleteSports(supabase, profile.id),
     loadSeason(supabase, profile.id, today),
+    getActivities(supabase, profile.id, weekStart, addDays(weekStart, 6)),
   ]);
   const workoutsPerDay = groupByWeekday(weekStart, workouts);
   // Show "Plan my week" while a training day from today on is still empty.
@@ -84,6 +87,8 @@ export default async function WeekPage({ searchParams }: PageProps<"/week">) {
       />
       {hasOpenDays && <PlanWeekButton weekStart={weekStart} />}
       {isWatchSyncConfigured() && workouts.length > 0 && <SendWeekToWatchButton weekStart={weekStart} />}
+      {/* Trainings you did can only be uploaded for this week and earlier. */}
+      {weekStart <= today && <FitUpload hasHealthConsent={profile.health_consent_at !== null} />}
       <WeekDragAndDrop>
         <div className="flex flex-col gap-4">
           {weekdays.map((weekday, index) => {
@@ -96,6 +101,7 @@ export default async function WeekPage({ searchParams }: PageProps<"/week">) {
                 preferredSports={availability[index].sports}
                 longSessions={availability[index].longSessions}
                 workouts={workoutsPerDay[index]}
+                activities={activities.filter((activity) => activity.performed_on === date)}
                 isToday={date === today}
                 // ISO dates compare correctly as plain text: "2026-09-30" < "2026-10-01".
                 isPast={date < today}

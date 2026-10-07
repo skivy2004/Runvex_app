@@ -14,7 +14,16 @@ export type Situation = {
   athlete: { workPattern: string | null; sports: string[] };
   goal: { description: string; race: string | null; eventDate: string | null; weeksToGo: number | null } | null;
   /** Trainings of the last 7 days with how they went. */
-  recent: { date: string; sport: string; name: string; status: string; effort: number | null; note: string | null }[];
+  recent: {
+    date: string;
+    sport: string;
+    name: string;
+    status: string;
+    effort: number | null;
+    note: string | null;
+    /** What the watch recorded, when the athlete uploaded the activity file. */
+    actual?: { minutes: number; distanceKm: number | null; avgPower: number | null };
+  }[];
   /** Planned trainings of the next two weeks, with what each may become. */
   upcoming: (ChangeableTraining & { name: string; minutes: number; difficulty: number | null; coachNote: string | null })[];
   /** The dates a training may move to. */
@@ -52,6 +61,8 @@ export function buildFeedbackMessage(
   feedback: { feeling: Feeling; effort: number | null; note: string | null },
 ): string {
   return `The athlete just told how a training went. React as their coach for this sport in 2-4 sentences: acknowledge it, and say what it means.
+
+A recent training may have "actual": what the watch recorded (minutes, distance, average power). Use it to see what was really done, e.g. much longer or shorter than planned.
 
 When the training felt too easy or too hard, first check what it was meant to be. An easy, recovery or long session is meant to feel easy (effort about 2-4 of 10); then explain that this is right and why it matters. When a session that should be challenging felt too easy, or any session felt too hard, look at the upcoming trainings of this sport and consider making the next comparable one harder or easier. Take the work schedule and recent trainings into account: one hard day after a night shift is no reason to change the plan.
 

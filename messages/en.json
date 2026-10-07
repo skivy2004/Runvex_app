@@ -72,7 +72,8 @@
     "overAvailable": "{over} more than your available time",
     "addTraining": "Add training",
     "restDayNothing": "Rest day",
-    "restDayText": "No training today: recovery is part of the build-up."
+    "restDayText": "No training today: recovery is part of the build-up.",
+    "extraActivity": "Extra: {sport}"
   },
   "Workout": {
     "estimated": "≈ {duration}",
@@ -563,5 +564,36 @@
     "undoRecovery": "Not a recovery week after all",
     "failed": "That didn't work. Please try again.",
     "timelineLabel": "Your season: {weeks} weeks to the race, as a bar per week"
+  },
+  "Activities": {
+    "title": "Upload a training",
+    "subtitle": "Add a .FIT file from your watch; the training gets checked off.",
+    "choose": "Choose .FIT files",
+    "uploading": "Uploading… {done} of {total}",
+    "consentTitle": "Also keep heart rate",
+    "consentText": "Heart rate is health data. Only with your consent do we keep your average and maximum heart rate, so you see it with your training. Heart rate never goes to the AI coach. Without the tick we only keep time, distance and power.",
+    "consentOn": "On. You can turn this off anytime; we then delete the stored heart rate right away.",
+    "consentFailed": "That didn't work. Please try again.",
+    "linked": "Checked off: {name}",
+    "extra": "No planned training that day: saved as an extra training.",
+    "duplicate": "Already there; nothing changed.",
+    "unsupported": "Skipped {count, plural, one {# activity} other {# activities}} in {name} (a sport Runvex doesn't track, like walking).",
+    "error": {
+      "notFit": "{name} is not a .FIT file.",
+      "noActivity": "{name} has no training in it.",
+      "tooBig": "{name} is too big (max 4 MB).",
+      "saveFailed": "{name} couldn't be saved. Please try again."
+    },
+    "recorded": "Recorded by your watch",
+    "pacePerKm": "{pace} /km",
+    "pacePer100": "{pace} /100 m",
+    "speed": "{speed} km/h",
+    "heartRate": "avg {bpm} bpm",
+    "power": "avg {watts} W",
+    "ascent": "{meters} m climb",
+    "delete": "Delete upload",
+    "confirmDelete": "Delete",
+    "cancel": "Cancel",
+    "deleteFailed": "Failed"
   }
 }

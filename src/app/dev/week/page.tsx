@@ -10,6 +10,8 @@ import { weekdays } from "@/core/training";
 import { getWorkout, zoneLegend } from "@/core/workouts/library";
 import { groupByWeekday } from "@/core/week";
 import type { PlannedWorkout } from "@/services/workouts";
+import type { Activity } from "@/services/activities";
+import { FitUpload } from "@/components/week/FitUpload";
 
 export default function WeekPreviewPage() {
   const today = todayInTimeZone("Europe/Amsterdam");
@@ -44,6 +46,27 @@ export default function WeekPreviewPage() {
     workout(4, "running", "Fartlek", 45, "run_45_3_tempo"),
     workout(5, "cycling", "Long ride", 90,"bike_90min_1_easy", "Je lange rit: rustig in zone 2."),
   ];
+  // Uploaded from the watch: the Monday swim (linked) and an extra ride on Thursday.
+  const activity = (dayIndex: number, sport: Activity["sport"], plannedId: string | null, seconds: number, meters: number, extra: Partial<Activity> = {}): Activity => ({
+    id: `activity-${dayIndex}`,
+    planned_workout_id: plannedId,
+    sport,
+    started_at: `${addDays(weekStart, dayIndex)}T06:00:00Z`,
+    performed_on: addDays(weekStart, dayIndex),
+    duration_seconds: seconds,
+    distance_meters: meters,
+    avg_heart_rate: null,
+    max_heart_rate: null,
+    avg_power: null,
+    ascent_meters: null,
+    ...extra,
+  });
+  const activities: Activity[] = [
+    activity(0, "swimming", workouts[0].id, 2700, 1650, { avg_heart_rate: 128, max_heart_rate: 151 }),
+    activity(3, "cycling", null, 4320, 36400, { avg_power: 182, ascent_meters: 240 }),
+  ];
+  workouts[0].status = "done";
+
   // Saturday holds the long ride, Sunday the long run (not planned yet).
   const longSessions: LongSessionSport[][] = [[], [], [], [], [], ["cycling"], ["running"]];
 
@@ -73,6 +96,7 @@ export default function WeekPreviewPage() {
         plannedMinutes={workouts.reduce((sum, item) => sum + item.duration_minutes, 0)}
         availableMinutes={availability.reduce((sum, minutes) => sum + minutes, 0)}
       />
+      <FitUpload hasHealthConsent />
       <WeekDragAndDrop>
       <div className="flex flex-col gap-4">
       {weekdays.map((weekday, index) => {
@@ -84,6 +108,7 @@ export default function WeekPreviewPage() {
             availableMinutes={availability[index]}
             longSessions={longSessions[index]}
             workouts={groupByWeekday(weekStart, workouts)[index]}
+            activities={activities.filter((item) => item.performed_on === date)}
             isToday={date === today}
             isPast={date < today}
             weekIsPlanned={workouts.length > 0}

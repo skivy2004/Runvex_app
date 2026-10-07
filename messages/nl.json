@@ -72,7 +72,8 @@
     "overAvailable": "{over} meer dan je beschikbare tijd",
     "addTraining": "Training toevoegen",
     "restDayNothing": "Rustdag",
-    "restDayText": "Geen training vandaag: herstel hoort bij de opbouw."
+    "restDayText": "Geen training vandaag: herstel hoort bij de opbouw.",
+    "extraActivity": "Extra: {sport}"
   },
   "Workout": {
     "estimated": "≈ {duration}",
@@ -563,5 +564,36 @@
     "undoRecovery": "Toch geen herstelweek",
     "failed": "Dat is niet gelukt. Probeer het opnieuw.",
     "timelineLabel": "Je seizoen: {weeks} weken tot de wedstrijd, als balkjes per week"
+  },
+  "Activities": {
+    "title": "Training uploaden",
+    "subtitle": "Zet een .FIT-bestand van je horloge erin; de training wordt afgevinkt.",
+    "choose": ".FIT-bestanden kiezen",
+    "uploading": "Bezig… {done} van {total}",
+    "consentTitle": "Hartslag ook bewaren",
+    "consentText": "Hartslag is gezondheidsdata. Alleen met jouw toestemming bewaren we je gemiddelde en maximale hartslag, zodat je die terugziet bij je training. Hartslag gaat nooit naar de AI-coach. Zonder vinkje bewaren we alleen tijd, afstand en vermogen.",
+    "consentOn": "Aan. Je kunt dit altijd uitzetten; dan wissen we de bewaarde hartslag meteen.",
+    "consentFailed": "Dat is niet gelukt. Probeer het opnieuw.",
+    "linked": "Afgevinkt: {name}",
+    "extra": "Geen geplande training die dag: opgeslagen als extra training.",
+    "duplicate": "Stond er al; niets veranderd.",
+    "unsupported": "{count, plural, one {# activiteit} other {# activiteiten}} in {name} overgeslagen (sport die Runvex niet bijhoudt, zoals wandelen).",
+    "error": {
+      "notFit": "{name} is geen .FIT-bestand.",
+      "noActivity": "In {name} staat geen training.",
+      "tooBig": "{name} is te groot (max 4 MB).",
+      "saveFailed": "{name} kon niet worden opgeslagen. Probeer het opnieuw."
+    },
+    "recorded": "Door je horloge gemeten",
+    "pacePerKm": "{pace} /km",
+    "pacePer100": "{pace} /100 m",
+    "speed": "{speed} km/u",
+    "heartRate": "gem. {bpm} bpm",
+    "power": "gem. {watts} W",
+    "ascent": "{meters} m stijging",
+    "delete": "Upload verwijderen",
+    "confirmDelete": "Verwijderen",
+    "cancel": "Annuleren",
+    "deleteFailed": "Mislukt"
   }
 }

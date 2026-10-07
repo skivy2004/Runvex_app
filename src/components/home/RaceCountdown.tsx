@@ -36,7 +36,7 @@ export function RaceCountdown({ date, timeZone }: RaceCountdownProps) {
       {units.map(({ value, label }, index) => (
         <span key={label} className="flex items-baseline gap-1">
           {index > 0 && <span aria-hidden className="mr-2 size-1.5 self-center rounded-full bg-accent" />}
-          <span className="text-5xl font-bold tracking-tighter tabular-nums">{value ?? "–"}</span>
+          <span className="text-5xl font-bold tabular-nums">{value ?? "–"}</span>
           <span className="text-[0.6rem] font-bold uppercase tracking-wider text-muted">{label}</span>
         </span>
       ))}

@@ -42,7 +42,7 @@ export default async function GoalPage() {
           <div className="flex items-start justify-between gap-3">
             <div className="flex min-w-0 flex-col gap-1">
               {preset && <p className="eyebrow">{tPresets(`${preset.key}.description`)}</p>}
-              <h2 className="text-2xl font-bold tracking-tight">{goal.event_name ?? goal.description}</h2>
+              <h2 className="text-2xl font-bold">{goal.event_name ?? goal.description}</h2>
               {goal.event_date && (
                 <p className="text-sm text-muted">
                   {format.dateTime(toFormattableDate(goal.event_date), { dateStyle: "long", timeZone: "UTC" })}

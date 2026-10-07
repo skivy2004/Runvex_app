@@ -35,7 +35,7 @@ export function BottomNav() {
       aria-label={t("label")}
       className="fixed inset-x-0 bottom-0 z-10 px-4 pb-[max(0.75rem,calc(env(safe-area-inset-bottom)-0.5rem))]"
     >
-      <div className="relative mx-auto grid max-w-md grid-cols-5 rounded-[1.75rem] border border-white/10 bg-surface/75 p-2 shadow-2xl shadow-black/50 backdrop-blur-xl">
+      <div className="relative mx-auto grid max-w-md grid-cols-5 rounded-[1.75rem] border border-white/10 border-t-white/20 bg-surface/75 p-2 shadow-2xl shadow-black/50 backdrop-blur-2xl backdrop-saturate-150">
         {/* The sliding indicator: one fifth wide, moved to the active tab. */}
         {activeIndex >= 0 && (
           <span

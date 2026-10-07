@@ -7,7 +7,9 @@ import { toFormattableDate } from "@/core/dates";
 import type { LongSessionSport } from "@/core/availability";
 import type { Sport } from "@/core/training";
 import { getWorkout } from "@/core/workouts/library";
+import type { Activity } from "@/services/activities";
 import type { PlannedWorkout } from "@/services/workouts";
+import { ActivityStats } from "./ActivityStats";
 import { DraggableWorkout, DroppableDay } from "./WeekDragAndDrop";
 import { parseSwimWorkoutId } from "@/core/workouts/swimTraining";
 import { WorkoutActions, type Alternative } from "./WorkoutActions";
@@ -28,6 +30,8 @@ type DayCardProps = {
   /** Long run / long ride planned on this weekday. */
   longSessions?: LongSessionSport[];
   workouts: PlannedWorkout[];
+  /** Uploaded activities of this day: shown in their training, or as an extra one. */
+  activities?: Activity[];
   isToday: boolean;
   isPast: boolean;
   /** True once the week has trainings: an empty day is then a rest day, not "not planned yet". */
@@ -41,6 +45,7 @@ export function DayCard({
   preferredSports = [],
   longSessions = [],
   workouts,
+  activities = [],
   isToday,
   isPast,
   weekIsPlanned,
@@ -138,6 +143,7 @@ export function DayCard({
             const workoutCard = (
               <WorkoutCard
                 workout={workout}
+                activity={activities.find((activity) => activity.planned_workout_id === workout.id)}
                 isLongSession={isLongSession}
                 canCheckOff={isPast || isToday}
                 actions={
@@ -176,7 +182,8 @@ export function DayCard({
             );
           })}
         </ul>
-      ) : (
+      ) : activities.length > 0 ? null : (
+        // Nothing planned and nothing done: a rest day (or not planned yet).
         isRestDay || (weekIsPlanned && openLongSessions.length === 0) ? (
           <p className="flex items-center gap-2 text-sm text-muted">
             <Moon aria-hidden className="size-4 shrink-0 text-blue-light" />
@@ -189,6 +196,22 @@ export function DayCard({
         ) : (
           <p className="text-sm text-muted">{t("noTraining")}</p>
         )
+      )}
+
+      {activities.some((activity) => activity.planned_workout_id === null) && (
+        <ul className="flex flex-col gap-2">
+          {activities
+            .filter((activity) => activity.planned_workout_id === null)
+            .map((activity) => (
+              <li key={activity.id} className="flex flex-col gap-1.5">
+                <span className="flex items-center gap-2 text-sm font-semibold">
+                  <SportIcon sport={activity.sport} small />
+                  {t("extraActivity", { sport: tSports(activity.sport) })}
+                </span>
+                <ActivityStats activity={activity} />
+              </li>
+            ))}
+        </ul>
       )}
 
       {warning && (
