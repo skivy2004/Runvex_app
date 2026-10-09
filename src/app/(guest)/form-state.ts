@@ -9,6 +9,7 @@ export type AuthErrorKey =
   | "rateLimited"
   | "samePassword"
   | "passwordsDontMatch"
+  | "betaFull"
   | "generic";
 
 export type AuthFormState =

@@ -29,15 +29,14 @@ export default async function RootLayout({ children }: LayoutProps<"/">) {
   const locale = await getLocale();
 
   return (
-    <html lang={locale} className={`${spaceGrotesk.variable} h-full antialiased`}>
+    // data-scroll-behavior: the landing page scrolls smoothly to its sections,
+    // but going to another page should still jump straight to the top.
+    <html lang={locale} data-scroll-behavior="smooth" className={`${spaceGrotesk.variable} h-full antialiased`}>
       <body className="min-h-full bg-background font-sans text-foreground">
-        {/* Makes the language and texts available to client components. */}
-        <NextIntlClientProvider>
-          {/* Phone-width column, centered on larger screens. */}
-          <div className="mx-auto flex min-h-dvh w-full max-w-md flex-col px-4">
-            {children}
-          </div>
-        </NextIntlClientProvider>
+        {/* Makes the language and texts available to client components. The pages
+            choose their own width: the app is a phone-width column (PhoneColumn),
+            the landing page spans the screen. */}
+        <NextIntlClientProvider>{children}</NextIntlClientProvider>
       </body>
     </html>
   );

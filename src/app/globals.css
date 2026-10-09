@@ -31,6 +31,20 @@
   --color-warning: #f2b544;
 
   /*
+   * Landing page palette (redesign from Figma, 2026-10). Warmer than the app:
+   * charcoal backgrounds, coral for actions, dusty pink for supporting text.
+   * Only used on the public landing page for now.
+   */
+  --color-lp-bg: #353535;
+  --color-lp-bg-deep: #262428;
+  --color-lp-footer: #232125;
+  --color-lp-card: #403e43;
+  --color-lp-line: #6a6470;
+  --color-lp-coral: #f35e3e;
+  --color-lp-pink: #e7b0b0;
+  --color-lp-chalk: #f6f1ee;
+
+  /*
    * Motion. One strong ease-out for everything that appears or reacts (starts
    * fast, so it feels responsive), one ease-in-out for things moving on screen.
    * They replace Tailwind's weaker built-ins, so the ease-out class uses it too.
@@ -58,6 +72,9 @@
 /* `inline` because the font variable is set by next/font in layout.tsx. */
 @theme inline {
   --font-sans: var(--font-space-grotesk);
+  /* Landing page only: set by components/landing/fonts.ts on the page wrapper. */
+  --font-display: var(--font-gambarino);
+  --font-body: var(--font-switzer);
 }
 
 html {
@@ -583,4 +600,136 @@ html[data-morphing] .workout-dialog::backdrop {
 }
 .workout-dialog[data-dragging]::backdrop {
   transition: none;
+}
+
+/*
+ * Landing page (components/landing). One entrance when the page loads (the
+ * hero), then every block comes in once as it scrolls into view. All of it is
+ * off for people who prefer reduced motion.
+ */
+
+/* Hero: the photo settles from a slight zoom while it fades in. */
+.lp-photo-in {
+  animation: lp-photo-in 1.2s var(--ease-out) both;
+}
+@keyframes lp-photo-in {
+  from {
+    opacity: 0;
+    scale: 1.06;
+  }
+}
+
+/* Hero: the headline words rise one by one, then the text and the form
+   (the delay is set per element in Hero.tsx). */
+.lp-rise {
+  animation: lp-rise 0.7s var(--ease-out) both;
+}
+@keyframes lp-rise {
+  from {
+    opacity: 0;
+    translate: 0 0.5em;
+    filter: blur(6px);
+  }
+}
+
+/* Waitlist confirmation: quick, because it answers a click. */
+.lp-pop {
+  animation: lp-pop 0.25s var(--ease-out) both;
+}
+@keyframes lp-pop {
+  from {
+    opacity: 0;
+    translate: 0 0.25em;
+  }
+}
+
+/* Waitlist error: slides in instead of popping up. */
+.lp-error-in {
+  animation: lp-error-in 0.15s var(--ease-out) both;
+}
+@keyframes lp-error-in {
+  from {
+    opacity: 0;
+    translate: 0 -4px;
+  }
+}
+
+/* The nav links glide to their section. Only on the landing page, and not
+   for people who prefer reduced motion. (data-scroll-behavior on <html> in
+   layout.tsx keeps page changes instant.) */
+@media (prefers-reduced-motion: no-preference) {
+  html:has(.landing) {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Blocks come in as they scroll into view, tied to the scroll position.
+   --i (0, 1, 2) staggers cards that sit next to each other in a row, but only
+   once the grid really has those columns: .stagger-md / .stagger-lg on the
+   list. Stacked cards on a phone come in without a delay.
+   Browsers without scroll-driven animations simply show everything. */
+@supports (animation-timeline: view()) {
+  .landing .reveal {
+    animation: lp-reveal linear both;
+    animation-timeline: view();
+    animation-range: entry calc(var(--stagger, 0) * 8%) entry calc(40% + var(--stagger, 0) * 8%);
+  }
+  @media (min-width: 48rem) {
+    .landing .stagger-md > .reveal {
+      --stagger: var(--i, 0);
+    }
+  }
+  @media (min-width: 64rem) {
+    .landing .stagger-lg > .reveal {
+      --stagger: var(--i, 0);
+    }
+  }
+  .landing .reveal-zoom {
+    animation: lp-reveal-zoom linear both;
+    animation-timeline: view();
+    animation-range: entry 0% cover 40%;
+  }
+}
+@keyframes lp-reveal {
+  from {
+    opacity: 0;
+    translate: 0 24px;
+  }
+}
+@keyframes lp-reveal-zoom {
+  from {
+    opacity: 0;
+    scale: 0.94;
+  }
+}
+
+/* FAQ: the answer slides open instead of appearing at once (browsers that
+   can't animate to "auto" just open it). Same timing as the turning "+" in
+   Sections.tsx, so the two move as one. */
+.lp-faq {
+  interpolate-size: allow-keywords;
+}
+.lp-faq::details-content {
+  block-size: 0;
+  overflow: clip;
+  transition:
+    block-size 0.3s var(--ease-in-out),
+    content-visibility 0.3s allow-discrete;
+}
+.lp-faq[open]::details-content {
+  block-size: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lp-photo-in,
+  .lp-rise,
+  .lp-pop,
+  .lp-error-in,
+  .landing .reveal,
+  .landing .reveal-zoom {
+    animation: none;
+  }
+  .lp-faq::details-content {
+    transition: none;
+  }
 }

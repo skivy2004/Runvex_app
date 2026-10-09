@@ -19,6 +19,8 @@ export async function proxy(request: NextRequest) {
 
   const isDevPath = process.env.NODE_ENV === "development" && matches(pathname, DEV_PATHS);
   if (isDevPath || matches(pathname, PUBLIC_PATHS)) return response;
+  // "/" is the landing page for visitors and Home for logged-in users ((app)/page.tsx).
+  if (pathname === "/") return response;
 
   if (matches(pathname, GUEST_ONLY_PATHS)) {
     return isLoggedIn ? redirectTo("/", request, response) : response;

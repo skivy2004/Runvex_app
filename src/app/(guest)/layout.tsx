@@ -5,12 +5,14 @@ import { AuthHero } from "@/components/auth/AuthHero";
 import { SportDots } from "@/components/auth/SportDots";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { Logo } from "@/components/Logo";
+import { PhoneColumn } from "@/components/PhoneColumn";
 
 // Shared frame for the login and register pages: moving background, headline,
 // the form card (the page) and swim, bike and run at the bottom.
 export default async function GuestLayout({ children }: LayoutProps<"/">) {
   const t = await getTranslations("Profile");
   return (
+    <PhoneColumn>
     <main className="flex flex-1 flex-col gap-8 pt-[max(1rem,env(safe-area-inset-top))] pb-[max(1.5rem,env(safe-area-inset-bottom))]">
       <AuthBackground />
       <header className="flex items-center justify-between">
@@ -30,5 +32,6 @@ export default async function GuestLayout({ children }: LayoutProps<"/">) {
         </Link>
       </div>
     </main>
+    </PhoneColumn>
   );
 }

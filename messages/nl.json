@@ -211,7 +211,8 @@
       "rateLimited": "Te veel pogingen. Wacht even en probeer het opnieuw.",
       "generic": "Er ging iets mis. Probeer het opnieuw.",
       "samePassword": "Kies een ander wachtwoord dan je oude.",
-      "passwordsDontMatch": "Wachtwoorden zijn niet hetzelfde"
+      "passwordsDontMatch": "Wachtwoorden zijn niet hetzelfde",
+      "betaFull": "De beta is vol: alle 50 plekken zijn bezet. De inschrijving gaat later weer open."
     },
     "accountDeleted": "Je account en al je gegevens zijn verwijderd.",
     "eyebrow": "Jouw voorsprong",
@@ -235,7 +236,9 @@
     "passwordsMatch": "Wachtwoorden zijn hetzelfde",
     "passwordsDontMatch": "Wachtwoorden zijn niet hetzelfde",
     "showPassword": "Wachtwoord tonen",
-    "hidePassword": "Wachtwoord verbergen"
+    "hidePassword": "Wachtwoord verbergen",
+    "betaSpots": "Gratis beta · nog {count} van de {limit} plekken",
+    "betaFullTitle": "De beta is vol"
   },
   "Onboarding": {
     "progress": "Stap {current} van {total}",
@@ -595,5 +598,133 @@
     "confirmDelete": "Verwijderen",
     "cancel": "Annuleren",
     "deleteFailed": "Mislukt"
+  },
+  "Landing": {
+    "meta": {
+      "title": "Runvex · AI-trainingscoach die past bij je rooster",
+      "description": "Runvex plant je hardloop-, fiets- en zwemtrainingen rond je diensten en drukke weken, en bouwt op naar je wedstrijd. Zet je op de wachtlijst voor vroege toegang."
+    },
+    "nav": {
+      "how": "Hoe het werkt",
+      "features": "Functies",
+      "faq": "FAQ",
+      "cta": "Op de wachtlijst"
+    },
+    "hero": {
+      "title": "Training die past bij je rooster",
+      "subtitle": "Een AI-coach die je week opnieuw plant als je rooster verandert. Voor hardlopers, fietsers, zwemmers en triatleten."
+    },
+    "waitlist": {
+      "emailLabel": "E-mailadres",
+      "placeholder": "jij@email.nl",
+      "submit": "Aanmelden",
+      "pending": "Bezig…",
+      "joined": "Je staat op de lijst. We mailen je zodra <brand>Runvex</brand> live gaat.",
+      "errors": {
+        "invalidEmail": "Vul een geldig e-mailadres in.",
+        "generic": "Er ging iets mis. Probeer het opnieuw."
+      }
+    },
+    "problem": {
+      "eyebrow": "Het probleem",
+      "title": "De meeste schema's gaan uit van een 9-tot-5. Jouw leven niet.",
+      "body": "Nachtdiensten, late vergaderingen, een week met maar twee vrije avonden. Een vast schema loopt vast, je slaat trainingen over en je hebt het gevoel dat je achterloopt."
+    },
+    "steps": {
+      "eyebrow": "Hoe het werkt",
+      "title": "3 stappen. Daarna beweegt het met je mee.",
+      "one": {
+        "title": "Vertel ons over je week",
+        "body": "Op welke dagen je kunt trainen, en hoe lang. Vaste uren, wisselend of diensten: alles kan."
+      },
+      "two": {
+        "title": "Je coachteam plant het",
+        "body": "Een hoofdcoach plus specialisten voor lopen, fietsen en zwemmen bouwen je week, van basis tot wedstrijddag."
+      },
+      "three": {
+        "title": "Verandert je leven? Je plan ook",
+        "body": "Sleep een training naar een andere dag, of vraag je coach om aan te passen. Je plan loopt nooit vast."
+      }
+    },
+    "features": {
+      "eyebrow": "Functies",
+      "title": "Alles wat je week nodig heeft. Niets wat niet hoeft.",
+      "coach": {
+        "title": "AI-coachteam",
+        "body": "Chat met je coach. Krijg voorstellen die je met één tik goedkeurt."
+      },
+      "race": {
+        "title": "Gebouwd rond je wedstrijd",
+        "body": "Basis, opbouw, piek en taper, teruggepland vanaf de wedstrijddag."
+      },
+      "drag": {
+        "title": "Slepen en neerzetten",
+        "body": "Plannen veranderd? Zet een training in een seconde op een andere dag."
+      },
+      "sports": {
+        "title": "Lopen, fietsen, zwemmen en kracht",
+        "body": "Elke sport in één plan, met een niveau per sport."
+      },
+      "watch": {
+        "title": "Uploaden vanaf je horloge",
+        "body": "Importeer .FIT-bestanden van je Garmin of ander horloge."
+      },
+      "privacy": {
+        "title": "Privacy voorop",
+        "body": "Opgeslagen in de EU. Je hartslag gaat nooit naar AI."
+      }
+    },
+    "app": {
+      "eyebrow": "De app",
+      "title": "Je week in één oogopslag.",
+      "body": "Zie elke training, verplaats wat niet past en praat met je coach. Vanaf dag één gemaakt voor je telefoon.",
+      "imageAlt": "De Runvex-app op een iPhone, met de training van vandaag en de voortgang van de week"
+    },
+    "story": {
+      "eyebrow": "Waarom ik dit bouw",
+      "quote": "Ik train voor triatlon naast een baan waarin geen week hetzelfde is. Ik vond geen schema dat dat bijhield, dus bouwde ik er zelf een.",
+      "author": "Jeremy, oprichter van Runvex",
+      "photoAlt": "Jeremy bij Ironman Tallinn"
+    },
+    "cta": {
+      "eyebrow": "Vroege toegang",
+      "title": "Wees de eerste",
+      "body": "Zet je op de wachtlijst en krijg als eerste toegang zodra Runvex in de App Store staat.",
+      "note": "Geen spam. Eén mail als we live gaan."
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Vragen, beantwoord.",
+      "launch": {
+        "q": "Wanneer gaat Runvex live?",
+        "a": "We zijn nu aan het bouwen en testen. Zet je op de wachtlijst en je hoort het als eerste: één mail zodra Runvex in de App Store staat, verder niets."
+      },
+      "price": {
+        "q": "Wat gaat het kosten?",
+        "a": "We maken de prijs bekend vóór de lancering. Iedereen op de wachtlijst hoort het als eerste."
+      },
+      "watches": {
+        "q": "Welke horloges werken met Runvex?",
+        "a": "Elk horloge dat .FIT-bestanden kan exporteren, zoals Garmin, Coros, Suunto en Wahoo. Upload je activiteit en je coach houdt er rekening mee. Direct koppelen staat op de planning."
+      },
+      "data": {
+        "q": "Zijn mijn gegevens veilig?",
+        "a": "Ja. Je gegevens staan in de EU. Hartslag bewaren we alleen met je toestemming en gaat nooit naar AI. Je naam, e-mailadres en geboortedatum delen we ook nooit met de AI-coach."
+      },
+      "goal": {
+        "q": "Heb ik een wedstrijddoel nodig?",
+        "a": "Nee. Met een wedstrijd bouwt je plan op naar de wedstrijddag: basis, opbouw, piek en taper. Zonder wedstrijd houdt Runvex je fit met een vast ritme van trainings- en herstelweken."
+      },
+      "missed": {
+        "q": "Wat als ik een training mis?",
+        "a": "Er loopt niets vast. Sleep hem naar een andere dag, of vraag je coach je week aan te passen. Wordt het te druk, dan kan je coach er een herstelweek van maken."
+      }
+    },
+    "footer": {
+      "privacy": "Privacy",
+      "contact": "Contact",
+      "login": "Inloggen",
+      "rights": "© {year} Runvex"
+    }
   }
 }

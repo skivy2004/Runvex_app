@@ -11,7 +11,7 @@ export const PRIVACY_CONTACT = {
   email: "Jeremycordes31@gmail.com",
 };
 
-export const LAST_UPDATED = "2026-10-05";
+export const LAST_UPDATED = "2026-10-09";
 
 export type PrivacySection = {
   heading: string;
@@ -36,6 +36,12 @@ export const privacyContent: Record<Locale, PrivacyContent> = {
         heading: "Wie is verantwoordelijk?",
         paragraphs: [
           `Runvex wordt gemaakt door ${name} uit ${city}. Wij zijn de verwerkingsverantwoordelijke volgens de Algemene Verordening Gegevensbescherming (AVG). Vragen over je gegevens? Mail naar ${email}.`,
+        ],
+      },
+      {
+        heading: "De wachtlijst",
+        paragraphs: [
+          `Zet je je op de wachtlijst, dan bewaren we alleen je e-mailadres, je taal en de datum. We gebruiken die alleen om je één keer te mailen wanneer Runvex lanceert (op basis van je toestemming, art. 6 lid 1 sub a AVG), nooit voor iets anders. Na de lancering wissen we de wachtlijst. Wil je er eerder af? Mail naar ${email}, dan halen we je e-mailadres direct weg.`,
         ],
       },
       {
@@ -139,6 +145,12 @@ export const privacyContent: Record<Locale, PrivacyContent> = {
         heading: "Who is responsible?",
         paragraphs: [
           `Runvex is made by ${name} from ${city}. We are the data controller under the General Data Protection Regulation (GDPR). Questions about your data? Email ${email}.`,
+        ],
+      },
+      {
+        heading: "The waitlist",
+        paragraphs: [
+          `If you join the waitlist, we only keep your email address, your language and the date. We use them only to email you once when Runvex launches (based on your consent, art. 6(1)(a) GDPR), never for anything else. After the launch we delete the waitlist. Want to be removed sooner? Email ${email} and we'll remove your address right away.`,
         ],
       },
       {

@@ -18,19 +18,32 @@ import { getPlannedWorkouts, getUpcomingWorkouts } from "@/services/workouts";
 import { loadSeason } from "@/services/season";
 import { SeasonBadge } from "@/components/season/SeasonBadge";
 import Link from "next/link";
+import type { Metadata } from "next";
+import { LandingPage } from "@/components/landing/LandingPage";
 
 /** How many trainings "Coming up" shows after the next one. */
 const COMING_UP = 5;
 /** How far back the streak looks. */
 const STREAK_DAYS = 60;
 
+/** Logged out, "/" is the landing page: it gets its own title and description for search engines. */
+export async function generateMetadata(): Promise<Metadata> {
+  if (await getRequestProfile()) return {};
+  const t = await getTranslations("Landing.meta");
+  return {
+    title: t("title"),
+    description: t("description"),
+    openGraph: { title: t("title"), description: t("description"), type: "website", siteName: "Runvex" },
+  };
+}
+
 export default async function HomePage() {
   const t = await getTranslations("Home");
   const locale = await getLocale();
   const supabase = await getRequestClient();
   const profile = await getRequestProfile();
-  // The proxy already sends logged-out visitors to /login.
-  if (!profile) return null;
+  // Logged out: the landing page (the proxy lets visitors through only on "/").
+  if (!profile) return <LandingPage />;
 
   // "Today" in the user's own time zone, not the server's.
   const today = todayInTimeZone(profile.timezone);

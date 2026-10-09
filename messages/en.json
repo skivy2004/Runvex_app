@@ -211,7 +211,8 @@
       "rateLimited": "Too many attempts. Please wait a moment and try again.",
       "generic": "Something went wrong. Please try again.",
       "samePassword": "Choose a different password than your old one.",
-      "passwordsDontMatch": "Passwords don't match"
+      "passwordsDontMatch": "Passwords don't match",
+      "betaFull": "The beta is full: all 50 spots are taken. Sign-up will open again later."
     },
     "accountDeleted": "Your account and all your data have been deleted.",
     "eyebrow": "Your edge, amplified",
@@ -235,7 +236,9 @@
     "passwordsMatch": "Passwords match",
     "passwordsDontMatch": "Passwords don't match",
     "showPassword": "Show password",
-    "hidePassword": "Hide password"
+    "hidePassword": "Hide password",
+    "betaSpots": "Free beta · {count} of {limit} spots left",
+    "betaFullTitle": "The beta is full"
   },
   "Onboarding": {
     "progress": "Step {current} of {total}",
@@ -595,5 +598,133 @@
     "confirmDelete": "Delete",
     "cancel": "Cancel",
     "deleteFailed": "Failed"
+  },
+  "Landing": {
+    "meta": {
+      "title": "Runvex · AI training coach that fits your shifts",
+      "description": "Runvex plans your running, cycling and swimming around your shifts and busy weeks, and builds up to your race. Join the waitlist for early access."
+    },
+    "nav": {
+      "how": "How it works",
+      "features": "Features",
+      "faq": "FAQ",
+      "cta": "Join waitlist"
+    },
+    "hero": {
+      "title": "Training that fits your shifts",
+      "subtitle": "An AI coach that rebuilds your week when your schedule changes. For runners, cyclists, swimmers and triathletes."
+    },
+    "waitlist": {
+      "emailLabel": "Email address",
+      "placeholder": "you@email.com",
+      "submit": "Join waitlist",
+      "pending": "Joining…",
+      "joined": "You're on the list. We'll email you when <brand>Runvex</brand> launches.",
+      "errors": {
+        "invalidEmail": "Enter a valid email address.",
+        "generic": "Something went wrong. Try again."
+      }
+    },
+    "problem": {
+      "eyebrow": "The problem",
+      "title": "Most training plans assume a 9-to-5. Your life doesn't.",
+      "body": "Night shifts, late meetings, a week with only two free evenings. A fixed plan breaks, you skip sessions, and you feel like you're falling behind."
+    },
+    "steps": {
+      "eyebrow": "How it works",
+      "title": "3 steps. Then it keeps up with you.",
+      "one": {
+        "title": "Tell us your week",
+        "body": "Which days you can train, and for how long. Fixed hours, variable or shifts: all fine."
+      },
+      "two": {
+        "title": "Your coach team plans it",
+        "body": "A head coach plus run, bike and swim specialists build your week, from base to race day."
+      },
+      "three": {
+        "title": "Life changes? So does your plan",
+        "body": "Drag a session to another day, or ask your coach to adjust. Your plan never breaks."
+      }
+    },
+    "features": {
+      "eyebrow": "Features",
+      "title": "Everything your week needs. Nothing it doesn't.",
+      "coach": {
+        "title": "AI coach team",
+        "body": "Chat with your coach. Get suggestions you approve with one tap."
+      },
+      "race": {
+        "title": "Built around your race",
+        "body": "Base, build, peak and taper, planned back from race day."
+      },
+      "drag": {
+        "title": "Drag-and-drop week",
+        "body": "Plans changed? Move a workout to another day in a second."
+      },
+      "sports": {
+        "title": "Run, bike, swim and strength",
+        "body": "Every sport in one plan, with a level per sport."
+      },
+      "watch": {
+        "title": "Upload from your watch",
+        "body": "Import .FIT files from your Garmin or other watch."
+      },
+      "privacy": {
+        "title": "Privacy first",
+        "body": "EU-hosted. Your heart rate data is never sent to AI."
+      }
+    },
+    "app": {
+      "eyebrow": "The app",
+      "title": "Your week, at a glance.",
+      "body": "See every session, move what doesn't fit, and talk to your coach. Built for your phone, from the first day.",
+      "imageAlt": "The Runvex app on an iPhone, showing today's training and the week's progress"
+    },
+    "story": {
+      "eyebrow": "Why I built this",
+      "quote": "I train for triathlon next to a job that never has the same week twice. I couldn't find a plan that kept up, so I built one.",
+      "author": "Jeremy, founder of Runvex",
+      "photoAlt": "Jeremy at Ironman Tallinn"
+    },
+    "cta": {
+      "eyebrow": "Early access",
+      "title": "Be first in line",
+      "body": "Join the waitlist and get early access when Runvex launches on the App Store.",
+      "note": "No spam. One email when we launch."
+    },
+    "faq": {
+      "eyebrow": "FAQ",
+      "title": "Questions, answered.",
+      "launch": {
+        "q": "When does Runvex launch?",
+        "a": "We're building and testing right now. Join the waitlist and you'll be the first to know: one email when Runvex launches on the App Store, nothing else."
+      },
+      "price": {
+        "q": "How much will it cost?",
+        "a": "We'll share pricing before launch. Everyone on the waitlist hears it first."
+      },
+      "watches": {
+        "q": "Which watches work with Runvex?",
+        "a": "Any watch that exports .FIT files, like Garmin, Coros, Suunto and Wahoo. Upload your activity and your coach takes it into account. Direct sync is on our roadmap."
+      },
+      "data": {
+        "q": "Is my data safe?",
+        "a": "Yes. Your data is stored in the EU. Heart rate data is only saved with your permission and is never sent to AI. Your name, email and date of birth are never shared with the AI coach either."
+      },
+      "goal": {
+        "q": "Do I need a race goal?",
+        "a": "No. With a race, your plan builds towards race day: base, build, peak and taper. Without one, Runvex keeps you fit with a steady rhythm of training and recovery weeks."
+      },
+      "missed": {
+        "q": "What happens if I miss a session?",
+        "a": "Nothing breaks. Drag it to another day, or ask your coach to adjust your week. If life gets busy, your coach can turn it into a recovery week."
+      }
+    },
+    "footer": {
+      "privacy": "Privacy",
+      "contact": "Contact",
+      "login": "Log in",
+      "rights": "© {year} Runvex"
+    }
   }
 }

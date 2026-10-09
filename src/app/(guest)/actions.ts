@@ -8,6 +8,7 @@ import { forgotPasswordSchema, loginSchema, newPasswordSchema, registerSchema } 
 import { writeLocaleCookie } from "@/i18n/cookie";
 import { createClient } from "@/lib/supabase/server";
 import { refreshAppData } from "@/lib/refreshAppData";
+import { getBetaSpotsLeft } from "@/services/beta";
 import type { AuthErrorKey, AuthFormState } from "./form-state";
 
 export async function signUp(_previous: AuthFormState, formData: FormData): Promise<AuthFormState> {
@@ -22,6 +23,10 @@ export async function signUp(_previous: AuthFormState, formData: FormData): Prom
   }
 
   const supabase = await createClient();
+  // The beta has a limited number of spots. The database refuses new accounts
+  // when it's full; checking first gives a clear message instead of an error.
+  if ((await getBetaSpotsLeft(supabase)) === 0) return { status: "error", error: "betaFull", email };
+
   const origin = (await headers()).get("origin");
   const { error } = await supabase.auth.signUp({
     ...parsed.data,
@@ -33,7 +38,11 @@ export async function signUp(_previous: AuthFormState, formData: FormData): Prom
       emailRedirectTo: origin ? `${origin}/auth/confirm` : undefined,
     },
   });
-  if (error) return { status: "error", error: toErrorKey(error.code), email };
+  if (error) {
+    // The last spot went just now: the database trigger refused the account.
+    if ((await getBetaSpotsLeft(supabase)) === 0) return { status: "error", error: "betaFull", email };
+    return { status: "error", error: toErrorKey(error.code), email };
+  }
 
   // Also returned for an email that already has an account: Supabase then
   // sends no email, so nobody can find out who is registered.

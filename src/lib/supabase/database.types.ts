@@ -382,6 +382,11 @@ export type Database = {
     }
     Functions: {
       delete_my_account: { Args: never; Returns: undefined }
+      beta_spots_left: { Args: never; Returns: number }
+      join_waitlist: {
+        Args: { p_email: string; p_locale: string }
+        Returns: undefined
+      }
       complete_onboarding: {
         Args: {
           p_availability: Json

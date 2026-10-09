@@ -11,6 +11,16 @@ Things we decided to do later. Move an item to "Done" (with the date) when it's 
 - [ ] **Remove the old ai_requests table:** replaced by ai_usage (cost per call, weekly budget). Drop it with a migration once the new coach is live.
 - [ ] **Delete old AI usage rows:** ai_usage only needs the current week for the budget; keep e.g. 3 months for cost insight, then delete (data minimisation).
 
+- [ ] **Landing page redesign (now feels like "AI slop"):** the current page (src/components/landing/) mixes eight Dribbble references and uses the standard AI template: hero, marquee, problem, "01 02 03", bento, privacy, pricing, FAQ, CTA. Same glass card, eyebrow and glow everywhere; a mock phone with a made-up "Sanne"; slogan-style copy. Fix:
+  1. **Pick one direction**, not a mix: e.g. editorial and strict (big type, lots of black, coral only for the button, no glass) or raw and sporty (real photos, hard contrast).
+  2. **Use real things:** a screenshot of Jeremy's own week with his real shifts, a photo of a printed swim card on his water bottle, a photo after a shift. Rough phone photos are fine.
+  3. **Cut half:** hero with one real week, how it works in three sentences, the beta counter (real and unique), a short FAQ.
+  4. **Own words:** a few sentences from Jeremy on why he builds Runvex instead of taglines.
+  5. **Design the hero first in Figma** (Jeremy), then build it exactly and carry the style through. Optional: a critique first with the `emil-design-eng` skill.
+  - Open questions for Jeremy: why he builds Runvex (does he work shifts himself?), which 2-3 photos he can take, Figma hero or one Dribbble reference to follow.
+  - Hero photo chosen: Unsplash ["Man running fast at night with motion blur"](https://unsplash.com/photos/man-running-fast-at-night-with-motion-blur-DDoyi1dxAgg) (free license, ~610 KB jpg → ~200 KB webp as public/landing-hero.webp). Not downloaded yet: ask before downloading.
+  - Keep: the beta limit (DB trigger + beta_spots_left, live) and routing (landing on "/" for visitors). Spec: docs/landing-page-prompt.md.
+
 ## Before launch
 - [ ] **Leaked password protection:** turn on in Supabase (Authentication → Attack Protection), may need a paid plan.
 - [ ] **Data processing agreements (DPA / verwerkersovereenkomst):** accept them at Supabase, Vercel, Resend, Anthropic and intervals.icu (Claude API: week plans get sports, levels, availability and goal, no name/e-mail/birth date).
