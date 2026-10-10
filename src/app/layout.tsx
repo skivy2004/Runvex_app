@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { NextIntlClientProvider } from "next-intl";
 import { getLocale } from "next-intl/server";
 import { Space_Grotesk } from "next/font/google";
+import { SITE_URL } from "@/core/site";
 import "./globals.css";
 
 const spaceGrotesk = Space_Grotesk({
@@ -10,6 +11,8 @@ const spaceGrotesk = Space_Grotesk({
 });
 
 export const metadata: Metadata = {
+  // Makes link previews and canonical URLs point to the real domain.
+  metadataBase: new URL(SITE_URL),
   title: "Runvex",
   description: "Your training coach that fits around your work schedule.",
   // On iPhone: open from the home screen as an app, without the browser bars.

@@ -11,7 +11,7 @@ export const PRIVACY_CONTACT = {
   email: "Jeremycordes31@gmail.com",
 };
 
-export const LAST_UPDATED = "2026-10-09";
+export const LAST_UPDATED = "2026-10-10";
 
 export type PrivacySection = {
   heading: string;
@@ -41,7 +41,8 @@ export const privacyContent: Record<Locale, PrivacyContent> = {
       {
         heading: "De wachtlijst",
         paragraphs: [
-          `Zet je je op de wachtlijst, dan bewaren we alleen je e-mailadres, je taal en de datum. We gebruiken die alleen om je één keer te mailen wanneer Runvex lanceert (op basis van je toestemming, art. 6 lid 1 sub a AVG), nooit voor iets anders. Na de lancering wissen we de wachtlijst. Wil je er eerder af? Mail naar ${email}, dan halen we je e-mailadres direct weg.`,
+          `Zet je je op de wachtlijst, dan bewaren we je e-mailadres, je taal en de datum. Kwam je via een link of QR-code (bijvoorbeeld van een visitekaartje), dan bewaren we ook waar die vandaan kwam en een eventuele actiecode, zodat we zien welke kanalen werken en je een beloofd voordeel kunnen geven. We mailen je zodra er een plek vrij is of Runvex lanceert (op basis van je toestemming, art. 6 lid 1 sub a AVG).`,
+          `Heb je ook aangevinkt dat je nieuws wilt ontvangen? Dan mailen we je maximaal één keer per maand, tot je je afmeldt via de link in elke mail. We bewaren wanneer je dat vinkje aanzette, als bewijs van je toestemming. Zonder dat vinkje mailen we je alleen bij de lancering en wissen we je e-mailadres daarna. Wil je er eerder af? Mail naar ${email}, dan halen we je e-mailadres direct weg.`,
         ],
       },
       {
@@ -73,6 +74,7 @@ export const privacyContent: Record<Locale, PrivacyContent> = {
         heading: "De AI-coach",
         paragraphs: [
           "Als je op ‘Plan mijn week’ tikt, sturen we een samenvatting naar Claude, het AI-model van Anthropic: je sporten en niveaus, je werkrooster, je beschikbare tijd per dag, je doel, je trainingen van deze en vorige week en hoeveel je daarvan gedaan of overgeslagen hebt met de gemiddelde zwaarte (zonder je notities), en bij geüploade trainingen de gemeten duur, afstand en vermogen (nooit je hartslag). Je naam, e-mailadres en geboortedatum sturen we niet mee. Anthropic gebruikt deze gegevens niet om zijn modellen te trainen.",
+          "Stuur je de coach een bericht, of vertel je hoe een training ging? Dan gaat je bericht samen met een vergelijkbare samenvatting naar Claude. Daarin staan ook je notities bij trainingen van de afgelopen week, en je eerdere berichten in het gesprek. Ook hier sturen we nooit je naam, e-mailadres, geboortedatum of hartslag mee. Zet geen gevoelige informatie, zoals medische details, in je berichten of notities als je die niet wilt delen.",
           "Elke planning van de coach wordt eerst gecontroleerd met vaste trainingsregels. Lukt dat niet, dan maakt Runvex de planning zelf, zonder AI.",
         ],
       },
@@ -85,7 +87,7 @@ export const privacyContent: Record<Locale, PrivacyContent> = {
           { name: "Supabase", purpose: "Database en inloggen", location: "EU (Ierland)" },
           { name: "Vercel", purpose: "Hosting van de app", location: "VS / EU" },
           { name: "Resend", purpose: "Versturen van e-mails", location: "VS" },
-          { name: "Anthropic", purpose: "AI-coach (weekplanning)", location: "VS" },
+          { name: "Anthropic", purpose: "AI-coach (weekplanning, chat en feedback)", location: "VS" },
           { name: "intervals.icu", purpose: "Trainingen naar je horloge (alleen als je koppelt)", location: "Buiten de EU mogelijk" },
         ],
       },
@@ -150,7 +152,8 @@ export const privacyContent: Record<Locale, PrivacyContent> = {
       {
         heading: "The waitlist",
         paragraphs: [
-          `If you join the waitlist, we only keep your email address, your language and the date. We use them only to email you once when Runvex launches (based on your consent, art. 6(1)(a) GDPR), never for anything else. After the launch we delete the waitlist. Want to be removed sooner? Email ${email} and we'll remove your address right away.`,
+          `If you join the waitlist, we keep your email address, your language and the date. If you came through a link or QR code (for example from a business card), we also keep where it came from and any promo code, so we can see which channels work and give you a promised benefit. We email you as soon as a spot opens up or Runvex launches (based on your consent, art. 6(1)(a) GDPR).`,
+          `Did you also tick that you want news? Then we email you at most once a month, until you unsubscribe through the link in every email. We keep when you ticked that box, as proof of your consent. Without that box ticked, we only email you at launch and delete your address afterwards. Want to be removed sooner? Email ${email} and we'll remove your address right away.`,
         ],
       },
       {
@@ -182,6 +185,7 @@ export const privacyContent: Record<Locale, PrivacyContent> = {
         heading: "The AI coach",
         paragraphs: [
           "When you tap ‘Plan my week’, we send a summary to Claude, Anthropic's AI model: your sports and levels, your work schedule, your available time per day, your goal, your trainings of this week and last week and how many of them you did or skipped with the average effort (without your notes), and for uploaded trainings the recorded duration, distance and power (never your heart rate). We don't send your name, email address or date of birth. Anthropic doesn't use this data to train its models.",
+          "When you send the coach a message, or tell how a training went, your message goes to Claude together with a similar summary. That summary also contains your notes on trainings of the past week, and your earlier messages in the conversation. Here too we never send your name, email address, date of birth or heart rate. Don't put sensitive information, such as medical details, in your messages or notes if you don't want to share it.",
           "Every plan from the coach is first checked against fixed training rules. If that fails, Runvex makes the plan itself, without AI.",
         ],
       },
@@ -194,7 +198,7 @@ export const privacyContent: Record<Locale, PrivacyContent> = {
           { name: "Supabase", purpose: "Database and login", location: "EU (Ireland)" },
           { name: "Vercel", purpose: "Hosting the app", location: "US / EU" },
           { name: "Resend", purpose: "Sending emails", location: "US" },
-          { name: "Anthropic", purpose: "AI coach (week planning)", location: "US" },
+          { name: "Anthropic", purpose: "AI coach (week planning, chat and feedback)", location: "US" },
           { name: "intervals.icu", purpose: "Trainings to your watch (only when you connect)", location: "Possibly outside the EU" },
         ],
       },

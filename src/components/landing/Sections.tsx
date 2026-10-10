@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useTranslations } from "next-intl";
 import type { CSSProperties } from "react";
+import { StepsWithDescriptions } from "@/components/ui/steps";
 import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { PRIVACY_CONTACT } from "@/content/privacy";
 import appMockup from "../../../public/landing/app-mockup.jpg";
@@ -42,24 +43,10 @@ export function StepsSection() {
           <Eyebrow>{t("eyebrow")}</Eyebrow>
           <Heading>{t("title")}</Heading>
         </div>
-        {/* A timeline instead of cards: one thin line through the steps.
-            Vertical on a phone (line on the left), horizontal from md, where
-            the columns have no gap and the line runs through the step's right
-            padding, stopping just short of the next step. */}
-        <ol className="stagger-md grid md:grid-cols-3">
-          {STEPS.map((step, index) => (
-            <li key={step} className="reveal group relative pb-14 pl-10 last:pb-0 md:pb-0 md:pl-0 md:pr-12" style={stagger(index)}>
-              <div aria-hidden className="absolute inset-y-0 left-0 flex flex-col items-center md:static md:-mr-9 md:mb-10 md:flex-row">
-                <span className="mt-4 w-px flex-1 bg-lp-line group-last:hidden md:mt-0 md:h-px md:w-auto md:group-last:block md:group-last:bg-transparent md:group-last:bg-gradient-to-r md:group-last:from-lp-line md:group-last:to-transparent" />
-              </div>
-              <span aria-hidden className="font-display text-6xl leading-none text-lp-coral lg:text-[5.5rem]">
-                {index + 1}
-              </span>
-              <h3 className="mt-5 font-display text-[1.75rem] leading-[1.1] tracking-[-0.02em] text-lp-chalk sm:text-[2rem]">{t(`${step}.title`)}</h3>
-              <p className="mt-3 max-w-[22rem] text-lg leading-[1.5] text-lp-chalk/70">{t(`${step}.body`)}</p>
-            </li>
-          ))}
-        </ol>
+        <StepsWithDescriptions
+          landing
+          steps={STEPS.map((step) => ({ title: t(`${step}.title`), description: t(`${step}.body`) }))}
+        />
       </Container>
     </Band>
   );
@@ -149,9 +136,8 @@ export function WaitlistSection() {
           <Heading className="text-lp-bg sm:text-7xl lg:text-[5.5rem]">{t("title")}</Heading>
         </div>
         <p className="reveal max-w-[40rem] text-lg leading-[1.5] text-lp-bg sm:text-[1.375rem]">{t("body")}</p>
-        <div className="reveal flex w-full flex-col items-center gap-4">
+        <div className="reveal flex w-full flex-col items-center">
           <WaitlistForm tone="dark" />
-          <p className="text-[0.9375rem] font-medium text-lp-bg/75">{t("note")}</p>
         </div>
       </Container>
     </Band>

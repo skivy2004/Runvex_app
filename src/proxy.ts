@@ -3,8 +3,10 @@ import { updateSession } from "@/lib/supabase/proxy";
 
 // Pages only for logged-out visitors. Logged-in users are sent home.
 const GUEST_ONLY_PATHS = ["/login", "/register", "/forgot-password"];
-// Pages anyone may open.
-const PUBLIC_PATHS = ["/auth/confirm", "/privacy"];
+// Pages anyone may open (robots and sitemap are for search engines).
+const PUBLIC_PATHS = ["/auth/confirm", "/privacy", "/robots.txt", "/sitemap.xml"];
+// Pages of the app itself: logged out, these send you to the login page.
+const APP_PATHS = ["/add", "/coach", "/goal", "/profile", "/week", "/admin", "/intake", "/onboarding", "/print"];
 // Preview pages, only reachable while developing.
 const DEV_PATHS = ["/styleguide", "/dev"];
 
@@ -26,7 +28,22 @@ export async function proxy(request: NextRequest) {
     return isLoggedIn ? redirectTo("/", request, response) : response;
   }
 
-  return isLoggedIn ? response : redirectTo("/login", request, response);
+  if (isLoggedIn) return response;
+  if (matches(pathname, APP_PATHS)) return redirectTo("/login", request, response);
+
+  // Any other address doesn't exist for visitors, e.g. pages of the old website
+  // that Google still remembers. A real 404 (instead of a redirect to the login
+  // page) tells search engines to drop them. Also a page missing from APP_PATHS
+  // ends up here, so a forgotten page is never shown to someone logged out.
+  return notFound(request, response);
+}
+
+/** Shows the 404 page, keeping any refreshed session cookies. */
+function notFound(request: NextRequest, response: NextResponse) {
+  // This path never exists, so Next.js renders its not-found page with status 404.
+  const rewrite = NextResponse.rewrite(new URL("/_page-not-found", request.url));
+  response.cookies.getAll().forEach((cookie) => rewrite.cookies.set(cookie));
+  return rewrite;
 }
 
 /** Redirects while keeping any refreshed session cookies. */

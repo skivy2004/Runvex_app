@@ -381,10 +381,12 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_overview: { Args: never; Returns: Json }
+      is_admin: { Args: never; Returns: boolean }
       delete_my_account: { Args: never; Returns: undefined }
       beta_spots_left: { Args: never; Returns: number }
       join_waitlist: {
-        Args: { p_email: string; p_locale: string }
+        Args: { p_email: string; p_locale: string; p_source?: string; p_promo_code?: string; p_news?: boolean }
         Returns: undefined
       }
       complete_onboarding: {
