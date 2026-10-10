@@ -13,7 +13,7 @@ export type WaitlistState =
 
 export async function joinWaitlistAction(_previous: WaitlistState, formData: FormData): Promise<WaitlistState> {
   // A hidden field people never see. Bots fill in every field: pretend it worked.
-  if (formData.get("company")) return { status: "joined" };
+  if (formData.get("rvx_hp")) return { status: "joined" };
 
   const email = String(formData.get("email") ?? "");
   // A checkbox only sends a value when it is ticked.

@@ -87,8 +87,10 @@ export function WaitlistForm({ tone = "light" }: { tone?: "light" | "dark" }) {
             dark ? "text-lp-bg placeholder:text-lp-bg/60" : "text-lp-chalk placeholder:text-lp-pink/60"
           }`}
         />
-        {/* Hidden from people, filled in by bots: the server then ignores the signup. */}
-        <input type="text" name="company" tabIndex={-1} autoComplete="off" aria-hidden className="absolute -left-[9999px] size-px" />
+        {/* Hidden from people, filled in by bots: the server then ignores the signup.
+            The name must mean nothing to browsers: Chrome's autofill fills fields named
+            like "company" or "name" from your profile, which made real people look like bots. */}
+        <input type="text" name="rvx_hp" tabIndex={-1} autoComplete="off" aria-hidden className="absolute -left-[9999px] size-px" />
         <button
           type="submit"
           disabled={pending}
