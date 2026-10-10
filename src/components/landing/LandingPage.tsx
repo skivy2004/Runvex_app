@@ -1,6 +1,7 @@
 import { gambarino, switzer } from "./fonts";
 import { Hero } from "./Hero";
 import { LandingNav } from "./LandingNav";
+import { PlanExample } from "./PlanExample";
 import {
   AppSection,
   FaqSection,
@@ -25,6 +26,7 @@ export function LandingPage() {
       <LandingNav />
       <main>
         <Hero />
+        <PlanExample />
         <ProblemSection />
         <StepsSection />
         <FeaturesSection />

@@ -1,5 +1,17 @@
 import { describe, expect, it } from "vitest";
-import { waitlistSchema } from "./waitlist";
+import { parseTracking, waitlistSchema } from "./waitlist";
+
+describe("parseTracking", () => {
+  it("normalizes a source and a promo code", () => {
+    expect(parseTracking(" Card-Marathon ", "start30")).toEqual({ source: "card-marathon", promoCode: "START30" });
+  });
+
+  it("drops anything that doesn't fit instead of failing", () => {
+    expect(parseTracking("<script>", "way-too-long-promo-code-123")).toEqual({ source: undefined, promoCode: undefined });
+    expect(parseTracking(null, undefined)).toEqual({ source: undefined, promoCode: undefined });
+    expect(parseTracking("", "")).toEqual({ source: undefined, promoCode: undefined });
+  });
+});
 
 describe("waitlistSchema", () => {
   it("accepts an address and normalizes it", () => {

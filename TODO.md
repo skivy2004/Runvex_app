@@ -24,7 +24,9 @@ Things we decided to do later. Move an item to "Done" (with the date) when it's 
 ## Before launch
 - [ ] **Leaked password protection:** turn on in Supabase (Authentication → Attack Protection), may need a paid plan.
 - [ ] **Data processing agreements (DPA / verwerkersovereenkomst):** accept them at Supabase, Vercel, Resend, Anthropic and intervals.icu (Claude API: week plans get sports, levels, availability and goal, no name/e-mail/birth date).
-- [ ] **Privacy statement:** page is live at /privacy (src/content/privacy.ts). Still to do: fill in name, city and email in PRIVACY_CONTACT, have it checked, and update it whenever the app stores or shares something new.
+- [ ] **Privacy statement:** page is live at /privacy (src/content/privacy.ts). Name, city and email are filled in; AI-coach chat/feedback and the waitlist (source, promo code, news consent) are described (2026-10-10). Still to do: add the KvK number after 21 Oct, have it checked, and update it whenever the app stores or shares something new.
+- [ ] **Vercel env:** make sure `INTERVALS_API_KEY` / `INTERVALS_ATHLETE_ID` are NOT set in production (otherwise every user sends their week to Jeremy's own intervals.icu account). Then remove intervals.icu from the privacy statement's processor list.
+- [ ] **Before the first newsletter:** move people with `news_consent_at` to Resend Audiences (unsubscribe link built in), consider double opt-in (a confirm mail), and delete waitlist addresses without news consent after launch.
 - [ ] **Remove development pages:** `/styleguide` and everything under `/dev`.
 - [ ] **Production URLs:** set Site URL and Redirect URLs in Supabase to the real domain (replace `localhost`).
 - [ ] **Domain runvex.app:** turn on auto-renew in Vercel (expires around March 2027).

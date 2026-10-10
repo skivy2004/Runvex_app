@@ -623,7 +623,9 @@
       "errors": {
         "invalidEmail": "Enter a valid email address.",
         "generic": "Something went wrong. Try again."
-      }
+      },
+      "news": "Also send me occasional updates (max. once a month)",
+      "note": "For iPhone · In development · No spam"
     },
     "problem": {
       "eyebrow": "The problem",
@@ -643,7 +645,7 @@
       },
       "three": {
         "title": "Life changes? So does your plan",
-        "body": "Drag a session to another day, or ask your coach to adjust. Your plan never breaks."
+        "body": "Drag a session to another day, or ask your coach for a proposal. You approve the change."
       }
     },
     "features": {
@@ -689,8 +691,7 @@
     "cta": {
       "eyebrow": "Early access",
       "title": "Be first in line",
-      "body": "Join the waitlist and get early access when Runvex launches on the App Store.",
-      "note": "No spam. One email when we launch."
+      "body": "Join the waitlist and get early access when Runvex launches on the App Store."
     },
     "faq": {
       "eyebrow": "FAQ",
@@ -701,7 +702,7 @@
       },
       "price": {
         "q": "How much will it cost?",
-        "a": "We'll share pricing before launch. Everyone on the waitlist hears it first."
+        "a": "We’ll share pricing on this website before launch. Joining the waitlist is free and comes with no commitment."
       },
       "watches": {
         "q": "Which watches work with Runvex?",
@@ -725,6 +726,34 @@
       "contact": "Contact",
       "login": "Log in",
       "rights": "© {year} Runvex"
+    },
+    "example": {
+      "eyebrow": "Your shifts change. Your training follows.",
+      "title": "An unexpected night shift on Thursday?",
+      "body": "You don’t have to rebuild your plan yourself. Ask your coach to adjust your week around the time you do have.",
+      "cta": "Join the waitlist",
+      "week": "A week with Runvex",
+      "label": "Example",
+      "before": "Original plan",
+      "after": "Your coach’s proposal",
+      "days": {
+        "thursday": "Thursday",
+        "friday": "Friday",
+        "saturday": "Saturday"
+      },
+      "beforePlan": {
+        "thursday": "Tempo run · 45 min",
+        "friday": "Rest",
+        "saturday": "Long run · 60 min"
+      },
+      "afterPlan": {
+        "thursday": "Night shift · rest",
+        "friday": "Rest after your shift",
+        "saturday": "Easy run · 40 min"
+      },
+      "coach": "Your AI coach suggests",
+      "proposal": "“Let’s skip the tempo session this week and keep Saturday shorter and easy. That leaves room to recover after your night shift.”",
+      "approval": "A proposal, not an automatic change. You decide what fits."
     }
   }
 }

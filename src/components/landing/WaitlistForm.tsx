@@ -1,7 +1,7 @@
 "use client";
 
 import { useTranslations } from "next-intl";
-import { useActionState, useId } from "react";
+import { useActionState, useId, useState } from "react";
 import { joinWaitlistAction, type WaitlistState } from "./actions";
 
 const initialState: WaitlistState = { status: "idle" };
@@ -15,6 +15,18 @@ export function WaitlistForm({ tone = "light" }: { tone?: "light" | "dark" }) {
   const [state, formAction, pending] = useActionState(joinWaitlistAction, initialState);
   const errorId = useId();
   const dark = tone === "dark";
+  // The news checkbox only appears once someone starts on their email address
+  // (or comes back with an error, when the address is already filled in).
+  const [started, setStarted] = useState(false);
+  const showNews = started || state.status === "error";
+  // Adds ?ref=card-marathon&code=START30 from the QR code or link the visitor
+  // opened, read when sending so the page itself stays the same for everyone.
+  const submit = (formData: FormData) => {
+    const params = new URLSearchParams(window.location.search);
+    formData.set("ref", params.get("ref") ?? "");
+    formData.set("code", params.get("code") ?? "");
+    formAction(formData);
+  };
 
   if (state.status === "joined") {
     return (
@@ -49,9 +61,9 @@ export function WaitlistForm({ tone = "light" }: { tone?: "light" | "dark" }) {
   const error = state.status === "error" ? state.error : null;
 
   return (
-    <form action={formAction} noValidate className="flex w-full max-w-[27rem] flex-col gap-2">
+    <form action={submit} noValidate className="flex w-full max-w-[27rem] flex-col gap-2">
       <div
-        className={`flex h-12 rounded-[15px] border p-0.5 transition-colors focus-within:border-2 focus-within:p-px ${
+        className={`flex flex-col gap-2 rounded-[15px] border p-1 transition-colors focus-within:border-2 focus-within:p-[3px] sm:flex-row sm:gap-0 ${
           dark ? "border-lp-bg bg-lp-bg/[0.12]" : "border-lp-pink bg-white/[0.04]"
         }`}
       >
@@ -67,9 +79,11 @@ export function WaitlistForm({ tone = "light" }: { tone?: "light" | "dark" }) {
           required
           defaultValue={state.status === "error" ? state.email : ""}
           placeholder={t("placeholder")}
+          onFocus={() => setStarted(true)}
+          onChange={() => setStarted(true)}
           aria-invalid={error === "invalidEmail" || undefined}
           aria-describedby={error ? errorId : undefined}
-          className={`min-w-0 flex-1 bg-transparent px-3.5 text-base font-light outline-none sm:text-lg ${
+          className={`h-11 min-w-0 w-full flex-1 bg-transparent px-3.5 text-base font-light outline-none sm:w-auto sm:text-lg ${
             dark ? "text-lp-bg placeholder:text-lp-bg/60" : "text-lp-chalk placeholder:text-lp-pink/60"
           }`}
         />
@@ -78,7 +92,7 @@ export function WaitlistForm({ tone = "light" }: { tone?: "light" | "dark" }) {
         <button
           type="submit"
           disabled={pending}
-          className={`shrink-0 rounded-[13px] px-4 text-base font-medium transition hover:brightness-110 active:scale-[0.97] disabled:opacity-70 sm:px-5 sm:text-lg ${
+          className={`min-h-11 shrink-0 rounded-[13px] px-4 text-base font-medium transition hover:brightness-110 active:scale-[0.97] disabled:opacity-70 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-current sm:px-5 sm:text-lg ${
             dark ? "bg-lp-bg text-lp-chalk" : "bg-lp-coral text-lp-bg"
           }`}
         >
@@ -90,11 +104,38 @@ export function WaitlistForm({ tone = "light" }: { tone?: "light" | "dark" }) {
           </span>
         </button>
       </div>
+      {/* Separate consent for news. It must stay unticked by default: a pre-ticked box
+          is not valid consent (GDPR, CJEU Planet49). Joining works without it.
+          It folds open (grid rows 0fr -> 1fr); while closed it is inert, so it can't
+          be reached with the keyboard. */}
+      {/* The error right under the field it is about. */}
       {error && (
         <p id={errorId} role="alert" className={`lp-error-in text-sm font-medium ${dark ? "text-lp-bg" : "text-lp-pink"}`}>
           {t(`errors.${error}`)}
         </p>
       )}
+      <div
+        inert={!showNews}
+        className={`grid motion-safe:transition-[grid-template-rows,opacity] motion-safe:duration-300 motion-safe:ease-out ${
+          showNews ? "grid-rows-[1fr] opacity-100" : "grid-rows-[0fr] opacity-0"
+        }`}
+      >
+        {/* The coral band ("dark") is centered, so the checkbox and its text are too. */}
+        <label
+          className={`flex min-h-0 cursor-pointer items-center gap-2 overflow-hidden text-left text-sm leading-relaxed ${
+            dark ? "justify-center text-lp-bg" : "text-lp-pink"
+          }`}
+        >
+          <input
+            type="checkbox"
+            name="news"
+            defaultChecked={state.status === "error" ? state.news : false}
+            className={`size-4 shrink-0 cursor-pointer ${dark ? "accent-lp-bg" : "accent-lp-coral"}`}
+          />
+          <span>{t("news")}</span>
+        </label>
+      </div>
+      <p className={`text-sm leading-relaxed ${dark ? "text-lp-bg/75" : "text-lp-pink"}`}>{t("note")}</p>
     </form>
   );
 }

@@ -617,13 +617,15 @@
     "waitlist": {
       "emailLabel": "E-mailadres",
       "placeholder": "jij@email.nl",
-      "submit": "Aanmelden",
+      "submit": "Zet me op de wachtlijst",
       "pending": "Bezig…",
       "joined": "Je staat op de lijst. We mailen je zodra <brand>Runvex</brand> live gaat.",
       "errors": {
         "invalidEmail": "Vul een geldig e-mailadres in.",
         "generic": "Er ging iets mis. Probeer het opnieuw."
-      }
+      },
+      "news": "Stuur me ook af en toe updates (max. 1× per maand)",
+      "note": "Voor iPhone · In ontwikkeling · Geen spam"
     },
     "problem": {
       "eyebrow": "Het probleem",
@@ -643,7 +645,7 @@
       },
       "three": {
         "title": "Verandert je leven? Je plan ook",
-        "body": "Sleep een training naar een andere dag, of vraag je coach om aan te passen. Je plan loopt nooit vast."
+        "body": "Sleep een training naar een andere dag, of vraag je coach om een voorstel. Jij keurt de aanpassing goed."
       }
     },
     "features": {
@@ -689,8 +691,7 @@
     "cta": {
       "eyebrow": "Vroege toegang",
       "title": "Wees de eerste",
-      "body": "Zet je op de wachtlijst en krijg als eerste toegang zodra Runvex in de App Store staat.",
-      "note": "Geen spam. Eén mail als we live gaan."
+      "body": "Zet je op de wachtlijst en krijg als eerste toegang zodra Runvex in de App Store staat."
     },
     "faq": {
       "eyebrow": "FAQ",
@@ -701,7 +702,7 @@
       },
       "price": {
         "q": "Wat gaat het kosten?",
-        "a": "We maken de prijs bekend vóór de lancering. Iedereen op de wachtlijst hoort het als eerste."
+        "a": "We maken de prijs bekend op deze website vóór de lancering. Aanmelden voor de wachtlijst is gratis en verplicht je tot niets."
       },
       "watches": {
         "q": "Welke horloges werken met Runvex?",
@@ -725,6 +726,34 @@
       "contact": "Contact",
       "login": "Inloggen",
       "rights": "© {year} Runvex"
+    },
+    "example": {
+      "eyebrow": "Je rooster verandert. Je training beweegt mee.",
+      "title": "Donderdag ineens nachtdienst?",
+      "body": "Je hoeft je schema niet opnieuw uit te puzzelen. Vraag je coach om je week aan te passen aan de tijd die je wél hebt.",
+      "cta": "Zet me op de wachtlijst",
+      "week": "Een week met Runvex",
+      "label": "Voorbeeld",
+      "before": "Oorspronkelijk plan",
+      "after": "Voorstel van je coach",
+      "days": {
+        "thursday": "Donderdag",
+        "friday": "Vrijdag",
+        "saturday": "Zaterdag"
+      },
+      "beforePlan": {
+        "thursday": "Tempo lopen · 45 min",
+        "friday": "Rust",
+        "saturday": "Duurloop · 60 min"
+      },
+      "afterPlan": {
+        "thursday": "Nachtdienst · rust",
+        "friday": "Rust na je dienst",
+        "saturday": "Rustig lopen · 40 min"
+      },
+      "coach": "Je AI-coach stelt voor",
+      "proposal": "“Laten we de tempotraining deze week overslaan en zaterdag korter en rustig lopen. Zo houd je ruimte voor herstel na je nachtdienst.”",
+      "approval": "Een voorstel, geen automatische wijziging. Jij beslist wat past."
     }
   }
 }
