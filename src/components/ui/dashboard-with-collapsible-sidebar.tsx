@@ -1,12 +1,14 @@
 "use client";
 
-import { useState, type ComponentType, type ReactNode } from "react";
+import { useState, type ComponentType } from "react";
 import Link from "next/link";
 import {
   Activity,
+  Bot,
   ChevronsRight,
   Dumbbell,
   ExternalLink,
+  Inbox,
   LayoutDashboard,
   Mail,
   Sparkles,
@@ -14,7 +16,9 @@ import {
   Users,
 } from "lucide-react";
 import { gambarino, switzer } from "@/components/landing/fonts";
-import type { AdminOverview } from "@/services/admin";
+import type { AdminOverview, AgentHub } from "@/services/admin";
+import { Header, Panel } from "./admin-parts";
+import { AgentsTab, MessagesTab, unreadCount } from "./admin-agent-hub";
 
 /*
  * Admin dashboard with a collapsible sidebar. Based on the "dashboard with
@@ -24,24 +28,26 @@ import type { AdminOverview } from "@/services/admin";
  * Admin-only and Dutch-speaking audience of one, so the texts are not translated.
  */
 
-type Tab = "overview" | "waitlist" | "users" | "ai";
+type Tab = "overview" | "messages" | "waitlist" | "users" | "ai" | "agents";
 type IconType = ComponentType<{ className?: string }>;
 
 const usd = new Intl.NumberFormat("en-US", { style: "currency", currency: "USD", maximumFractionDigits: 3 });
 const dateTime = new Intl.DateTimeFormat("nl-NL", { dateStyle: "medium", timeStyle: "short" });
 const shortDay = new Intl.DateTimeFormat("nl-NL", { day: "numeric", month: "short" });
 
-export function AdminDashboard({ overview }: { overview: AdminOverview }) {
+export function AdminDashboard({ overview, hub }: { overview: AdminOverview; hub: AgentHub }) {
   const [tab, setTab] = useState<Tab>("overview");
 
   return (
     <div className={`${gambarino.variable} ${switzer.variable} flex min-h-dvh w-full bg-lp-bg font-body text-lp-chalk`}>
-      <Sidebar tab={tab} setTab={setTab} waitlistCount={overview.waitlist_7d} />
+      <Sidebar tab={tab} setTab={setTab} waitlistCount={overview.waitlist_7d} unread={unreadCount(hub)} />
       <main className="min-w-0 flex-1 px-5 py-8 sm:px-8 lg:px-12 lg:py-12">
         {tab === "overview" && <OverviewTab o={overview} />}
+        {tab === "messages" && <MessagesTab hub={hub} />}
         {tab === "waitlist" && <WaitlistTab o={overview} />}
         {tab === "users" && <UsersTab o={overview} />}
         {tab === "ai" && <AiTab o={overview} />}
+        {tab === "agents" && <AgentsTab hub={hub} />}
       </main>
     </div>
   );
@@ -53,10 +59,12 @@ function Sidebar({
   tab,
   setTab,
   waitlistCount,
+  unread,
 }: {
   tab: Tab;
   setTab: (tab: Tab) => void;
   waitlistCount: number;
+  unread: number;
 }) {
   const [open, setOpen] = useState(true);
 
@@ -71,9 +79,11 @@ function Sidebar({
 
       <div className="mb-8 space-y-1">
         <Option Icon={LayoutDashboard} title="Overzicht" selected={tab === "overview"} onClick={() => setTab("overview")} open={open} />
+        <Option Icon={Inbox} title="Berichten" selected={tab === "messages"} onClick={() => setTab("messages")} open={open} notifs={unread} />
         <Option Icon={Mail} title="Wachtlijst" selected={tab === "waitlist"} onClick={() => setTab("waitlist")} open={open} notifs={waitlistCount} />
         <Option Icon={Users} title="Gebruikers" selected={tab === "users"} onClick={() => setTab("users")} open={open} />
         <Option Icon={Sparkles} title="AI-kosten" selected={tab === "ai"} onClick={() => setTab("ai")} open={open} />
+        <Option Icon={Bot} title="Agents" selected={tab === "agents"} onClick={() => setTab("agents")} open={open} />
       </div>
 
       <div className="space-y-1 border-t border-lp-line pt-4">
@@ -177,26 +187,6 @@ function ToggleClose({ open, setOpen }: { open: boolean; setOpen: (open: boolean
 }
 
 /* ---------- Building blocks ---------- */
-
-/** Coral eyebrow + Gambarino title, like the landing page section headings. */
-function Header({ eyebrow, title, subtitle }: { eyebrow: string; title: string; subtitle: string }) {
-  return (
-    <div className="mb-10 flex flex-col gap-4">
-      <p className="text-sm font-medium tracking-[0.12em] text-lp-coral uppercase">{eyebrow}</p>
-      <h1 className="font-display text-[2.75rem] leading-none tracking-[-0.02em] sm:text-6xl">{title}</h1>
-      <p className="text-lg text-lp-pink">{subtitle}</p>
-    </div>
-  );
-}
-
-function Panel({ title, children, className = "" }: { title?: string; children: ReactNode; className?: string }) {
-  return (
-    <div className={`rounded-3xl bg-lp-card p-6 sm:p-8 ${className}`}>
-      {title && <h3 className="mb-6 font-display text-[1.75rem] leading-[1.1] tracking-[-0.02em]">{title}</h3>}
-      {children}
-    </div>
-  );
-}
 
 function StatCard({
   Icon,

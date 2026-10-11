@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { AdminDashboard } from "@/components/ui/dashboard-with-collapsible-sidebar";
 import { getRequestClient } from "@/lib/currentUser";
-import { getAdminOverview, isAdmin } from "@/services/admin";
+import { getAdminOverview, getAgentHub, isAdmin } from "@/services/admin";
 
 export const metadata: Metadata = {
   title: "Admin · Runvex",
@@ -16,6 +16,6 @@ export default async function AdminPage() {
   const supabase = await getRequestClient();
   if (!(await isAdmin(supabase))) notFound();
 
-  const overview = await getAdminOverview(supabase);
-  return <AdminDashboard overview={overview} />;
+  const [overview, hub] = await Promise.all([getAdminOverview(supabase), getAgentHub(supabase)]);
+  return <AdminDashboard overview={overview} hub={hub} />;
 }

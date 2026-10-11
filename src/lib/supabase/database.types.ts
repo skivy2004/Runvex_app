@@ -382,6 +382,28 @@ export type Database = {
     }
     Functions: {
       admin_overview: { Args: never; Returns: Json }
+      admin_create_agent_key: { Args: { p_name: string }; Returns: string }
+      admin_hub: { Args: never; Returns: Json }
+      admin_mark_all_read: { Args: never; Returns: undefined }
+      admin_post_message: {
+        Args: { p_body: string; p_thread_id?: number; p_to_agent: string }
+        Returns: number
+      }
+      admin_revoke_agent_key: { Args: { p_name: string }; Returns: undefined }
+      admin_set_ai_budget: {
+        Args: { p_credit_topup_usd?: number; p_monthly_budget_usd: number }
+        Returns: undefined
+      }
+      admin_set_message_status: {
+        Args: { p_id: number; p_status: string }
+        Returns: undefined
+      }
+      agent_inbox: { Args: { p_key: string; p_since?: string }; Returns: Json }
+      agent_post_messages: {
+        Args: { p_key: string; p_messages: Json }
+        Returns: Json
+      }
+      agent_report: { Args: { p_day?: string; p_key: string }; Returns: Json }
       is_admin: { Args: never; Returns: boolean }
       delete_my_account: { Args: never; Returns: undefined }
       beta_spots_left: { Args: never; Returns: number }
