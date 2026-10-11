@@ -181,6 +181,7 @@
     "invalidDetails": "Controleer je naam en geboortedatum.",
     "logout": "Uitloggen",
     "privacy": "Privacyverklaring",
+    "terms": "Gebruiksvoorwaarden",
     "swimming": "Zwemmen",
     "poolSummary": "{length}m-bad",
     "deleteAccount": "Account verwijderen"
@@ -612,7 +613,8 @@
     },
     "hero": {
       "title": "Training die past bij je rooster",
-      "subtitle": "Een AI-coach die je week opnieuw plant als je rooster verandert. Voor hardlopers, fietsers, zwemmers en triatleten."
+      "subtitle": "Een AI-coach die je week opnieuw plant als je rooster verandert. Voor duursporters met wisselende diensten of een drukke agenda.",
+      "builtBy": "Gebouwd door Jeremy, triatleet met een wisselend rooster"
     },
     "waitlist": {
       "emailLabel": "E-mailadres",
@@ -625,7 +627,8 @@
         "generic": "Er ging iets mis. Probeer het opnieuw."
       },
       "news": "Stuur me ook af en toe updates (max. 1× per maand)",
-      "note": "Voor iPhone · In ontwikkeling · Geen spam"
+      "note": "Voor iPhone · Early access najaar 2026 · Geen spam",
+      "agree": "Door je aan te melden ga je akkoord met de <terms>voorwaarden</terms> en de <privacy>privacyverklaring</privacy>."
     },
     "problem": {
       "eyebrow": "Het probleem",
@@ -698,7 +701,7 @@
       "title": "Vragen, beantwoord.",
       "launch": {
         "q": "Wanneer gaat Runvex live?",
-        "a": "We zijn nu aan het bouwen en testen. Zet je op de wachtlijst en je hoort het als eerste: één mail zodra Runvex in de App Store staat, verder niets."
+        "a": "We zijn nu aan het bouwen en testen; early access staat gepland voor het najaar van 2026. Zet je op de wachtlijst en je hoort het als eerste: één mail zodra Runvex in de App Store staat, verder niets."
       },
       "price": {
         "q": "Wat gaat het kosten?",
@@ -723,6 +726,7 @@
     },
     "footer": {
       "privacy": "Privacy",
+      "terms": "Voorwaarden",
       "contact": "Contact",
       "login": "Inloggen",
       "rights": "© {year} Runvex"

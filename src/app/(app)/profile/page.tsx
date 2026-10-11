@@ -54,6 +54,9 @@ export default async function ProfilePage() {
         <Link href="/privacy" className="text-sm text-muted underline-offset-4 hover:text-foreground hover:underline">
           {t("privacy")}
         </Link>
+        <Link href="/terms" className="text-sm text-muted underline-offset-4 hover:text-foreground hover:underline">
+          {t("terms")}
+        </Link>
         <Link
           href="/profile/delete"
           className="text-sm text-danger/80 underline-offset-4 hover:text-danger hover:underline"

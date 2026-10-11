@@ -3,8 +3,9 @@ import { updateSession } from "@/lib/supabase/proxy";
 
 // Pages only for logged-out visitors. Logged-in users are sent home.
 const GUEST_ONLY_PATHS = ["/login", "/register", "/forgot-password"];
-// Pages anyone may open (robots and sitemap are for search engines).
-const PUBLIC_PATHS = ["/auth/confirm", "/privacy", "/robots.txt", "/sitemap.xml"];
+// Pages anyone may open (robots and sitemap are for search engines, the
+// opengraph image for link previews in WhatsApp, LinkedIn, X, ...).
+const PUBLIC_PATHS = ["/auth/confirm", "/privacy", "/terms", "/robots.txt", "/sitemap.xml", "/opengraph-image"];
 // Pages of the app itself: logged out, these send you to the login page.
 const APP_PATHS = ["/add", "/coach", "/goal", "/profile", "/week", "/admin", "/intake", "/onboarding", "/print"];
 // Preview pages, only reachable while developing.

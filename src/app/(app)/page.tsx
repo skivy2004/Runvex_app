@@ -34,6 +34,8 @@ export async function generateMetadata(): Promise<Metadata> {
     title: t("title"),
     description: t("description"),
     openGraph: { title: t("title"), description: t("description"), type: "website", siteName: "Runvex" },
+    // Shows the preview image (opengraph-image.tsx) large on X instead of as a small thumbnail.
+    twitter: { card: "summary_large_image" },
   };
 }
 

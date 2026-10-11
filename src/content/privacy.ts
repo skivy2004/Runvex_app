@@ -1,4 +1,5 @@
 import type { Locale } from "@/core/locale";
+import type { LegalContent } from "./legal";
 
 // The privacy statement, in both languages. Keep it true to what the app really
 // does: when the app starts storing or sharing something new, update this text
@@ -13,19 +14,9 @@ export const PRIVACY_CONTACT = {
 
 export const LAST_UPDATED = "2026-10-10";
 
-export type PrivacySection = {
-  heading: string;
-  paragraphs?: string[];
-  items?: string[];
-  /** A small table: who processes what. */
-  processors?: { name: string; purpose: string; location: string }[];
-};
-
-type PrivacyContent = { title: string; updatedLabel: string; intro: string; sections: PrivacySection[] };
-
 const { name, city, email } = PRIVACY_CONTACT;
 
-export const privacyContent: Record<Locale, PrivacyContent> = {
+export const privacyContent: Record<Locale, LegalContent> = {
   nl: {
     title: "Privacyverklaring",
     updatedLabel: "Laatst bijgewerkt",

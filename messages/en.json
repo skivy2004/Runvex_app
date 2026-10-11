@@ -181,6 +181,7 @@
     "invalidDetails": "Please check your name and date of birth.",
     "logout": "Log out",
     "privacy": "Privacy statement",
+    "terms": "Terms of use",
     "swimming": "Swimming",
     "poolSummary": "{length} m pool",
     "deleteAccount": "Delete account"
@@ -612,7 +613,8 @@
     },
     "hero": {
       "title": "Training that fits your shifts",
-      "subtitle": "An AI coach that rebuilds your week when your schedule changes. For runners, cyclists, swimmers and triathletes."
+      "subtitle": "An AI coach that rebuilds your week when your schedule changes. For endurance athletes with changing shifts or a busy calendar.",
+      "builtBy": "Built by Jeremy, a triathlete with a changing work schedule"
     },
     "waitlist": {
       "emailLabel": "Email address",
@@ -625,7 +627,8 @@
         "generic": "Something went wrong. Try again."
       },
       "news": "Also send me occasional updates (max. once a month)",
-      "note": "For iPhone · In development · No spam"
+      "note": "For iPhone · Early access autumn 2026 · No spam",
+      "agree": "By signing up you agree to the <terms>terms</terms> and <privacy>privacy statement</privacy>."
     },
     "problem": {
       "eyebrow": "The problem",
@@ -698,7 +701,7 @@
       "title": "Questions, answered.",
       "launch": {
         "q": "When does Runvex launch?",
-        "a": "We're building and testing right now. Join the waitlist and you'll be the first to know: one email when Runvex launches on the App Store, nothing else."
+        "a": "We're building and testing right now; early access is planned for autumn 2026. Join the waitlist and you'll be the first to know: one email when Runvex launches on the App Store, nothing else."
       },
       "price": {
         "q": "How much will it cost?",
@@ -723,6 +726,7 @@
     },
     "footer": {
       "privacy": "Privacy",
+      "terms": "Terms",
       "contact": "Contact",
       "login": "Log in",
       "rights": "© {year} Runvex"

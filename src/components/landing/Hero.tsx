@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { useTranslations } from "next-intl";
+import founder from "../../../public/landing/founder.jpg";
 import heroRunner from "../../../public/landing/hero-runner.jpg";
 import { Container } from "./Section";
 import { WaitlistForm } from "./WaitlistForm";
@@ -48,6 +49,11 @@ export function Hero() {
         </p>
         <div className="lp-rise mt-2" style={{ animationDelay: `${400 + afterWords}ms` }}>
           <WaitlistForm />
+        </div>
+        {/* Proof above the fold: who makes this. A real waitlist count only once it's big enough. */}
+        <div className="lp-rise flex items-center gap-3" style={{ animationDelay: `${500 + afterWords}ms` }}>
+          <Image src={founder} alt="" sizes="40px" placeholder="blur" className="size-10 rounded-full object-cover" />
+          <p className="text-sm font-medium leading-snug text-lp-chalk/80 sm:text-base">{t("builtBy")}</p>
         </div>
       </Container>
     </section>

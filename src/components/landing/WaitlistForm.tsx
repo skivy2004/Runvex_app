@@ -1,10 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { useTranslations } from "next-intl";
 import { useActionState, useId, useState } from "react";
 import { joinWaitlistAction, type WaitlistState } from "./actions";
 
 const initialState: WaitlistState = { status: "idle" };
+
+const legalLink = "underline underline-offset-2 hover:decoration-2";
 
 /**
  * Email field with the button inside it. "light" sits on the dark sections,
@@ -138,6 +141,12 @@ export function WaitlistForm({ tone = "light" }: { tone?: "light" | "dark" }) {
         </label>
       </div>
       <p className={`text-sm leading-relaxed ${dark ? "text-lp-bg/75" : "text-lp-pink"}`}>{t("note")}</p>
+      <p className={`text-xs leading-relaxed ${dark ? "text-lp-bg/75" : "text-lp-pink/75"}`}>
+        {t.rich("agree", {
+          terms: (chunks) => <Link href="/terms" className={legalLink}>{chunks}</Link>,
+          privacy: (chunks) => <Link href="/privacy" className={legalLink}>{chunks}</Link>,
+        })}
+      </p>
     </form>
   );
 }

@@ -184,13 +184,16 @@ export function LandingFooter() {
         <Link href="/privacy" className={link}>
           {t("privacy")}
         </Link>
+        <Link href="/terms" className={link}>
+          {t("terms")}
+        </Link>
         <a href={`mailto:${PRIVACY_CONTACT.email}`} className={link}>
           {t("contact")}
         </a>
         <Link href="/login" className={link}>
           {t("login")}
         </Link>
-        <LanguageSwitcher />
+        <LanguageSwitcher tone="landing" />
         <span className="text-base text-lp-chalk/45">{t("rights", { year: new Date().getFullYear() })}</span>
       </Container>
     </footer>

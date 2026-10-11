@@ -14,7 +14,9 @@ export default function manifest(): MetadataRoute.Manifest {
     background_color: "#0f1420",
     theme_color: "#0f1420",
     icons: [
-      { src: "/icon.png", sizes: "512x512", type: "image/png" },
+      // Not /icon.png: that one is transparent (for the browser tab), while a
+      // home screen icon needs its own dark background.
+      { src: "/pwa-icon.png", sizes: "512x512", type: "image/png" },
       { src: "/apple-icon.png", sizes: "180x180", type: "image/png" },
     ],
   };

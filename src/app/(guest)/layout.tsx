@@ -27,9 +27,14 @@ export default async function GuestLayout({ children }: LayoutProps<"/">) {
 
       <div className="flex flex-col items-center gap-5">
         <SportDots />
-        <Link href="/privacy" className="text-xs text-muted underline-offset-4 hover:text-foreground hover:underline">
-          {t("privacy")}
-        </Link>
+        <div className="flex gap-5">
+          <Link href="/privacy" className="text-xs text-muted underline-offset-4 hover:text-foreground hover:underline">
+            {t("privacy")}
+          </Link>
+          <Link href="/terms" className="text-xs text-muted underline-offset-4 hover:text-foreground hover:underline">
+            {t("terms")}
+          </Link>
+        </div>
       </div>
     </main>
     </PhoneColumn>
