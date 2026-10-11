@@ -30,12 +30,15 @@ const STREAK_DAYS = 60;
 export async function generateMetadata(): Promise<Metadata> {
   if (await getRequestProfile()) return {};
   const t = await getTranslations("Landing.meta");
+  // The preview image from opengraph-image.tsx. Named here explicitly: setting
+  // `openGraph` on this page replaces the inherited one, image included.
+  const image = { url: "/opengraph-image", width: 1200, height: 630, alt: "Runvex: training that fits your shifts" };
   return {
     title: t("title"),
     description: t("description"),
-    openGraph: { title: t("title"), description: t("description"), type: "website", siteName: "Runvex" },
-    // Shows the preview image (opengraph-image.tsx) large on X instead of as a small thumbnail.
-    twitter: { card: "summary_large_image" },
+    openGraph: { title: t("title"), description: t("description"), type: "website", siteName: "Runvex", images: [image] },
+    // Shows the preview image large on X instead of as a small thumbnail.
+    twitter: { card: "summary_large_image", images: [image] },
   };
 }
 
